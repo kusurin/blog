@@ -14,19 +14,29 @@
   
 
   
-  <title>目录: 网安 | kusurin.blog</title>
+  <title>自定义&#34;border-style&#34; | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/blog/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/blog/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/categories/%E7%BD%91%E5%AE%89/index.html">
+  <meta name="description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义&quot;border-style&quot;">
+<meta property="og:url" content="https://kusurin.github.io/blog/2023/07/03/custom-border-style/index.html">
 <meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:image">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-b80f882796e6f59ce184ec55e400444c_720w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-7d90fd9238c68039ed8ce1391ffc5ac1_r.jpg">
+<meta property="article:published_time" content="2023-07-02T19:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-29T14:50:18.013Z">
 <meta property="article:author" content="kusurin">
+<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="边框">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -298,44 +308,105 @@ mjx-container[display="true"] + br {
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-custom-border-style" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        自定义&#34;border-style&#34;
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-07-02T19:00:00.000Z" itemprop="datePublished">2023-07-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.1k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p><img src="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp" alt="预设的border">
+css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。<br>
+例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。<br>
+这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。<br>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>:</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) top left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='-6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) top right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='-6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) bottom left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='-6' y='-6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) bottom right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat;</span><br></pre></td></tr></table></figure> <img src="https://pic1.zhimg.com/80/v2-b80f882796e6f59ce184ec55e400444c_720w.webp" alt="自定义的&quot;border&quot;">
+此“边框”由裁切的四部分互相补充而成，他们在形状上是完全相同的，但位置不一样，因此可以在裁切后完美组合起来。不使用单个矩形是因为使用CSS设置样式(calc)在SVG中兼容性不佳，并且双calc()会出现问题，否则我们可以直接绘制一个固定边距的矩形。<br>
+<br>
+我们可以通过stroke-linecap（线帽形状）、stroke-dasharray（虚线长度）、stroke-width（线宽）改变形状，通过rx、ry和border-radius应用圆角。<br>
+<br>
+例如，在此处，线帽为圆形，虚线长度为0px，间隔为12px，线宽为12px，因此呈现出数个圆点。同时仅保留每个部分的一角。<br>
+<img src="https://pic2.zhimg.com/v2-7d90fd9238c68039ed8ce1391ffc5ac1_r.jpg" alt="&quot;border&quot;的各个部分"></p>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2023</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">1 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2023/11/23/wpa2psk-aircrack/" title="Linux使用aircrack-ng攻击WPA2-PSK">
-        <div class="date">11-23</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    Linux使用aircrack-ng攻击WPA2-PSK
-                
-            </div>
-        </div>
-        <div class="tags">
-            #WPA2 #网安 #杂谈
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2023/11/23/wpa2psk-aircrack/"
+      title="Linux使用aircrack-ng攻击WPA2-PSK"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        Linux使用aircrack-ng攻击WPA2-PSK
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2023/06/02/css-text-stroke/"
+      title="纯CSS实现文本外描边"
+     >
+
+    <p class="title-text">
+      
+        纯CSS实现文本外描边
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

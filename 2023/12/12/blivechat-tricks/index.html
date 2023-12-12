@@ -14,19 +14,26 @@
   
 
   
-  <title>标签: 蝴蝶变换 | kusurin.blog</title>
+  <title>blivechat样式小技巧 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/blog/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/blog/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/tags/%E8%9D%B4%E8%9D%B6%E5%8F%98%E6%8D%A2/index.html">
+  <meta name="description" content="小撇步 更换礼物价格单位 礼物单位在html定死了是CN￥，但是甲方稿子里又是RMB，这时候我们可以：  对不起，做不到 魔改blivechat客户端  可以使用attr()获取礼物弹幕根元素里的price属性，创建content: &quot;RMB&quot;attr的伪元素。  但是，这个伪元素不像原来的价格元素一样，在html中处于期望的层级，如果只需要绝对定位还好，要是想用flex布局，与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="blivechat样式小技巧">
+<meta property="og:url" content="https://kusurin.github.io/blog/2023/12/12/blivechat-tricks/index.html">
 <meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="小撇步 更换礼物价格单位 礼物单位在html定死了是CN￥，但是甲方稿子里又是RMB，这时候我们可以：  对不起，做不到 魔改blivechat客户端  可以使用attr()获取礼物弹幕根元素里的price属性，创建content: &quot;RMB&quot;attr的伪元素。  但是，这个伪元素不像原来的价格元素一样，在html中处于期望的层级，如果只需要绝对定位还好，要是想用flex布局，与">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-cd96853dc8ee88e8fddfbeb2c609e702_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-5f0e09257a9a7f24b559b4af5520eedf_r.jpg">
+<meta property="article:published_time" content="2023-12-12T15:46:03.004Z">
+<meta property="article:modified_time" content="2023-12-12T18:12:37.880Z">
 <meta property="article:author" content="kusurin">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/v2-cd96853dc8ee88e8fddfbeb2c609e702_r.jpg">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -303,44 +310,107 @@ mjx-container[display="true"] + br {
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-blivechat-tricks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        blivechat样式小技巧
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-12-12T15:46:03.004Z" itemprop="datePublished">2023-12-12</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.1k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p><del>小撇步</del></p>
+<h2 id="更换礼物价格单位">更换礼物价格单位</h2>
+<p>礼物单位在html定死了是CN￥，但是甲方稿子里又是RMB，这时候我们可以：</p>
+<ul>
+<li><del>对不起，做不到</del></li>
+<li><del>魔改blivechat客户端</del></li>
+</ul>
+<p>可以使用<code>attr()</code>获取礼物弹幕根元素里的<code>price</code>属性，创建<code>content: "RMB"attr</code>的伪元素。<br>
+<img src="https://pic3.zhimg.com/v2-cd96853dc8ee88e8fddfbeb2c609e702_r.jpg">
+但是，这个伪元素不像原来的价格元素一样，在html中处于期望的层级，如果只需要绝对定位还好，要是想用flex布局，与昵称等共处，就有点麻烦了。<br>
+思路：</p>
+<ul>
+<li>定义根元素为flex，但原来的整个元素都在左边了。</li>
+<li>使用根元素的伪元素做一个背景，但<code>message</code>里的内容右边距不对。</li>
+<li>根元素有一个属性为<code>price-level</code>，可以依靠它获取新价格元素的的位数，计算宽度（等宽字体），使<code>message</code>或其父元素<code>content</code>加长。</li>
+<li>昵称可以使用绝对定位后限定宽度。</li>
+</ul>
+<p>完整关键设置： <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>) {</span><br><span class="line">    <span class="attribute">display</span>:flex;</span><br><span class="line">    <span class="attribute">justify-content</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-pseudo">::before</span> {</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">"RMB"</span><span class="built_in">attr</span>(price);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-pseudo">::after</span> {</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>) <span class="selector-id">#card</span> {</span><br><span class="line">    <span class="attribute">flex-grow</span>:<span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>) <span class="selector-id">#author-name</span> {</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">color</span>: transparent <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">white-space</span>:nowrap;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">text-overflow</span>: ellipsis <span class="meta">!important</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>) <span class="selector-id">#author-name</span><span class="selector-pseudo">::first-line</span> {</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>) <span class="selector-id">#content</span> {</span><br><span class="line">    <span class="attr">--prefix-width</span>: <span class="number">80px</span>;</span><br><span class="line">    <span class="attr">--char-width</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="built_in">calc</span>(<span class="number">100%</span> + <span class="built_in">var</span>(--prefix-width) + <span class="number">1</span> * <span class="built_in">var</span>(--char-width));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-attr">[price-level=<span class="string">"1"</span>]</span> <span class="selector-id">#content</span> {</span><br><span class="line">    <span class="attribute">width</span>:<span class="built_in">calc</span>(<span class="number">100%</span> + <span class="built_in">var</span>(--prefix-width) + <span class="number">1</span> * <span class="built_in">var</span>(--char-width));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-pseudo">:is</span>(<span class="selector-attr">[price-level=<span class="string">"0.1"</span>]</span><span class="selector-attr">[price-level=<span class="string">"30"</span>]</span>,<span class="selector-attr">[price-level=<span class="string">"50"</span>]</span>) <span class="selector-id">#content</span> {</span><br><span class="line">    <span class="attribute">width</span>:<span class="built_in">calc</span>(<span class="number">100%</span> + <span class="built_in">var</span>(--prefix-width) + <span class="number">2</span> * <span class="built_in">var</span>(--char-width));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-attr">[price-level=<span class="string">"100"</span>]</span> <span class="selector-id">#content</span> {</span><br><span class="line">    <span class="attribute">width</span>:<span class="built_in">calc</span>(<span class="number">100%</span> + <span class="built_in">var</span>(--prefix-width) + <span class="number">3</span> * <span class="built_in">var</span>(--char-width));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">yt-live-chat-paid-message-renderer<span class="selector-pseudo">:not</span>(<span class="selector-attr">[show-only-header]</span>)<span class="selector-attr">[price-level=<span class="string">"1000"</span>]</span> <span class="selector-id">#content</span> {</span><br><span class="line">    <span class="attribute">width</span>:<span class="built_in">calc</span>(<span class="number">100%</span> + <span class="built_in">var</span>(--prefix-width) + <span class="number">4</span> * <span class="built_in">var</span>(--char-width));</span><br><span class="line">}</span><br></pre></td></tr></table></figure> <img src="https://pic4.zhimg.com/v2-5f0e09257a9a7f24b559b4af5520eedf_r.jpg">
+遗憾的是，10到30元以及10000元以上没有对应的可区分属性。（真有人送10000啊，不如给我呢。）</p>
+<p>（<a href="https://kusurin.github.io/blog/2023/12/12/css-edit-t-ex-t/">另一篇</a>里有另一种方法，但只能从左侧定位。）</p>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2021</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">1 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2021/05/01/fft-release/" title="FFT快速傅立叶变换">
-        <div class="date">05-01</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    FFT快速傅立叶变换
-                
-            </div>
-        </div>
-        <div class="tags">
-            #杂谈 #FFT #算法 #蝴蝶变换
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2023/12/12/css-edit-t-ex-t/"
+      title="纯CSS更改单行文本的公共前缀"
+     >
+
+    <p class="title-text">
+      
+        纯CSS更改单行文本的公共前缀
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

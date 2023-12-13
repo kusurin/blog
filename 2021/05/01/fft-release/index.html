@@ -15,9 +15,6 @@
   <title>FFT快速傅立叶变换 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="preload" href="/blog/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-  <link rel="preload" href="/blog/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-
   <meta name="description" content="众所周知（），FFT凭借如下公式得以实现    现在来谈谈具体的实现问题。  一、单位根的计算 在FFT中，对于下标不同的单位根，可以不用重复计算。此处单位根下标  都是  的幂即  ，因此当  ，  ，所以对于下标不同的单位根，有  所以我们仅需计算下标最大的单位根数组  来表示  ，并在需要用到  时使用  即可。 二、系数最终位置的确定 在FFT中，把多项式系数依据奇偶次幂分开进">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FFT快速傅立叶变换">

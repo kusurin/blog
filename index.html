@@ -500,7 +500,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            393 词 
+            1.1k 词 
           </div>
         </div>
         
@@ -515,14 +515,9 @@ mjx-container[display="true"] + br {
 jQuery.ajax同步致假死，异步无法获取数据
 在一个方法里使用ajax从后端获取数据，可以使用同步(async:false)
 123456789101112function getTemperature() {    var temperature;    $.ajax({        async: false,        type: 'GET',        url: '',        success: function (responseData) {            temperature = responseData;        }    });    return temperature;}
-但是，当方法运行时，即使新开一个进程，也会使页面的渲染停止，造成
-稍等，正在调试中
-CSS
-杂项
-cdn.staticfile.org
-老给我跳奇奇怪怪的CORS错误，指定没你好果汁吃嗷。
-更换cdnjs。
-
+但是，当方法运行时，即使新开一个进程，也会使页面的渲染停止，造成假死，可以使用Deferred对象：
+- Deferred.resolve()传递参数arg给回调函数。 -
+Deferred.promise()返回Deferred.Promise对象，仅包含Deferred对象的done(),then(),fail(),...
             
           </div>
         

@@ -23,7 +23,7 @@
 <meta property="og:description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 左轮布局(x) 效果是子元素沿弧线分布，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-31T06:27:30.000Z">
-<meta property="article:modified_time" content="2024-02-27T08:10:20.950Z">
+<meta property="article:modified_time" content="2024-02-27T09:32:03.970Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
@@ -350,9 +350,6 @@ mjx-container[display="true"] + br {
 然后使用同样参数但无<code>stroke</code>有<code>fill</code>的SVG作为<code>mask</code>，消除外描边以及其被裁掉显示不理想的部分。</p>
 <h2 id="左轮布局x">左轮布局(x)</h2>
 <p>效果是子元素沿弧线分布，圆盘会随新元素出现旋转一格。</p>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00000113249 -0.5 72.5 40">
-<path d="M 42 21 C 42 22 43 23 44 23 L 70 23 C 71 23 72 22 72 21 L 72 18 C 72 17 71 16 70 16 L 44 16 C 43 16 42 17 42 18 Z M 20 0 A 1 1 0 0 0 20 39 A 1 1 0 0 0 20 0 M 39 8 C 39 9 40 10 41 10 L 67 10 C 68 10 69 9 69 8 L 69 5 C 69 4 68 3 67 3 L 41 3 C 40 3 39 4 39 5 Z M 39 31 C 39 30 40 29 41 29 L 67 29 C 68 29 69 30 69 31 L 69 34 C 69 35 68 36 67 36 L 41 36 C 40 36 39 35 39 34 Z M 20 3 A 1 1 0 0 0 20 10 A 1 1 0 0 0 20 3 M 20 36 A 1 1 0 0 0 20 29 A 1 1 0 0 0 20 36 M 10.5 19.5 A 1 1 0 0 0 3.5 19.5 A 1 1 0 0 0 10.5 19.5 M 29.5 20 A 1 1 0 0 0 36.5 20 A 1 1 0 0 0 29.5 20" stroke="#000" stroke-width="0.5" fill="#ccc"></path>
-</svg>
 <p>将<code>flex</code>布局调到适当方向，使用<code>nth-child()</code>或者<code>nth-last-child()</code>选择器，设定好每个子元素的偏移量，完成右侧的弧形分布，固定大小效果更理想。</p>
 <p>左侧弹巢使用父元素上的静态伪元素作为背景，使用第一/最后一个子元素上的动态伪元素来播放旋转动画</p>
 <p>（老板这么都接不到客单啊，这些效果全都能做的啊）</p>

@@ -411,7 +411,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            359 词 
+            4.5k 词 
           </div>
         </div>
         
@@ -425,15 +425,7 @@ mjx-container[display="true"] + br {
               异形描边
 使用SVG，设置viewBox、preserveAspectRatio='none'以及子的stroke、vector-effect='non-scaling-stroke'，转为base64设置为background，实现居中描边。
 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。
-左轮布局(x)
-效果是子元素沿弧线分布，圆盘会随新元素出现旋转一格。
-
-
-
-将flex布局调到适当方向，使用nth-child()或者nth-last-child()选择器，设定好每个子元素的偏移量，完成右侧的弧形分布，固定大小效果更理想。
-左侧弹巢使用父元素上的静态伪元素作为背景，使用第一/最后一个子元素上的动态伪元素来播放旋转动画
-（老板怎么都接不到客单啊，这些效果全都能做的啊）
-
+12background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ffdda8' stroke-width='16' vector-effect='non-scaling-stroke' d...
             
           </div>
         

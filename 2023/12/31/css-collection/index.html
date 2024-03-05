@@ -23,7 +23,7 @@
 <meta property="og:description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&quot;da">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-31T06:27:30.000Z">
-<meta property="article:modified_time" content="2024-03-05T16:14:27.587Z">
+<meta property="article:modified_time" content="2024-03-05T16:18:10.521Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
@@ -365,7 +365,7 @@ mjx-container[display="true"] + br {
 <p>将<code>flex</code>布局调到适当方向，使用<code>nth-child()</code>或者<code>nth-last-child()</code>选择器，设定好每个子元素的偏移量，完成右侧的弧形分布，固定大小效果更理想。</p>
 <p>左侧弹巢使用父元素上的静态伪元素作为背景，使用第一/最后一个子元素上的动态伪元素来播放旋转动画</p>
 <p>（老板怎么都接不到客单啊，这些效果全都能做的啊）</p>
-<h2 id="祖宗元素contain-layout配合子元素position-fixed越过父元素非static定位">祖宗元素<code>contain: layout</code>配合子元素<code>position: fixed</code>越过父元素非<code>static</code>定位</h2>
+<h2 id="祖宗元素contain-layout配合子元素position-fixed使子元素越过父元素非static定位">祖宗元素<code>contain: layout</code>配合子元素<code>position: fixed</code>，使子元素越过父元素非<code>static</code>定位</h2>
 <p>（用来造奇怪的东西的办法x</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father_n</span> {</span><br><span class="line">    <span class="attribute">contain</span>: layout;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father_1</span> {</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> {</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>这样子，即使父元素<code>.father_1</code>为相对定位或绝对定位，子元素<code>.child</code>仍会越过父元素，作为祖宗元素<code>.father_n</code>的绝对定位。相当于父元素在使用相对定位或绝对定位时，对于子元素来说其可视为<code>static</code>定位。

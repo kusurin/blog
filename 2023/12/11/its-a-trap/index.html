@@ -23,7 +23,7 @@
 <meta property="og:description" content="JavaScript 方法使用jQuery.ajax获取数据，同步致假死，异步无法获取数据 在一个方法里使用ajax从后端获取数据，可以使用同步(async:false) 123456789101112function getTemperature() {    var temperature;    $.ajax({        async: false,        type: &#39;G">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-11T06:39:44.000Z">
-<meta property="article:modified_time" content="2024-03-13T01:11:05.881Z">
+<meta property="article:modified_time" content="2024-03-13T01:14:25.637Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -361,10 +361,10 @@ mjx-container[display="true"] + br {
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getTemperature</span>(<span class="params"></span>) {</span><br><span class="line">    <span class="keyword">var</span> defer = $.<span class="title class_">Deferred</span>();</span><br><span class="line">    $.<span class="title function_">ajax</span>({</span><br><span class="line">        <span class="attr">type</span>: <span class="string">'GET'</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">''</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">responseData</span>) {</span><br><span class="line">            defer.<span class="title function_">resolve</span>(responseData);</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">    <span class="keyword">return</span> defer.<span class="title function_">promise</span>();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>在调用方法时 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">when</span>(<span class="title function_">getTemperature</span>()).<span class="title function_">done</span>(<span class="params"><span class="keyword">function</span>(arg)</span>) {</span><br><span class="line">    <span class="comment">//do something with arg</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
-<h2 id="vue3生命周期中setup的位置">VUE3生命周期中<code>setup()</code>的位置</h2>
+<h3 id="vue3生命周期中setup的位置">VUE3生命周期中<code>setup()</code>的位置</h3>
 <p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。</p>
 <p><code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
-<h2 id="vue3废弃setget直接操作data">VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h2>
+<h3 id="vue3废弃setget直接操作data">VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
 <p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
 <hr>
 <h2 id="css">CSS</h2>

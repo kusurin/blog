@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="false" > 
+<html theme="dark" showBanner="true" hasBanner="true" > 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="/blog/js/color.global.min.js" ></script>
 <script src="/blog/js/load-settings.js" ></script>
@@ -12,12 +12,12 @@
   
 
   
-  <title>归档: 2024 | kusurin.blog</title>
+  <title>kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/archives/2024/index.html">
+<meta property="og:url" content="https://kusurin.github.io/blog/page/2/index.html">
 <meta property="og:site_name" content="kusurin.blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="kusurin">
@@ -154,9 +154,16 @@ mjx-container[display="true"] + br {
 
 <body>
   
+  
+    
+<div id="banner" class=" is_home ">
+  <img src="https://pic1.zhimg.com/70/v2-9ddb777fed0d154775e2f42808260c8f_1440w.avis?source=172ae18b&biz_tag=Post" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
    
   <div id="main-grid" class="shadow   ">
-    <div id="nav" class=""  >
+    <div id="nav" class=" is_home "  >
       <navbar id="navbar">
   <nav id="title-nav">
     <a href="/blog/">
@@ -296,65 +303,109 @@ mjx-container[display="true"] + br {
 </sidebar>
     </div>
     <div id="content-body">
-       
+      
+   
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-fft-release" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2021/05/01/fft-release/">FFT快速傅立叶变换</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2021-05-01T11:25:00.000Z" itemprop="datePublished">2021-05-01</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>><a class="meta-cate-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.5k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/FFT/" rel="tag">FFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%9D%B4%E8%9D%B6%E5%8F%98%E6%8D%A2/" rel="tag">蝴蝶变换</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              众所周知（），FFT凭借如下公式得以实现    现在来谈谈具体的实现问题。
+
+一、单位根的计算
+在FFT中，对于下标不同的单位根，可以不用重复计算。此处单位根下标  都是  的幂即  ，因此当  ， 
+，所以对于下标不同的单位根，有  所以我们仅需计算下标最大的单位根数组  来表示  ，并在需要用到  时使用  即可。
+二、系数最终位置的确定
+在FFT中，把多项式系数依据奇偶次幂分开进行分治。递归版的FFT中，在函数开头进行分组，每个系数的位置都变化了不止一次，但实际上我们可以一次性完成系数最终位置改变。
+考虑第  个元素  表示  系数的数组 
+，我们进行一种修改，保留原本偶数项相对顺序，将偶数项移到数组左半边，作为一组；奇数项同样保留原本它们之间的相对顺序，移到右半边，作为另一组。然后再在组内进行此修改直至一组内仅有两个（或一个）元素。
+那么对于初始的  ，以下用
+ 代称其内容以防混淆，将  用二进制表示为  ，显然第 
+次修改时
+
+若  （  为偶数），则  将在组内的左半边
+若  （  为奇数），则  将在组内的右半边
+
+可以得出，在第  ...
+            
+          </div>
+        
+      </div>
+
+         
     </div>
     
-    
+     
+    <a class="right-panel  non-pic  "
       
-      
-        
-        <div class="year-line">
-            <div class="year-num">2024</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">2 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2024/03/28/page-clock/" title="page_clock">
-        <div class="date">03-28</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    page_clock
-                
-            </div>
-        </div>
-        <div class="tags">
-            
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2024/02/03/wpa2psk-sniffing/" title="嗅探WPA2-PSK网络层数据包">
-        <div class="date">02-03</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    嗅探WPA2-PSK网络层数据包
-                
-            </div>
-        </div>
-        <div class="tags">
-            #杂谈 #WPA2 #网安
-        </div>
-      </a>
-    
+      href="/blog/2021/05/01/fft-release/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
   </div>
+  
+</article>
+
+
+
+
+
+
+  <nav id="page-nav">
+    <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
+    <a id="prev-btn" class="page-nav-btn " href=" /blog/  ">
+      <i class="fa-solid fa-angle-left"></i>
+    </a>
+    <div id="num-bar">
+      <a class="page-number" href="/blog/">1</a><span class="page-number current">2</span>  
+    </div>
+    <a id="next-btn" class="page-nav-btn disabled" href="/blog/">
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+  </nav>
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

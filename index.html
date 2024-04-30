@@ -749,14 +749,17 @@ mjx-container[display="true"] + br {
         
           <div class="truncate-text">
             
-              JavaScript
+              HTML
+[2024-04-23]GIF的播放
+整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
+
+JavaScript
 [2023]方法使用jQuery.ajax获取数据，同步致假死，异步无法获取数据
 在一个方法里使用ajax从后端获取数据，可以使用同步(async:false)
 123456789101112function getTemperature() {    var temperature;    $.ajax({        async: false,        type: 'GET',        url: '',        success: function (responseData) {            temperature = responseData;        }    });    return temperature;}
 但是，当方法运行时，即使新开一个进程，也会使页面的渲染停止，造成假死，可以使用Deferred对象：
 
-Deferred.resolve()传递参数arg给回调函数。
-Deferred.promise()返回Deferred.Promise对象，仅包含Deferred对象的done(),t...
+Deferred.resolve()传递参数arg给回调函...
             
           </div>
         

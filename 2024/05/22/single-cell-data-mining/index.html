@@ -12,15 +12,21 @@
   
 
   
-  <title>归档: 2023/12 | kusurin.blog</title>
+  <title>单细胞数据挖掘 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/archives/2023/12/index.html">
+  <meta name="description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单细胞数据挖掘">
+<meta property="og:url" content="https://kusurin.github.io/blog/2024/05/22/single-cell-data-mining/index.html">
 <meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
+<meta property="article:modified_time" content="2024-05-23T16:22:24.128Z">
 <meta property="article:author" content="kusurin">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="R based">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
@@ -303,101 +309,120 @@ mjx-container[display="true"] + br {
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-single-cell-data-mining" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        单细胞数据挖掘
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-05-22T15:14:26.000Z" itemprop="datePublished">2024-05-22</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.1k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p>案例里用了《Glioblastoma cell differentiation trajectory predicts the
+immunotherapy response and overall survival of
+patients》，主要是使用integrated
+scRNA-seq（综合（？）单细胞RNA测序）和bulk
+RNA-seq（整体（？）RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。</p>
+<p>换一个类似的做实验，也不懂各种数据有什么差别，就选《Cell
+differentiation trajectory predicts patient potential immunotherapy
+response and prognosis in gastric cancer》这篇文章，主要是使用integrated
+scRNA-seq和bulk
+RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）<br>
+这个用的数据集是GSE112302和GSE84437。</p>
+<h2 id="实验原理">实验原理</h2>
+<p>主要就是干了质控、基因可视化、降维与聚类、周期判断、double诊断、细胞类型注释、轨迹分析。</p>
+<h3 id="数据集">数据集</h3>
+<p>这堆数据集就是一轴是细胞或一坨样本，一轴是基因种类，每个点代表某个细胞/样本的某个基因表达量。</p>
+<h3 id="质控">质控</h3>
+<p>质控主要就是过滤低质量的细胞(比如基因少、线粒体基因多)、双细胞（两个细胞被捕获到同一个液滴中）等。<br>
+<code>Seurat</code>包可以傻瓜实现。</p>
+<p>案例里还提到了double droplet和周期判断。<br>
+double droplet就是<br>
+而周期判断就是</p>
+<h3 id="挑选高变异基因">挑选高变异基因</h3>
+<p>highly Variable
+gene是在一组样本或细胞中，表达水平变化大的基因，它们可能是驱动细胞异质性的关键。
+<code>Seurat</code>包也可以傻瓜实现。</p>
+<h3 id="降维与聚类">降维与聚类</h3>
+<p>降维机器学习里也有，就是“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。</p>
+<p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。欸还是无监督学习，感兴趣看看吧。</p>
+<p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（因为它“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”）。<br>
+另外PCA是线性的，而t-SNE是非线性的。</p>
+<h2 id="r语言实现">R语言实现</h2>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2023</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">4 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2023/12/31/css-collection/" title="css-collection">
-        <div class="date">12-31</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    css-collection
-                
-            </div>
-        </div>
-        <div class="tags">
-            #CSS
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2023/12/12/blivechat-tricks/" title="blivechat样式小技巧">
-        <div class="date">12-12</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    blivechat样式小技巧
-                
-            </div>
-        </div>
-        <div class="tags">
-            
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2023/12/12/css-edit-t-ex-t/" title="纯CSS更改单行文本的公共前缀">
-        <div class="date">12-12</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    纯CSS更改单行文本的公共前缀
-                
-            </div>
-        </div>
-        <div class="tags">
-            #CSS
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2023/12/11/its-a-trap/" title="踩坑日记">
-        <div class="date">12-11</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    踩坑日记
-                
-            </div>
-        </div>
-        <div class="tags">
-            #杂谈 #踩坑
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2024/03/28/page-clock/"
+      title="一种实现翻页式时钟的方法"
+     >
+
+    <p class="title-text">
+      
+        一种实现翻页式时钟的方法
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

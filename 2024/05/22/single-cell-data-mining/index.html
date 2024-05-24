@@ -22,12 +22,14 @@
 <meta property="og:site_name" content="kusurin.blog">
 <meta property="og:description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
-<meta property="article:modified_time" content="2024-05-23T16:22:24.128Z">
+<meta property="article:modified_time" content="2024-05-24T16:07:09.690Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kusurin.github.io/blog/images/square_hole.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -342,7 +344,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.1k 词 
+            1.5k 词 
           </div>
         </div>
         
@@ -363,24 +365,51 @@ scRNA-seq和bulk
 RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）<br>
 这个用的数据集是GSE112302和GSE84437。</p>
 <h2 id="实验原理">实验原理</h2>
-<p>主要就是干了质控、基因可视化、降维与聚类、周期判断、double诊断、细胞类型注释、轨迹分析。</p>
+<p>主要就是干了质控、基因可视化、降维与聚类、周期判断、double
+droplet、细胞类型注释、轨迹分析。</p>
 <h3 id="数据集">数据集</h3>
 <p>这堆数据集就是一轴是细胞或一坨样本，一轴是基因种类，每个点代表某个细胞/样本的某个基因表达量。</p>
 <h3 id="质控">质控</h3>
 <p>质控主要就是过滤低质量的细胞(比如基因少、线粒体基因多)、双细胞（两个细胞被捕获到同一个液滴中）等。<br>
 <code>Seurat</code>包可以傻瓜实现。</p>
 <p>案例里还提到了double droplet和周期判断。<br>
-double droplet就是<br>
-而周期判断就是</p>
+double droplet就是上面说的双细胞。<br>
+而周期判断就是说，一些细胞处于分裂期，它们会高表达某些基因，可能会影响聚类，所以要去掉。<br>
+<code>Seurat</code>包也可以傻瓜实现。</p>
 <h3 id="挑选高变异基因">挑选高变异基因</h3>
 <p>highly Variable
 gene是在一组样本或细胞中，表达水平变化大的基因，它们可能是驱动细胞异质性的关键。
-<code>Seurat</code>包也可以傻瓜实现。</p>
+<code>Seurat</code>包同样可以傻瓜实现。</p>
 <h3 id="降维与聚类">降维与聚类</h3>
 <p>降维机器学习里也有，就是“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。</p>
 <p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。欸还是无监督学习，感兴趣看看吧。</p>
 <p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（因为它“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”）。<br>
 另外PCA是线性的，而t-SNE是非线性的。</p>
+<style>
+    #square-hole img {
+        display:none;
+        position:absolute;
+        left:0;
+        top:100%;
+    }
+    #square-hole:hover img {
+        display:block;
+    }
+</style>
+<p><code>Seurat</code>包还是可以傻瓜实现。<a id="square-hole" onfocus="" ontouchstart="" style="position:relative;display:inline-block;word-break:all;"><del>that's
+right the square hole</del>
+<img src="/blog/images/square_hole.png" style=""></a></p>
+<h3 id="细胞类型注释">细胞类型注释</h3>
+<p>字面意思，就比如把一些细胞标注成B细胞之类的甚至更精细一些，幼稚B细胞之类的。这靠的是一些特异性高的marker基因。
+可以用<code>SingleR</code>包。</p>
+<h3 id="轨迹分析">轨迹分析</h3>
+<p>就是“构建细胞的变化轨迹，重塑细胞随时间的变化过程”，目的是绘制祖细胞到分化细胞的进展情况。<br>
+可以用<code>Monocle</code>包。</p>
+<hr>
+<p style="color:#808080;">
+<em><del>本来这点东西一天下班时间就能搞完的，现在下来两三天了，不光是因为只有业余时间，还真是怠惰啊。</del></em>
+</p>
+<hr>
 <h2 id="r语言实现">R语言实现</h2>
 
         

@@ -24,7 +24,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
-<meta property="article:modified_time" content="2024-05-26T09:51:18.997Z">
+<meta property="article:modified_time" content="2024-05-26T14:33:25.378Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -344,7 +344,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            3.2k 词 
+            4.2k 词 
           </div>
         </div>
         
@@ -370,21 +370,25 @@ droplet、细胞类型注释、轨迹分析。</p>
 <h3 id="数据集">数据集</h3>
 <p>这堆数据集就是一轴是细胞或一坨样本，一轴是基因种类，每个点代表某个细胞/样本的某个基因表达量。</p>
 <h3 id="质控">质控</h3>
-<p>质控主要就是过滤： - 低质量的细胞(比如基因少、线粒体基因多) -
-双细胞（两个细胞被捕获到同一个液滴中） - 高ERCC基因（External RNA
-Controls
-Consortium），<em>“是一组合成的RNA分子，它们的浓度已知，并且在测序实验中添加到样本中，以便可以用来校正技术变异和进行数据标准化”</em>，在所有单元格中的浓度应该是一致的，所以如果ERCC基因百分比高，那这个单元格的RNA可能较少。</p>
+<p>质控主要就是过滤：</p>
+<ul>
+<li>低质量的细胞(比如基因少、线粒体基因多)</li>
+<li>双细胞（两个细胞被捕获到同一个液滴中）</li>
+<li>高ERCC基因（External RNA Controls
+Consortium），<em>“是一组合成的RNA分子，它们的浓度已知，并且在测序实验中添加到样本中，以便可以用来校正技术变异和进行数据标准化”</em>，在所有单元格中的浓度应该是一致的，所以如果ERCC基因百分比高，那这个单元格的RNA可能较少。</li>
+</ul>
 <p><code>Seurat</code>包可以傻瓜实现。</p>
 <p>案例里还提到了double droplet和周期判断。<br>
 double droplet就是上面说的双细胞。<br>
 而周期判断就是说，一些细胞处于分裂期，它们会高表达某些基因，可能会影响聚类，所以要去掉。<br>
-<code>Seurat</code>包也可以傻瓜实现。</p>
+<code>scran</code>包可以傻瓜实现。</p>
 <h3 id="挑选高变异基因">挑选高变异基因</h3>
 <p>highly Variable
 gene是在一组样本或细胞中，表达水平变化大的基因，它们可能是驱动细胞异质性的关键。
 <code>Seurat</code>包同样可以傻瓜实现。</p>
 <h3 id="降维与聚类">降维与聚类</h3>
-<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。</p>
+<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。<br>
+PCA对数据的尺度（即每个特征的平均值和标准差）非常敏感，如果不同的feature有不同的尺度（0-1vs0-1000），那么PCA的结果将主要受到尺度大的特征的影响，所以PCA之前要标准化。</p>
 <p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。欸还是无监督学习，感兴趣看看吧。</p>
 <p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（<em>“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”</em>
 ）。<br>
@@ -425,13 +429,12 @@ Run Selector里就能找到。<br>
 还有SRA记录着分组信息，也要一起筛选出来。</p>
 <p>所以说拿到GSE112302也是一样的，就是GSE112302没有给全部合在一起的数据，需要我们自己合起来（附加列，也就是样本），然后用SRA筛选出肿瘤组织。</p>
 <h3 id="质控-1">质控</h3>
+<h4 id="创建seurat对象简单筛选细胞">创建<code>Seurat</code>对象，简单筛选细胞</h4>
 <p>要先创建<code>Seurat</code>对象。<code>CreateSeuratObject()</code>函数的文档如下：</p>
 <blockquote>
 <ul>
 <li><code>counts</code>：这是一个矩阵类对象，包含未经标准化的数据，其中单元格作为列，特征作为行，或者是一个<code>Assay</code>派生对象。</li>
 <li><code>assay</code>：初始测定的名称。</li>
-<li><code>names.field</code>：对于每个单元格的初始身份类别，从单元格的名称中选择此字段。例如，如果输入矩阵中的单元格被命名为<code>BARCODE_CLUSTER_CELLTYPE</code>，那么将<code>names.field</code>设置为3，以将初始身份设置为<code>CELLTYPE</code>。</li>
-<li><code>names.delim</code>：对于每个单元格的初始身份类别，从单元格的列名中选择此分隔符。例如，如果您的单元格被命名为<code>BARCODE-CLUSTER-CELLTYPE</code>，将此设置为“-”以将单元格名称分隔为其组成部分，以便选择相关字段。</li>
 <li><code>meta.data</code>：要添加到<code>Seurat</code>对象的额外单元格级元数据。应该是一个数据框，其中行是单元格名称，列是额外的元数据字段。元数据中的行名称需要与计数矩阵的列名称匹配。</li>
 <li><code>project</code>：<code>Seurat</code>对象的项目名称。</li>
 <li><code>...</code>：传递给其他方法的参数。</li>
@@ -441,10 +444,59 @@ Run Selector里就能找到。<br>
 </blockquote>
 <p>（对了R语言的函数是这样调用的：<code>function_name(arg1 = value1, arg2 = value2, ...)</code>）</p>
 <p>其实只要用到<code>counts</code>、<code>meta.data</code>、<code>min.cells</code>、<code>min.features</code>就行了。
-这里<code>counts</code>就是数据，<code>meta.data</code>就是分组信息，用<code>data.frame()</code>上面说了是这样的：<code>...</code>是列（额外的元数据字段，这里就是病人编号，要用来分组嘛），<code>row.names</code>是行（样本编号）,要和<code>counts</code>的列名对应。
-然后后两个前者用来筛选表达量低的基因，后者用来筛选基因少的细胞。</p>
+这里<code>counts</code>就是数据，<code>meta.data</code>就是分组信息，用<code>data.frame()</code>上面说了是这样的：<code>...</code>是列（额外的元数据字段，这里就是病人编号，要用来分组嘛），<code>row.names</code>是行（样本编号）,要和<code>counts</code>的列名对应。<br>
+然后后两个前者用来筛选表达量低的基因，后者用来筛选基因少的细胞，顺便还能过滤空细胞。</p>
+<h4 id="筛选线粒体基因和ercc基因过多细胞">筛选线粒体基因和ERCC基因过多细胞</h4>
 <p>然后还要筛选掉线粒体基因过多的细胞： <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scRNA<span class="punctuation">[[</span><span class="string">"percent.mt"</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> PercentageFeatureSet<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> pattern <span class="operator">=</span> <span class="string">"^MT-"</span><span class="punctuation">)</span> <span class="comment">#先全部算了比较好，PercentageFeatureSet()计算满足给定模式的特征在每个单元格中的百分比，后面那个参数就是正则（真是先进啊（大嘘））</span></span><br><span class="line">scRNA <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> subset <span class="operator">=</span> percent.mt <span class="operator">&lt;</span> <span class="number">5</span><span class="punctuation">)</span> <span class="comment">#案例取5%，subset()就是Array.filter()（确信）</span></span><br></pre></td></tr></table></figure>
 还有ERCC基因一样的，选40%。</p>
+<h4 id="筛选双细胞">筛选双细胞</h4>
+<p>才发现这个要等到先聚类...别急。</p>
+<h4 id="周期判断">周期判断</h4>
+<p>这个要先标准化...别急...看<a target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/7942">seurat#7942</a>。
+我说怎么把这两个放在后面。 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test <span class="operator">&lt;-</span> scDblFinder<span class="operator">::</span>findDoubletClusters<span class="punctuation">(</span>GetAssayData<span class="punctuation">(</span>scRNA<span class="punctuation">,</span>slot<span class="operator">=</span><span class="string">"counts"</span><span class="punctuation">,</span>assay<span class="operator">=</span><span class="string">"RNA"</span><span class="punctuation">)</span><span class="punctuation">,</span> clusters<span class="operator">=</span>scRNA<span class="operator">@</span>meta.data<span class="operator">$</span>seurat_clusters<span class="punctuation">)</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="质控绘图">质控绘图</h4>
+<p>最后就是绘图。<br>
+看他们都是 - 图A：观察不同组cell的counts、feature分布 -
+图B：nCount_RNA与对应的nFeature_RNA关系</p>
+<p>图A用小提琴图，复习一下，VlnPlot()：</p>
+<blockquote>
+<ul>
+<li><code>object</code>：<code>Seurat</code>对象。</li>
+<li><code>features</code>：要绘制的特征。</li>
+<li><code>group.by</code>：用于分组的元数据。</li>
+<li><code>pt.size</code>：点的大小。</li>
+<li><code>cols</code>：颜色。可以用<code>rainbow(n)</code>生成。</li>
+</ul>
+</blockquote>
+<p>然后可以用<code>+</code>连接修改，theme(legend.position =
+"none")隐藏图例，labs(tag = "A")添加全局标签A。</p>
+<p>图B用FeatureScatter()，绘制两个特征之间的关系。</p>
+<blockquote>
+<ul>
+<li><code>object</code>：<code>Seurat</code>对象。</li>
+<li><code>feature1</code>：x轴特征。</li>
+<li><code>feature2</code>：y轴特征。</li>
+<li><code>group.by</code>：用于分组的元数据。</li>
+<li>剩下通用的都差不多。</li>
+</ul>
+</blockquote>
+<p>案例还对ERCC基因比例和nCount用了<code>FeatureScatter()</code>，这个图一看也验证了上面说的，ERCC基因百分比高，nCount就低。</p>
+<h3 id="挑选高变异基因-1">挑选高变异基因</h3>
+<p>用<code>FindVariableFeatures()</code>：</p>
+<blockquote>
+<ul>
+<li><code>object</code>：<code>Seurat</code>对象。</li>
+<li><code>selection.method</code>：选择方法。可以是"vst"（variance
+stabilizing transformation）或"mean.var.plot"（均值方差图）。</li>
+<li><code>nfeatures</code>：选择为顶部变异特征的特征数量；只在selection.method设置为'dispersion'或'vst'时使用。</li>
+<li>还有一些其它的，还有使用vst法时的参数。</li>
+</ul>
+</blockquote>
+<p>然后用<code>VariableFeaturePlot()</code>绘制变异特征图。<br>
+<code>LabelPoints()</code>可以标记点，<code>head()</code>就可以取前几个。</p>
+<h3 id="降维与聚类-1">降维与聚类</h3>
+<h4 id="pca">PCA</h4>
+<p>要先标准化，这里用<code>ScaleData()</code>，对每个基因的表达量进行缩放和中心化，可以消除不同基因之间由于表达量级别不同而产生的差异。而不用<code>NormalizeData()</code>，因为它对每个细胞之间的某个基因表达量进行归一化，可以消除不同细胞之间由于测序深度不同而产生的差异，所以归一化后，不同的基因可能仍然有不同的表达量级别。</p>
 
         
       </div>

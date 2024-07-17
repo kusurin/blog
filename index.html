@@ -266,7 +266,7 @@ mjx-container[display="true"] + br {
       <div class="category-box">
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
-                <div class="category-count">6</div>
+                <div class="category-count">7</div>
             </a>
         
             <a class="category-link" href="/blog/categories/CSS-tricks/">
@@ -376,6 +376,86 @@ RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。�
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/05/22/single-cell-data-mining/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-mathmeth" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2024/04/11/mathmeth/">一些（别人想到了的）数学胡思乱想</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-11T12:34:49.000Z" itemprop="datePublished">2024-04-11</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            532 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              将二元数映射到一元数
+给定一个二元数，其中的整数部分依次为数列，小数部分依次数列，同理的整数部分为数列，小数部分为数列。
+可以构造出与其唯一对应的一元数：的整数部分有一分隔标记，其左方为逆序的数列，右方为正序的数列，小数部分同理。
+（内心OS：这样二元数不就和一元数一样多了么
+结果还真一样多（没学好），别人的构造方法还漂亮多了：小数部分的第位为，第位为，整数部分同理。
+证明：有无穷多个质数
+给定质数，构造，再构造，则除以中任意一个数都余，并且大于中任意一个数包括。
+所以对于任意质数，都存在一个比它大的质数。
+（好像是阿基米德的方法）
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2024/04/11/mathmeth/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1037,81 +1117,6 @@ Key,pdkdf2:Passphrase-Based Key Derivation Function
     <a class="right-panel  non-pic  "
       
       href="/blog/2023/11/23/wpa2psk-aircrack/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-custom-border-style" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2023/07/03/custom-border-style/">自定义&#34;border-style&#34;</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2023-07-02T19:00:00.000Z" itemprop="datePublished">2023-07-03</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            2.2k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              
-css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。
-例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。
-这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。
-12345background:    url("data:image/svg+xml,%3csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e") top left / calc(100% - 12px) calc(100% - 12px) no-repeat,  ...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2023/07/03/custom-border-style/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

@@ -12,20 +12,21 @@
   
 
   
-  <title>css-collection | kusurin.blog</title>
+  <title>踩坑日记[2024] | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&quot;da">
+  <meta name="description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
 <meta property="og:type" content="article">
-<meta property="og:title" content="css-collection">
-<meta property="og:url" content="https://kusurin.github.io/blog/2023/12/31/css-collection/index.html">
+<meta property="og:title" content="踩坑日记[2024]">
+<meta property="og:url" content="https://kusurin.github.io/blog/2024/01/01/its-a-trap-2024/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&quot;da">
+<meta property="og:description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-31T06:27:30.000Z">
-<meta property="article:modified_time" content="2024-03-16T07:03:51.589Z">
+<meta property="article:published_time" content="2024-01-01T11:35:54.000Z">
+<meta property="article:modified_time" content="2024-07-29T12:48:25.521Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="CSS">
+<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="踩坑">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
@@ -314,7 +315,7 @@ mjx-container[display="true"] + br {
        
 
 
-<article id="post-css-collection" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -327,7 +328,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        css-collection
+        踩坑日记[2024]
       </h1>
     
   
@@ -335,53 +336,99 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2023-12-31T06:27:30.000Z" itemprop="datePublished">2023-12-31</time>
+  <time class="dt-published" datetime="2024-01-01T11:35:54.000Z" itemprop="datePublished">2024-01-01</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            4.5k 词 
+            1.2k 词 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h2 id="异形描边">异形描边</h2>
-<p>使用SVG，设置<code>viewBox</code>、<code>preserveAspectRatio='none'</code>以及子的<code>stroke</code>、<code>vector-effect='non-scaling-stroke'</code>，转为base64设置为<code>background</code>，实现居中描边。<br>
-然后使用同样参数但无<code>stroke</code>有<code>fill</code>的SVG作为<code>mask</code>，消除外描边以及其被裁掉显示不理想的部分。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ffdda8' stroke-width='16' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ba383f' stroke-width='10' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3C/svg%3E"</span>);</span><br><span class="line">-webkit-<span class="attribute">mask</span>: <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='%23f00' stroke='none' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3C/svg%3E"</span>);</span><br></pre></td></tr></table></figure>
-<div style="width:auto;height:20vh;overflow:hidden;resize:both;margin:auto;">
-<div style="width:100%;height:100%;background: url(&quot; data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; width=&#39;100%25&#39; height=&#39;100%25&#39; viewBox=&#39;0 0 580 143&#39; preserveAspectRatio=&#39;none&#39;%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ffdda8&#39; stroke-width=&#39;16&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ba383f&#39; stroke-width=&#39;10&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3C/svg%3E&quot; );
-    -webkit-mask: url(&quot; data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; width=&#39;100%25&#39; height=&#39;100%25&#39; viewBox=&#39;0 0 580 143&#39; preserveAspectRatio=&#39;none&#39;%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;%23f00&#39; stroke=&#39;none&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3C/svg%3E&quot; );">
-
-</div>
-</div>
+          <h2 id="html">HTML</h2>
+<h3 id="gif的播放">[2024-04-23]GIF的播放</h3>
+<p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
 <hr>
-<h2 id="左轮布局x">左轮布局(x)</h2>
-<p>效果是子元素沿弧线分布，圆盘会随新元素出现旋转一格。</p>
-<div style="width:50%;height:auto;margin:auto;">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00000113249 -0.5 72.5 40">
-<path d="M 42 21 C 42 22 43 23 44 23 L 70 23 C 71 23 72 22 72 21 L 72 18 C 72 17 71 16 70 16 L 44 16 C 43 16 42 17 42 18 Z M 20 0 A 1 1 0 0 0 20 39 A 1 1 0 0 0 20 0 M 39 8 C 39 9 40 10 41 10 L 67 10 C 68 10 69 9 69 8 L 69 5 C 69 4 68 3 67 3 L 41 3 C 40 3 39 4 39 5 Z M 39 31 C 39 30 40 29 41 29 L 67 29 C 68 29 69 30 69 31 L 69 34 C 69 35 68 36 67 36 L 41 36 C 40 36 39 35 39 34 Z M 20 3 A 1 1 0 0 0 20 10 A 1 1 0 0 0 20 3 M 20 36 A 1 1 0 0 0 20 29 A 1 1 0 0 0 20 36 M 10.5 19.5 A 1 1 0 0 0 3.5 19.5 A 1 1 0 0 0 10.5 19.5 M 29.5 20 A 1 1 0 0 0 36.5 20 A 1 1 0 0 0 29.5 20" stroke="#000" stroke-width="0.5" fill="#ccc"></path>
+<h2 id="javascript">JavaScript</h2>
+<h3 id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
+<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br>
+<code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
+<h3 id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
+<p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
+<h3 id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
+<p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
+<hr>
+<h2 id="css">CSS</h2>
+<h3 id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
+<p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
+<hr>
+<h2 id="杂项">杂项</h2>
+<h3 id="svg莫名其妙被裁剪">[2024-04-03]SVG莫名其妙被裁剪</h3>
+<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br>
+把这个突变点改成平滑曲线就完了。</p>
+<h3 id="svg中的mask">[2024-5-20]SVG中的mask</h3>
+<p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩...</p>
+<p>也由此可以实现透明文字的单纯外描边无内描边，使用亮度遮罩和<code>paint-order: stroke</code>让黑色的<code>fill</code>覆盖<code>stroke</code>的内描边部分，就可以只遮罩外描边，可以实现以下效果（什么东西好看吗）：</p>
+<style>
+    #date {
+        paint-order: stroke;
+        width: 100%;
+    }
+
+    #date * {
+        font-family: "Impact";
+        font-size: 120px;
+    }
+
+    #date #date_svg {
+        display: block;
+        width: 100px;
+        margin: 0 auto;
+    }
+
+    #date .timespan.edge {
+        fill: none;
+        stroke: #0c0d0f;
+        stroke-width: 8px;
+    }
+
+    #date .timespan.solid {
+        fill: #f69cbb;
+        text-shadow: 4px 4px #c34973, 5px 5px #c34973;
+    }
+
+    #date #spanmask {
+        stroke: #fff;
+        stroke-width: 8px;
+    }
+
+    #date #spanmask_solid {
+        fill: #fff;
+        stroke: #fff;
+        stroke-width: 4px;
+    }
+</style>
+<div id="date">
+<svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200">
+<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line"></path><text style="transform: translate(-4px,-4px);"><textpath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text><text><textpath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text>
 </svg>
 </div>
-<p>将<code>flex</code>布局调到适当方向，使用<code>nth-child()</code>或者<code>nth-last-child()</code>选择器，设定好每个子元素的偏移量，完成右侧的弧形分布，固定大小效果更理想。</p>
-<p>左侧弹巢使用父元素上的静态伪元素作为背景，使用第一/最后一个子元素上的动态伪元素来播放旋转动画</p>
-<p>（老板怎么都接不到客单啊，这些效果全都能做的啊）</p>
-<hr>
-<h2 id="祖宗元素contain-layout配合子元素position-fixed使子元素越过父元素非static定位">祖宗元素<code>contain: layout</code>配合子元素<code>position: fixed</code>，使子元素越过父元素非<code>static</code>定位</h2>
-<p>（用来造奇怪的东西的办法x</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father_n</span> {</span><br><span class="line">    <span class="attribute">contain</span>: layout;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father_1</span> {</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> {</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>这样子，即使父元素<code>.father_1</code>为相对定位或绝对定位，子元素<code>.child</code>仍会越过父元素，作为祖宗元素<code>.father_n</code>的绝对定位。相当于父元素在使用相对定位或绝对定位时，对于子元素来说其可视为<code>static</code>定位。
-应用场景：父元素需要非<code>static</code>定位设置位置，但子元素需要相对父元素的父元素进行定位、确定相对大小，而非父元素。（奇技淫巧用）</p>
+<h3 id="android-studio网络问题">[2024-07-03]Android Studio网络问题</h3>
+<p>有时候代理和镜像都不好使，Gradle之类的可以手动下载，剩下的听天由命吧。</p>
+<h3 id="rstudio-server的python-venv配置">[2024-07-25]Rstudio
+server的Python venv配置</h3>
+<p>有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。</p>
 
         
       </div>
@@ -396,25 +443,25 @@ mjx-container[display="true"] + br {
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/blog/2024/01/01/its-a-trap-2024/"
-      title="踩坑日记[2024]"
+      href="/blog/2024/02/03/wpa2psk-sniffing/"
+      title="嗅探WPA2-PSK网络层数据包"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        踩坑日记[2024]
+        嗅探WPA2-PSK网络层数据包
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2023/12/18/android-fake-locate/"
-      title="Android虚拟签到（模拟GPS、基站、摄像头流程）"
+      href="/blog/2023/12/31/css-collection/"
+      title="css-collection"
      >
 
     <p class="title-text">
       
-        Android虚拟签到（模拟GPS、基站、摄像头流程）
+        css-collection
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

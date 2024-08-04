@@ -12,22 +12,25 @@
   
 
   
-  <title>踩坑日记[2024] | kusurin.blog</title>
+  <title>复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
+  <meta name="description" content="snRNA-seq 数据概览桑基图 大概是实验设计如此，并没有找到哪个数据包含了实验组条件对应的损伤模型、损伤后取样时间，在文中也没有显式提及，找了几个隐晦提及的地方：  b, Susceptible and resilient subtypes of spinal cord neurons. Volcano plot shows log2 odds ratios comparing n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="踩坑日记[2024]">
-<meta property="og:url" content="https://kusurin.github.io/blog/2024/01/01/its-a-trap-2024/index.html">
+<meta property="og:title" content="复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica">
+<meta property="og:url" content="https://kusurin.github.io/blog/2024/08/01/reproduce-10-1038-slash-s41586-024-07504-y/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
+<meta property="og:description" content="snRNA-seq 数据概览桑基图 大概是实验设计如此，并没有找到哪个数据包含了实验组条件对应的损伤模型、损伤后取样时间，在文中也没有显式提及，找了几个隐晦提及的地方：  b, Susceptible and resilient subtypes of spinal cord neurons. Volcano plot shows log2 odds ratios comparing n">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-01T11:35:54.000Z">
-<meta property="article:modified_time" content="2024-07-29T12:50:44.242Z">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png">
+<meta property="article:published_time" content="2024-08-01T05:52:59.000Z">
+<meta property="article:modified_time" content="2024-08-01T11:37:13.441Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="杂谈">
-<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="R based">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -315,7 +318,7 @@ mjx-container[display="true"] + br {
        
 
 
-<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-reproduce-10-1038-slash-s41586-024-07504-y" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -328,7 +331,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        踩坑日记[2024]
+        复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica
       </h1>
     
   
@@ -336,12 +339,12 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-01-01T11:35:54.000Z" itemprop="datePublished">2024-01-01</time>
+  <time class="dt-published" datetime="2024-08-01T05:52:59.000Z" itemprop="datePublished">2024-08-01</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
    
 </div>
   
@@ -351,84 +354,56 @@ mjx-container[display="true"] + br {
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h2 id="html">HTML</h2>
-<h3 id="gif的播放">[2024-04-23]GIF的播放</h3>
-<p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
-<hr>
-<h2 id="javascript">JavaScript</h2>
-<h3 id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
-<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br>
-<code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
-<h3 id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
-<p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
-<h3 id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
-<p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
-<hr>
-<h2 id="css">CSS</h2>
-<h3 id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
-<p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
-<hr>
-<h2 id="杂项">杂项</h2>
-<h3 id="svg莫名其妙被裁剪">[2024-04-03]SVG莫名其妙被裁剪</h3>
-<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br>
-把这个突变点改成平滑曲线就完了。</p>
-<h3 id="svg中的mask">[2024-5-20]SVG中的mask</h3>
-<p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩...</p>
-<p>也由此可以实现透明文字的单纯外描边无内描边，使用亮度遮罩和<code>paint-order: stroke</code>让黑色的<code>fill</code>覆盖<code>stroke</code>的内描边部分，就可以只遮罩外描边，可以实现以下效果（什么东西好看吗）：</p>
-<style>
-    #date {
-        paint-order: stroke;
-        width: 100%;
-    }
-
-    #date * {
-        font-family: "Impact";
-        font-size: 120px;
-    }
-
-    #date #date_svg {
-        display: block;
-        width: 100px;
-        margin: 0 auto;
-    }
-
-    #date .timespan.edge {
-        fill: none;
-        stroke: #0c0d0f;
-        stroke-width: 8px;
-    }
-
-    #date .timespan.solid {
-        fill: #f69cbb;
-        text-shadow: 4px 4px #c34973, 5px 5px #c34973;
-    }
-
-    #date #spanmask {
-        stroke: #fff;
-        stroke-width: 8px;
-    }
-
-    #date #spanmask_solid {
-        fill: #fff;
-        stroke: #fff;
-        stroke-width: 4px;
-    }
-</style>
-<div id="date">
-<svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200">
-<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line"></path><text style="transform: translate(-4px,-4px);"><textpath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text><text><textpath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text>
-</svg>
-</div>
-<h3 id="android-studio网络问题">[2024-07-03]Android Studio网络问题</h3>
-<p>有时候代理和镜像都不好使，Gradle之类的可以手动下载，剩下的听天由命吧。</p>
-<h3 id="rstudio-server的python-venv配置">[2024-07-25]Rstudio
-server的Python venv配置</h3>
-<p>有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。</p>
+          <h2 id="snrna-seq">snRNA-seq</h2>
+<h3 id="数据概览桑基图">数据概览桑基图</h3>
+<p>大概是实验设计如此，并没有找到哪个数据包含了实验组条件对应的损伤模型、损伤后取样时间，在文中也没有显式提及，找了几个隐晦提及的地方：</p>
+<ul>
+<li><strong>b,</strong> Susceptible and resilient subtypes of spinal
+cord neurons. Volcano plot shows log2 odds ratios comparing neuron
+proportions between the <u>uninjured spinal cord and each injured
+condition at 7 days post injury</u> (x axis) versus statistical
+significance (t-test, y axis).</li>
+<li><strong>b,c,</strong> Chronophotography (b) and walking performance
+(n = 5 each) (c) of <u>young and old mice after spontaneous recovery
+from moderate crush SCI.</u></li>
+</ul>
+<p>实验设计大概就是：</p>
+<ul>
+<li>一组未受伤组</li>
+<li>损伤后时间组（1天、4天、7天、14天、1个月、2个月）和治疗组之类的全部为中等挤压损伤</li>
+<li>不同类型损伤组（轻度挤压、中度挤压、严重挤压、完全挤压、挫伤、半切）和部分药物治疗组（甲强龙和米诺环素）全部为损伤后7天取样</li>
+<li>其余为基因治疗组（ChABC和荧光蛋白的对照），为损伤后2月取样</li>
+</ul>
+<p>然后手动写桑基图的数据，最后每个实验组的数量都一样，得出：</p>
+<iframe src="/blog/assets/ov_sankey.html" style="width:100%;height:max(50vh,500px);">
+</iframe>
+<h3 id="数据读取">数据读取</h3>
+<p>主要是因为这个<code>features.tsv</code>的格式，注意<code>Read10X()</code>要用<code>gene.column = 1</code>参数。</p>
+<h3 id="质控">质控</h3>
+<p>筛feature和count和线粒体基因与其他比起来有显著差异的低质量组，snRNA-seq筛掉了2个，应该先验证方差齐性之类的然后用ANOVA、kruskal检验之类的，但是跑了半天才发现读出来的数据已经是52只小鼠的435099个细胞了，所以跳过。</p>
+<h3 id="整体可视化">整体可视化</h3>
+<h4 id="pca">PCA</h4>
+<p>作者说了用50维，但还是一套下来最后<code>DimHeatmap()</code>，得到：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png" style="height:50vh;width:auto;"></p>
+<center>
+比较难绷也只能这样了，用<code>png()</code>和<code>dev.off()</code>不然不够大
+</center>
+<p>发现50维也还行。</p>
+<h4 id="整合">整合</h4>
+<p><code>reduction</code>参数用<code>'pca'</code>会报错，但是默认参数就是PCA，不管。</p>
+<h4 id="leiden法聚类">Leiden法聚类</h4>
+<p>leiden法需要用到Python，R不搞代理和镜像，<code>reticulate</code>包可能安不上各种包，开root用pip安装<code>leidenalg</code>、<code>numpy</code>、<code>igraph</code>。</p>
+<p>对于这个435099个细胞的数据，<code>leidenalg</code>有一个很坑的地方就是会把数据转换成稠密矩阵，VIRT直接1400g，需要用<code>method = "igraph"</code>强制使用稀疏矩阵。</p>
+<h4 id="umap">UMAP</h4>
+<p>一个是原文用的UMAP，另一个是UMAP时间复杂度是<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="8.676ex" height="2.587ex" role="img" focusable="false" viewBox="0 -893.3 3834.8 1143.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(633,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(778,0)"></path></g><g data-mml-node="mi" transform="translate(1278,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">几</text></g></g></g><g data-mml-node="mo" transform="translate(3445.8,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>，而t-SNE是<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.452ex" role="img" focusable="false" viewBox="0 -833.9 2577.6 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>，近50万个细胞怕是顶不住。</p>
+<h4 id="可视化">可视化</h4>
+<p>先是原始数据的可视化：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png" style="height:50vh;width:auto;"></p>
 
         
       </div>
@@ -441,27 +416,22 @@ server的Python venv配置</h3>
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/blog/2024/02/03/wpa2psk-sniffing/"
-      title="嗅探WPA2-PSK网络层数据包"
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        嗅探WPA2-PSK网络层数据包
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2023/12/31/css-collection/"
-      title="css-collection"
+      href="/blog/2024/07/29/legion-power-repaire/"
+      title="拯救者电源接口接触不良维修"
      >
 
     <p class="title-text">
       
-        css-collection
+        拯救者电源接口接触不良维修
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

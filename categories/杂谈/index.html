@@ -257,11 +257,6 @@ mjx-container[display="true"] + br {
     <div class="widget">
       <h3 class="widget-title">分类</h3>
       <div class="category-box">
-            <a class="category-link" href="/blog/categories/CSS-tricks/">
-                CSS-tricks
-                <div class="category-count">5</div>
-            </a>
-        
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
                 <div class="category-count">7</div>
@@ -272,9 +267,9 @@ mjx-container[display="true"] + br {
                 <div class="category-count">3</div>
             </a>
         </div></div>
-            <a class="category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">
-                算法
-                <div class="category-count">1</div>
+            <a class="category-link" href="/blog/categories/CSS-tricks/">
+                CSS-tricks
+                <div class="category-count">5</div>
             </a>
         
             <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
@@ -282,9 +277,14 @@ mjx-container[display="true"] + br {
                 <div class="category-count">2</div>
             </a>
         
+            <a class="category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">
+                算法
+                <div class="category-count">1</div>
+            </a>
+        
             <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
                 生信
-                <div class="category-count">1</div>
+                <div class="category-count">2</div>
             </a>
         </div>
     </div>
@@ -506,5 +506,20 @@ mjx-container[display="true"] + br {
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

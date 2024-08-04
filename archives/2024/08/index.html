@@ -12,21 +12,15 @@
   
 
   
-  <title>踩坑日记[2024] | kusurin.blog</title>
+  <title>归档: 2024/8 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
-<meta property="og:type" content="article">
-<meta property="og:title" content="踩坑日记[2024]">
-<meta property="og:url" content="https://kusurin.github.io/blog/2024/01/01/its-a-trap-2024/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="kusurin.blog">
+<meta property="og:url" content="https://kusurin.github.io/blog/archives/2024/08/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-01T11:35:54.000Z">
-<meta property="article:modified_time" content="2024-07-29T12:50:44.242Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="杂谈">
-<meta property="article:tag" content="踩坑">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
@@ -314,167 +308,44 @@ mjx-container[display="true"] + br {
     <div id="content-body">
        
 
-
-<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-    
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 class="p-name article-title" itemprop="headline name">
-        踩坑日记[2024]
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-01-01T11:35:54.000Z" itemprop="datePublished">2024-01-01</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            1.2k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <h2 id="html">HTML</h2>
-<h3 id="gif的播放">[2024-04-23]GIF的播放</h3>
-<p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
-<hr>
-<h2 id="javascript">JavaScript</h2>
-<h3 id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
-<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br>
-<code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
-<h3 id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
-<p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
-<h3 id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
-<p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
-<hr>
-<h2 id="css">CSS</h2>
-<h3 id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
-<p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
-<hr>
-<h2 id="杂项">杂项</h2>
-<h3 id="svg莫名其妙被裁剪">[2024-04-03]SVG莫名其妙被裁剪</h3>
-<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br>
-把这个突变点改成平滑曲线就完了。</p>
-<h3 id="svg中的mask">[2024-5-20]SVG中的mask</h3>
-<p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩...</p>
-<p>也由此可以实现透明文字的单纯外描边无内描边，使用亮度遮罩和<code>paint-order: stroke</code>让黑色的<code>fill</code>覆盖<code>stroke</code>的内描边部分，就可以只遮罩外描边，可以实现以下效果（什么东西好看吗）：</p>
-<style>
-    #date {
-        paint-order: stroke;
-        width: 100%;
-    }
-
-    #date * {
-        font-family: "Impact";
-        font-size: 120px;
-    }
-
-    #date #date_svg {
-        display: block;
-        width: 100px;
-        margin: 0 auto;
-    }
-
-    #date .timespan.edge {
-        fill: none;
-        stroke: #0c0d0f;
-        stroke-width: 8px;
-    }
-
-    #date .timespan.solid {
-        fill: #f69cbb;
-        text-shadow: 4px 4px #c34973, 5px 5px #c34973;
-    }
-
-    #date #spanmask {
-        stroke: #fff;
-        stroke-width: 8px;
-    }
-
-    #date #spanmask_solid {
-        fill: #fff;
-        stroke: #fff;
-        stroke-width: 4px;
-    }
-</style>
-<div id="date">
-<svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200">
-<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line"></path><text style="transform: translate(-4px,-4px);"><textpath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text><text><textpath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text>
-</svg>
-</div>
-<h3 id="android-studio网络问题">[2024-07-03]Android Studio网络问题</h3>
-<p>有时候代理和镜像都不好使，Gradle之类的可以手动下载，剩下的听天由命吧。</p>
-<h3 id="rstudio-server的python-venv配置">[2024-07-25]Rstudio
-server的Python venv配置</h3>
-<p>有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。</p>
-
-        
-      </div>
-
-         
+<div class="archive-main-card">
+    <div class="archive-top">
+      <div class="main-title-bar">
+        <div class="main-title-dot"></div>
+        <h1 class="article-title">归档</h1>
+      </div>    
     </div>
     
-     
+    
+      
+      
+        
+        <div class="year-line">
+            <div class="year-num">2024</div>
+            <div class="dot-wrapper">
+                <div class="dot"></div>
+            </div>
+            <div class="article-count">1 篇文章</div>
+        </div>
+      
+      <a class="archive-article-link" href="/blog/2024/08/01/reproduce-10-1038-slash-s41586-024-07504-y/" title="复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica">
+        <div class="date">08-01</div>
+        <div class="line">
+            <div class="dot"></div>
+        </div>
+        <div class="title">
+            <div class="title-inner">
+                
+                    复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica
+                
+            </div>
+        </div>
+        <div class="tags">
+            #生信 #R based
+        </div>
+      </a>
+    
   </div>
-  
-    
-<nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/blog/2024/02/03/wpa2psk-sniffing/"
-      title="嗅探WPA2-PSK网络层数据包"
-     >
-    <i class="fa-solid fa-angle-left"></i>
-    <p class="title-text">
-      
-        嗅探WPA2-PSK网络层数据包
-        
-    </p>
-  </a>
-  <a class="article-nav-btn right "
-    
-      href="/blog/2023/12/31/css-collection/"
-      title="css-collection"
-     >
-
-    <p class="title-text">
-      
-        css-collection
-        
-    </p>
-    <i class="fa-solid fa-angle-right"></i>
-  </a>
-</nav>
-
-
-  
-</article>
-
-
-
-
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

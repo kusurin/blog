@@ -23,9 +23,11 @@
 <meta property="og:description" content="snRNA-seq 数据概览桑基图 大概是实验设计如此，并没有找到哪个数据包含了实验组条件对应的损伤模型、损伤后取样时间，在文中也没有显式提及，找了几个隐晦提及的地方：  b, Susceptible and resilient subtypes of spinal cord neurons. Volcano plot shows log2 odds ratios comparing n">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/Oligodendrocyte%20marker.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png">
 <meta property="article:published_time" content="2024-08-01T05:52:59.000Z">
-<meta property="article:modified_time" content="2024-08-01T11:37:13.441Z">
+<meta property="article:modified_time" content="2024-08-12T12:20:42.451Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -350,7 +352,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.2k 词 
+            1.5k 词 
           </div>
         </div>
         
@@ -383,14 +385,16 @@ from moderate crush SCI.</u></li>
 <iframe src="/blog/assets/ov_sankey.html" style="width:100%;height:max(50vh,500px);">
 </iframe>
 <h3 id="数据读取">数据读取</h3>
-<p>主要是因为这个<code>features.tsv</code>的格式，注意<code>Read10X()</code>要用<code>gene.column = 1</code>参数。</p>
+<p>主要是因为这个<code>features.tsv</code>的格式，<code>Read10X()</code>要用<code>gene.column = 1</code>参数。</p>
 <h3 id="质控">质控</h3>
-<p>筛feature和count和线粒体基因与其他比起来有显著差异的低质量组，snRNA-seq筛掉了2个，应该先验证方差齐性之类的然后用ANOVA、kruskal检验之类的，但是跑了半天才发现读出来的数据已经是52只小鼠的435099个细胞了，所以跳过。</p>
+<p>筛feature和count和线粒体基因与其他比起来有显著差异的低质量组，snRNA-seq筛掉了2个，应该先验证方差齐性之类的然后用ANOVA、kruskal检验之类的，但是跑了半天才发现读出来的数据已经是52只小鼠的435099个细胞了，所以<strong>跳过</strong>。</p>
+<p><strong>修正：</strong>
+经过对比UMAP图，发现作者还是少了几团细胞，然而，数据中的最低nCount是201，所以作者给出的“原始数据”其实经过了质控，但是没有完全质控，现在发现少突胶质细胞的尾巴似乎可以通过DecontX来去除，另外一些可能要进行双细胞的筛选。</p>
 <h3 id="整体可视化">整体可视化</h3>
 <h4 id="pca">PCA</h4>
-<p>作者说了用50维，但还是一套下来最后<code>DimHeatmap()</code>，得到：</p>
-<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png" style="height:50vh;width:auto;"></p>
-<center>
+<p>作者说了用50维，但还是一套下来最后<code>DimHeatmap()</code>看一下效果，得到：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/DimHeatmap50.png" style="height:auto;width:100%;"></p>
+<center style="color:#808080">
 比较难绷也只能这样了，用<code>png()</code>和<code>dev.off()</code>不然不够大
 </center>
 <p>发现50维也还行。</p>
@@ -398,12 +402,21 @@ from moderate crush SCI.</u></li>
 <p><code>reduction</code>参数用<code>'pca'</code>会报错，但是默认参数就是PCA，不管。</p>
 <h4 id="leiden法聚类">Leiden法聚类</h4>
 <p>leiden法需要用到Python，R不搞代理和镜像，<code>reticulate</code>包可能安不上各种包，开root用pip安装<code>leidenalg</code>、<code>numpy</code>、<code>igraph</code>。</p>
-<p>对于这个435099个细胞的数据，<code>leidenalg</code>有一个很坑的地方就是会把数据转换成稠密矩阵，VIRT直接1400g，需要用<code>method = "igraph"</code>强制使用稀疏矩阵。</p>
+<p>根据<a target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/2294">seurat#2294</a>，对于这个435099个细胞的数据，<code>leidenalg</code>有一个很坑的地方就是会把数据转换成稠密矩阵，VIRT直接1400g，需要用<code>method = "igraph"</code>强制使用稀疏矩阵。</p>
 <h4 id="umap">UMAP</h4>
 <p>一个是原文用的UMAP，另一个是UMAP时间复杂度是<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="8.676ex" height="2.587ex" role="img" focusable="false" viewBox="0 -893.3 3834.8 1143.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(633,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(778,0)"></path></g><g data-mml-node="mi" transform="translate(1278,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">几</text></g></g></g><g data-mml-node="mo" transform="translate(3445.8,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>，而t-SNE是<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="5.832ex" height="2.452ex" role="img" focusable="false" viewBox="0 -833.9 2577.6 1083.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D442" d="M740 435Q740 320 676 213T511 42T304 -22Q207 -22 138 35T51 201Q50 209 50 244Q50 346 98 438T227 601Q351 704 476 704Q514 704 524 703Q621 689 680 617T740 435ZM637 476Q637 565 591 615T476 665Q396 665 322 605Q242 542 200 428T157 216Q157 126 200 73T314 19Q404 19 485 98T608 313Q637 408 637 476Z"></path></g><g data-mml-node="mo" transform="translate(763,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msup" transform="translate(1152,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(2188.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg></mjx-container></span>，近50万个细胞怕是顶不住。</p>
+<h4 id="类型注释">类型注释</h4>
+<p>说是<em>manually annotated on the basis of marker gene expression,
+guided by previous studies</em>，用几个marker试一下少突胶质细胞：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/Oligodendrocyte marker.png" style="height:auto;width:100%;"></p>
+<p>那标cluster
+1、3、13为少突胶质细胞，和原文基本一致（但是原文13找不到）。</p>
+<p>剩下的直接从元数据里抄。</p>
 <h4 id="可视化">可视化</h4>
-<p>先是原始数据的可视化：</p>
-<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png" style="height:50vh;width:auto;"></p>
+<p>先是原始数据的可视化，还没研究作者的图例：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png" style="height:auto;width:100%;"></p>
+<p>然后是聚类结果的可视化：</p>
+<p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png" style="height:auto;width:100%;"></p>
 
         
       </div>

@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png">
 <meta property="article:published_time" content="2024-08-01T05:52:59.000Z">
-<meta property="article:modified_time" content="2024-08-12T12:20:42.451Z">
+<meta property="article:modified_time" content="2024-08-15T09:43:18.842Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -352,7 +352,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.5k 词 
+            1.7k 词 
           </div>
         </div>
         
@@ -390,6 +390,10 @@ from moderate crush SCI.</u></li>
 <p>筛feature和count和线粒体基因与其他比起来有显著差异的低质量组，snRNA-seq筛掉了2个，应该先验证方差齐性之类的然后用ANOVA、kruskal检验之类的，但是跑了半天才发现读出来的数据已经是52只小鼠的435099个细胞了，所以<strong>跳过</strong>。</p>
 <p><strong>修正：</strong>
 经过对比UMAP图，发现作者还是少了几团细胞，然而，数据中的最低nCount是201，所以作者给出的“原始数据”其实经过了质控，但是没有完全质控，现在发现少突胶质细胞的尾巴似乎可以通过DecontX来去除，另外一些可能要进行双细胞的筛选。</p>
+<h4 id="双细胞筛选">双细胞筛选</h4>
+<p>作者用了<code>DoubletFinder</code>和<code>scDblFinder</code>然后取并集。</p>
+<p>对于<code>DoubletFinder</code>来说，似乎应该分组分得细一点，到<code>library</code>这个级别。</p>
+<p>而对于<code>scDblFinder</code>来说，假如要用<code>BiocParallel</code>并行计算，似乎因为<code>Matrix 1.6.5</code>删除了一些函数，会报错，<code>Matrix 1.6.1</code>可以解决（但是最新的<code>SeuratObject</code>又需要<code>Matrix 1.6.4</code>以上，和<code>nodeJS</code>一样的麻）。</p>
 <h3 id="整体可视化">整体可视化</h3>
 <h4 id="pca">PCA</h4>
 <p>作者说了用50维，但还是一套下来最后<code>DimHeatmap()</code>看一下效果，得到：</p>

@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png">
 <meta property="article:published_time" content="2024-08-01T05:52:59.000Z">
-<meta property="article:modified_time" content="2024-09-04T13:24:24.849Z">
+<meta property="article:modified_time" content="2024-09-04T13:46:09.324Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -353,7 +353,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.1k 词 
+            2.2k 词 
           </div>
         </div>
         
@@ -427,7 +427,10 @@ guided by previous studies</em>，用几个marker试一下少突胶质细胞：<
 <p>这是因为<code>DotPlot()</code>传入了两个重复的<code>feature</code>参数（在这里是marker）。</p>
 <p>cluster
 13感觉比较奇怪，似乎是少突胶质细胞和神经细胞的合体，试着用<code>findDoubletClusters()</code>，是阴性，而且听别人讲这个方法只能用于同批次的数据。<br>
-再次回顾元数据，将里面的cluster字段用UMAP可视化，</p>
+再次回顾元数据，将里面的cluster等字段用UMAP可视化，发现一些原文的cluster在经过上述分析后被分开了。</p>
+<p>结合上面质控时质控后二次分析结果越来越奇怪来看，我认为：<br>
+<strong>重复质控将使得分析结果不断失真，将一些cluster错误分离</strong></p>
+<p>所以说，接下来仅走一个亚群注释的流程，在之后的分析使用作者的元数据。</p>
 <h4 id="可视化">可视化</h4>
 <p>先是原始数据的可视化，还没研究作者的图例：</p>
 <p><img src="/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png" style="height:auto;width:100%;"></p>

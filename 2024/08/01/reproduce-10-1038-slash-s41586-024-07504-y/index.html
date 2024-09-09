@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_sub_ident.png">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/reproduce-10-1038-slash-s41586-024-07504-y/umap_leiden.png">
 <meta property="article:published_time" content="2024-08-01T05:52:59.000Z">
-<meta property="article:modified_time" content="2024-09-05T12:00:44.345Z">
+<meta property="article:modified_time" content="2024-09-09T15:33:17.159Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -428,7 +428,7 @@ guided by previous studies</em>，用几个marker试一下少突胶质细胞：<
 <p>cluster
 13感觉比较奇怪，似乎是少突胶质细胞和神经细胞的合体，试着用<code>findDoubletClusters()</code>，是阴性，而且听别人讲这个方法只能用于同批次的数据。<br>
 再次回顾元数据，将里面的cluster等字段用UMAP可视化，发现一些原文的cluster在经过上述分析后被分开了。</p>
-<p>结合上面质控时质控后二次分析结果越来越奇怪来看，我认为：<br>
+<p>而作者声称在进行聚类之后删掉了一些cluster，结合上面质控时质控后二次分析结果越来越奇怪来看，我认为：<br>
 <strong>重复质控将去除某些cluster内过渡的液滴，使得原来的整个cluster被分割开</strong></p>
 <p>这个cluster
 13或许也是有问题的，有可能是双细胞？但是先按着作者的思路不管，接下来仅走一个亚群注释的流程，在之后的分析使用作者的元数据。</p>
@@ -515,20 +515,5 @@ guided by previous studies</em>，用几个marker试一下少突胶质细胞：<
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

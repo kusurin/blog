@@ -2987,7 +2987,7 @@ input[type="range"] {
 #toc {
   padding: 0em 2em;
   margin: 1em 0em;
-  background: var(--btn-text-hover);
+  background: var(--nav-dropdown-bg);
   border-radius: 8px;
   overflow: hidden;
 }

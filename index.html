@@ -604,10 +604,10 @@ server的Python venv配置
 [2024-12-15]Read10x()在Seurat
 V5中新功能的表现（多数据库报错）
 在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多数据库时会报Error in cbind.Matrix(x, y, deparse.level = 0L) :   number of rows of matrices must match，还会卡住。
-并且运行速度慢于lapply()分别读取，还会产生没法回收的内存垃圾。别用。
+并且运行速度慢于lapply()分别读取（虽说这样还要merge、JoinLayers吧），还会产生没法回收的内存垃圾。别用。
 杂项
 [2024-11-28]DeepLabCut不更新.\training-datasets\iteration-0\UnaugmentedDataSet_projectName\metadata.yaml
-在仅有pytorch的本地标注好训练集之后手贱创建训练集出shuffle0，之后在仅有tensorfl...
+在仅有pytorch的本地标注好训练集之后手贱创建训...
             
           </div>
         

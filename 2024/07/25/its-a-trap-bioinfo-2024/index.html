@@ -23,7 +23,7 @@
 <meta property="og:description" content="scRNA-seq(R) [2024-07-25]Rstudio server的Python venv配置 有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。 [2024-12-15]Read10x()在Seurat V5中新功能的表现（多数据库报错） 在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多数据库时">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-25T03:36:41.000Z">
-<meta property="article:modified_time" content="2024-12-16T04:02:20.002Z">
+<meta property="article:modified_time" content="2024-12-16T04:29:35.298Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="生信">
@@ -363,7 +363,7 @@ server的Python venv配置</h3>
 <h3 id="read10x在seurat-v5中新功能的表现多数据库报错">[2024-12-15]<code>Read10x()</code>在Seurat
 V5中新功能的表现（多数据库报错）</h3>
 <p>在V5中，<code>Read10x()</code>可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多数据库时会报<code>Error in cbind.Matrix(x, y, deparse.level = 0L) :   number of rows of matrices must match</code>，还会卡住。<br>
-并且运行速度慢于<code>lapply()</code>分别读取，还会产生没法回收的内存垃圾。别用。</p>
+并且运行速度慢于<code>lapply()</code>分别读取（虽说这样还要<code>merge</code>、<code>JoinLayers</code>吧），还会产生没法回收的内存垃圾。别用。</p>
 <h2 id="杂项">杂项</h2>
 <h3 id="deeplabcut不更新.training-datasetsiteration-0unaugmenteddataset_projectnamemetadata.yaml">[2024-11-28]DeepLabCut不更新<code>.\training-datasets\iteration-0\UnaugmentedDataSet_projectName\metadata.yaml</code></h3>
 <p>在仅有pytorch的本地标注好训练集之后手贱创建训练集出shuffle0，之后在仅有tensorflow服务器上以默认参数再创建一次就会出现shuffle1，而<code>metadata.yaml</code>不会更新，服务器上训练没问题，但此时再回本地推理就会找不到实际上使用的shuffle。</p>

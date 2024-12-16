@@ -2984,3 +2984,49 @@ input[type="range"] {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+#toc {
+  padding: 0em 2em;
+  margin: 1em 0em;
+  background: var(--btn-text-hover);
+  border-radius: 8px;
+  overflow: hidden;
+}
+#toc .sidebar-title {
+  font-size: 1.5em;
+  display: block;
+  margin: 1em 0;
+}
+#toc>.toc {
+  font-size: 1.5em;
+  margin: 1em 0 1em 1em;
+}
+.toc-level-2 >a,
+.toc-level-2::marker {
+  font-weight: 700;
+  line-height: 110%;
+  color: var(--link);
+}
+.toc-level-2 >ol {
+  font-size: 0.85em;
+  margin-left: 1.25em;
+}
+.toc-level-3 >a,
+.toc-level-3::marker {
+  font-weight: 500;
+  line-height: 110%;
+  color: var(--link);
+}
+.toc-level-3 >ol {
+  font-size: 0.7em;
+  margin-left: 1.05em;
+}
+.toc-level-4 >a,
+.toc-level-4::marker {
+  font-weight: 300;
+  line-height: 110%;
+  color: var(--link);
+}
+.toc-level-4 >ol {
+  font-size: 0.55em;
+  margin-left: 0.85em;
+}

@@ -23,7 +23,7 @@
 <meta property="og:description" content="JavaScript [2023]方法使用jQuery.ajax获取数据，同步致假死，异步无法获取数据 在一个方法里使用ajax从后端获取数据，可以使用同步(async:false) 123456789101112function getTemperature() {    var temperature;    $.ajax({        async: false,        ty">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-11T06:39:44.000Z">
-<meta property="article:modified_time" content="2024-07-29T12:50:47.712Z">
+<meta property="article:modified_time" content="2024-12-16T07:00:11.817Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -263,11 +263,6 @@ mjx-container[display="true"] + br {
     <div class="widget">
       <h3 class="widget-title">分类</h3>
       <div class="category-box">
-            <a class="category-link" href="/blog/categories/CSS-tricks/">
-                CSS-tricks
-                <div class="category-count">5</div>
-            </a>
-        
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
                 <div class="category-count">7</div>
@@ -278,14 +273,19 @@ mjx-container[display="true"] + br {
                 <div class="category-count">3</div>
             </a>
         </div></div>
-            <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
-                踩坑日记
+            <a class="category-link" href="/blog/categories/CSS-tricks/">
+                CSS-tricks
                 <div class="category-count">3</div>
             </a>
         
             <a class="category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">
                 算法
                 <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
+                踩坑日记
+                <div class="category-count">3</div>
             </a>
         
             <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
@@ -302,7 +302,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">标签</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/FFT/" rel="tag">FFT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%8F%8F%E8%BE%B9/" rel="tag">描边</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%9D%B4%E8%9D%B6%E5%8F%98%E6%8D%A2/" rel="tag">蝴蝶变换</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/FFT/" rel="tag">FFT</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%9D%B4%E8%9D%B6%E5%8F%98%E6%8D%A2/" rel="tag">蝴蝶变换</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
     </div>
   </div>
 
@@ -356,6 +356,12 @@ mjx-container[display="true"] + br {
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
+          
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript"><span class="toc-text">JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8jquery.ajax%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E8%87%B4%E5%81%87%E6%AD%BB%E5%BC%82%E6%AD%A5%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">[2023]方法使用jQuery.ajax获取数据，同步致假死，异步无法获取数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css"><span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8B%B1%E6%96%87%E6%96%87%E6%9C%AC%E5%85%83%E7%B4%A0%E4%B8%8E%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%85%83%E7%B4%A0%E6%8E%92%E7%89%88"><span class="toc-text">[2023]英文文本元素与中文文本元素排版</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cdn.staticfile.org"><span class="toc-text">[2023]cdn.staticfile.org</span></a></li></ol></li></ol>
+    </div>
+
           <h2 id="javascript">JavaScript</h2>
 <h3 id="方法使用jquery.ajax获取数据同步致假死异步无法获取数据">[2023]方法使用<code>jQuery.ajax</code>获取数据，同步致假死，异步无法获取数据</h3>
 <p>在一个方法里使用<code>ajax</code>从后端获取数据，可以使用同步(<code>async:false</code>)
@@ -395,13 +401,13 @@ mjx-container[display="true"] + br {
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/blog/2023/12/12/css-edit-t-ex-t/"
-      title="纯CSS更改单行文本的公共前缀"
+      href="/blog/2023/12/12/blivechat-tricks/"
+      title="blivechat样式小技巧"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        纯CSS更改单行文本的公共前缀
+        blivechat样式小技巧
         
     </p>
   </a>

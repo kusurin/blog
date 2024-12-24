@@ -23,7 +23,7 @@
 <meta property="og:description" content="scRNA-seq(R) [2024-07-25]Rstudio server的Python venv配置 有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。 [2024-12-15]Read10x()在Seurat V5中新功能的表现（多数据库报错） 在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多个样本时">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-15T03:36:41.000Z">
-<meta property="article:modified_time" content="2024-12-24T15:23:37.357Z">
+<meta property="article:modified_time" content="2024-12-24T15:24:54.150Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -400,8 +400,11 @@ V5中新功能的表现（多数据库报错）</h3>
 <h3 id="biocmanager镜像源设置">[2024-12-15]BiocManager镜像源设置</h3>
 <p>网络没问题，旧版本BiocManager要么慢死，要么镜像url不对，怎么啥都安不上呢，看报错似乎是镜像的问题。<br>
 <a target="_blank" rel="noopener" href="https://github.com/tuna/issues/issues/1969">tuna/issue#1969</a>，好好好，降本增效。<br>
-两种办法： - 更新R和BiocManager的版本 -
-使用西湖大学的镜像<code>options(BioC_mirror="https://mirrors.westlake.edu.cn/bioconductor")</code></p>
+两种办法：</p>
+<ul>
+<li>更新R和BiocManager的版本</li>
+<li>使用西湖大学的镜像<code>options(BioC_mirror="https://mirrors.westlake.edu.cn/bioconductor")</code></li>
+</ul>
 
         
       </div>

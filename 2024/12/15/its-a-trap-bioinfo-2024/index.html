@@ -23,7 +23,7 @@
 <meta property="og:description" content="scRNA-seq(R) [2024-07-25]Rstudio server的Python venv配置 有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。 [2024-12-15]Read10x()在Seurat V5中新功能的表现（多数据库报错） 在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多个样本时">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-15T03:36:41.000Z">
-<meta property="article:modified_time" content="2024-12-24T15:19:23.187Z">
+<meta property="article:modified_time" content="2024-12-24T15:23:37.357Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -348,7 +348,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.3k 词 
+            2.4k 词 
           </div>
         </div>
         
@@ -398,7 +398,7 @@ V5中新功能的表现（多数据库报错）</h3>
 <p>一般说是 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">default_channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br></pre></td></tr></table></figure> 但是不行，根据<a target="_blank" rel="noopener" href="https://github.com/tuna/issues/issues/985">tuna/issues#985</a>，直接改成
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line">  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">  pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line">show_channel_urls: true</span><br></pre></td></tr></table></figure> 成功。</p>
 <h3 id="biocmanager镜像源设置">[2024-12-15]BiocManager镜像源设置</h3>
-<p>网络没问题，旧版本BiocManager要么慢死，要么镜像url不对，怎么啥都安不上呢。<br>
+<p>网络没问题，旧版本BiocManager要么慢死，要么镜像url不对，怎么啥都安不上呢，看报错似乎是镜像的问题。<br>
 <a target="_blank" rel="noopener" href="https://github.com/tuna/issues/issues/1969">tuna/issue#1969</a>，好好好，降本增效。<br>
 两种办法： - 更新R和BiocManager的版本 -
 使用西湖大学的镜像<code>options(BioC_mirror="https://mirrors.westlake.edu.cn/bioconductor")</code></p>
@@ -485,5 +485,20 @@ V5中新功能的表现（多数据库报错）</h3>
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

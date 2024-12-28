@@ -266,7 +266,7 @@ mjx-container[display="true"] + br {
       <div class="category-box">
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
-                <div class="category-count">7</div>
+                <div class="category-count">8</div>
             </a>
         <div class="children"><div class="category-box">
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/%E7%BD%91%E5%AE%89/">
@@ -314,6 +314,186 @@ mjx-container[display="true"] + br {
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-anti-pirate-3F" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2024/12/28/anti-pirate-3F/">所谓“海关商品溯源”系统简析</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-12-28T08:12:54.000Z" itemprop="datePublished">2024-12-28</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            354 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              引言
+最近购买了某商品，其上贴有所谓“海关商品溯源”系统贴纸，使用方法大致如下：
+
+扫描二维码获取url进入系统
+输入涂层下口令的末位并验证
+
+但是发现其url包含了所需输入口令的一部分，也就是说它本来就藏在二维码中。
+尝试更改url，即可构造出任意密码皆可查询成功的url。
+并且可以更改成使原密码无效的url。
+简析
+查询界面url结构为通用段A+口令末位，服务器根据此返回整个口令，为通用段B+口令末位。
+其查询过程即为发送参数包含口令以及输入口令末位的请求，服务器应该是直接根据参数是否匹配返回结果，同时返回的还有此参数的查询次数。
+但是通用段不可任意更改，某些值会导致查询失败。
+结论
+那就有几个可能：
+
+这是设计给假货的盗版系统
+这是外包给哪个大学生做的系统
+
+但是东西用着感觉和以前一样，这个系统好像也和以前官方买的一样......
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2024/12/28/anti-pirate-3F/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2024/12/26/its-a-trap-2024/">踩坑日记[2024]</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-12-26T11:35:54.000Z" itemprop="datePublished">2024-12-26</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.8k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              HTML
+[2024-04-23]GIF的播放
+整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
+
+JavaScript
+[2024-03]VUE3生命周期中setup()的位置
+VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。
+onMounted()是用来初始化数据的，不是拿去修改组件的，用mounted()。
+[2024-03]VUE3废弃set()、get()，直接操作data
+VUE3中废弃了set()、get()，并且直接操作data也会引发组件渲染更新。
+[2024-03-19]&lt;audio&gt;异步播放音效
+和PlaySound不一样，一个&lt;audio&gt;没法异步，只能多弄几个了（）
+
+CSS
+[2024-05-25]display: inline元素的绝对定位子元素
+如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——
+
+杂项
+[20...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2024/12/26/its-a-trap-2024/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
    
 
 
@@ -387,95 +567,6 @@ SpinLaunch的角动量问题
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/12/21/mathmeth/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2024/12/16/its-a-trap-2024/">踩坑日记[2024]</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-12-16T11:35:54.000Z" itemprop="datePublished">2024-12-16</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            2.7k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              HTML
-[2024-04-23]GIF的播放
-整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
-
-JavaScript
-[2024-03]VUE3生命周期中setup()的位置
-VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。
-onMounted()是用来初始化数据的，不是拿去修改组件的，用mounted()。
-[2024-03]VUE3废弃set()、get()，直接操作data
-VUE3中废弃了set()、get()，并且直接操作data也会引发组件渲染更新。
-[2024-03-19]&lt;audio&gt;异步播放音效
-和PlaySound不一样，一个&lt;audio&gt;没法异步，只能多弄几个了（）
-
-CSS
-[2024-05-25]display: inline元素的绝对定位子元素
-如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——
-
-杂项
-[20...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2024/12/16/its-a-trap-2024/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1046,93 +1137,6 @@ RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。�
     <a class="right-panel  non-pic  "
       
       href="/blog/2023/12/31/css-collection/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-android-fake-locate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2023/12/18/android-fake-locate/">Android虚拟签到（模拟GPS、基站、摄像头流程）</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2023-12-18T00:22:47.000Z" itemprop="datePublished">2023-12-18</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>><a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/%E7%BD%91%E5%AE%89/">网安</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            243 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              需要注意的地方：
-部分虚拟签到使用的是基站定位（如小程序调用的微信API），假如不是的话只需要GPS定位就好
-流程：
-
-解BL锁
-安装magisk
-安装LSposed
-安装模块：FuckLocation、vcam
-安装Cellular-Pro
-采集模拟地址经纬度、TAC、PCI、ECI等（使用Cellular-Pro，或者可以反向查找，OpenCelliD之类），采集当地视频
-使用FuckLocation模拟位置，使用vcam模拟摄像头
-
-签到王等亲测可用
-
-我解了BL锁的手机屏幕坏了还没开adb
-ლ(ಠ益ಠლ
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2023/12/18/android-fake-locate/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

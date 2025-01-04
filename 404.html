@@ -12,18 +12,18 @@
   
 
   
-  <title>kusurin.blog</title>
+  <title>404 NOT FOUND | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="404 NOT FOUND     您可以返回首页     You could return home page     (auto in 10s)              let cd &#x3D; document.getElementsByClassName(&quot;cd&quot;)[0]         let cd_num &#x3D; parseInt(cd.innerText)          let">
+  <meta name="description" content="您可以返回首页   You could return home page   (auto in 10s)       document.title &#x3D; &quot;迷路了！&quot;     let cd &#x3D; document.getElementsByClassName(&quot;cd&quot;)[0]     let cd_num &#x3D; parseInt(cd.innerText)     let r">
 <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
+<meta property="og:title" content="404 NOT FOUND">
 <meta property="og:url" content="https://kusurin.github.io/blog/404.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="404 NOT FOUND     您可以返回首页     You could return home page     (auto in 10s)              let cd &#x3D; document.getElementsByClassName(&quot;cd&quot;)[0]         let cd_num &#x3D; parseInt(cd.innerText)          let">
+<meta property="og:description" content="您可以返回首页   You could return home page   (auto in 10s)       document.title &#x3D; &quot;迷路了！&quot;     let cd &#x3D; document.getElementsByClassName(&quot;cd&quot;)[0]     let cd_num &#x3D; parseInt(cd.innerText)     let r">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-04T15:23:21.300Z">
-<meta property="article:modified_time" content="2025-01-04T15:05:21.670Z">
+<meta property="article:published_time" content="2025-01-04T15:59:40.766Z">
+<meta property="article:modified_time" content="2025-01-04T15:59:40.766Z">
 <meta property="article:author" content="kusurin">
 <meta name="twitter:card" content="summary">
   
@@ -324,7 +324,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        无标题
+        404 NOT FOUND
       </h1>
     
   
@@ -332,7 +332,7 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-01-04T15:23:21.300Z" itemprop="datePublished">2025-01-04</time>
+  <time class="dt-published" datetime="2025-01-04T15:59:40.766Z" itemprop="datePublished">2025-01-04</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -343,7 +343,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            518 词 
+            385 词 
           </div>
         </div>
         
@@ -351,35 +351,41 @@ mjx-container[display="true"] + br {
       <div class="e-content article-entry" itemprop="articleBody">
         
           
-    <div id="toc">
-        <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">404 NOT FOUND</span></a></li></ol>
-    </div>
-
-          
-    <h1>404 NOT FOUND</h1>
-    <p>您可以返回<a onclick="returnHome()" href="#">首页</a></p>
-    <p>You could return <a onclick="returnHome()" href="#">home page</a></p>
-    <p>(auto in <span class="cd">10</span>s)</p>
-    <script>
-        let cd = document.getElementsByClassName("cd")[0]
-        let cd_num = parseInt(cd.innerText)
-
-        let returnHome = function () {
+          <p class="mid">
+您可以返回<a onclick="returnHome()" href="#">首页</a>
+</p>
+<p class="mid">
+You could return <a onclick="returnHome()" href="#">home page</a>
+</p>
+<p class="mid">
+(auto in <span class="cd">10</span>s)
+</p>
+<script>
+    document.title = "迷路了！"
+    let cd = document.getElementsByClassName("cd")[0]
+    let cd_num = parseInt(cd.innerText)
+    let returnHome = function () {
             window.location.href = 'https://kusurin.icu/blog/'
+    }
+    let handle = setInterval(function () {
+        if (cd_num == 0) {
+            clearInterval(handle)
+            returnHome()
         }
-
-        let handle = setInterval(function () {
-            if (cd_num == 0) {
-                clearInterval(handle)
-                returnHome()
-            }
-            else {
-                cd_num--
-                cd.innerText = cd_num
-            }
-        }, 1000)
-    </script>
+        else {
+            cd_num--
+            cd.innerText = cd_num
+        }
+    }, 1000)
+</script>
+<style>
+    .mid {
+        text-align: center;
+    }
+    .cd {
+        color: rgb(243, 97, 162);
+    }
+</style>
 
         
       </div>

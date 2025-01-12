@@ -328,7 +328,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/01/07/its-a-trap-2025/">its-a-trap-2025</a>
+        <a class="p-name article-title" href="/blog/2025/01/13/its-a-trap-2025/">its-a-trap-2025</a>
       </h1>
     
   
@@ -336,7 +336,7 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-01-07T15:13:31.000Z" itemprop="datePublished">2025-01-07</time>
+  <time class="dt-published" datetime="2025-01-13T15:13:31.000Z" itemprop="datePublished">2025-01-13</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -347,7 +347,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            6.9k 词 
+            7.2k 词 
           </div>
         </div>
         
@@ -358,14 +358,18 @@ mjx-container[display="true"] + br {
         
           <div class="truncate-text">
             
-              杂项
+              数据处理
+[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？
+在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
+1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_below%~xf"
+杂项
 [2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”
 使用以下开源的宏就可以在Word中自动设置交叉引用：
 
 
 ZoteroLinkCitation.bas
 
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341351361371381391401411421431441451461471481491501511521531541551561571581591601611621631641651...
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848...
             
           </div>
         
@@ -377,7 +381,7 @@ ZoteroLinkCitation.bas
      
     <a class="right-panel  non-pic  "
       
-      href="/blog/2025/01/07/its-a-trap-2025/" 
+      href="/blog/2025/01/13/its-a-trap-2025/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

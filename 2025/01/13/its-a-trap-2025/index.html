@@ -23,7 +23,7 @@
 <meta property="og:description" content="数据处理 [2025-01-13]FFmpeg在使用filter后默认输出的码率降低？ 在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。 1for %f in (*.*) do ffmpeg -i &quot;%f&quot; -filter:v &quot;crop&#x3D;iw*(10&#x2F;10):ih*(3&#x2F;10):iw:i">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-13T15:13:31.000Z">
-<meta property="article:modified_time" content="2025-01-12T17:50:14.363Z">
+<meta property="article:modified_time" content="2025-01-13T08:18:07.064Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -347,7 +347,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.2k 词 
+            7.4k 词 
           </div>
         </div>
         
@@ -359,13 +359,21 @@ mjx-container[display="true"] + br {
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E5%9C%A8%E4%BD%BF%E7%94%A8filter%E5%90%8E%E9%BB%98%E8%AE%A4%E8%BE%93%E5%87%BA%E7%9A%84%E7%A0%81%E7%8E%87%E9%99%8D%E4%BD%8E"><span class="toc-text">[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#word%E4%B8%ADzotero%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E6%8F%90%E7%A4%BA%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%9C%AA%E5%AE%9A%E4%B9%89"><span class="toc-text">[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zotero%E6%89%B9%E9%87%8F%E6%9B%B4%E6%94%B9%E6%9D%A1%E7%9B%AE%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%97%E6%AE%B5"><span class="toc-text">[2025-01-07]ZOTERO批量更改条目的语言字段</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E5%9C%A8%E4%BD%BF%E7%94%A8filter%E5%90%8E%E9%BB%98%E8%AE%A4%E8%BE%93%E5%87%BA%E7%9A%84%E7%A0%81%E7%8E%87%E9%99%8D%E4%BD%8E"><span class="toc-text">[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deeplabcut2024%E5%B9%B412%E6%9C%88%E7%89%88%E6%9C%ACno-unfiltered-data-file-found"><span class="toc-text">[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#word%E4%B8%ADzotero%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E6%8F%90%E7%A4%BA%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%9C%AA%E5%AE%9A%E4%B9%89"><span class="toc-text">[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zotero%E6%89%B9%E9%87%8F%E6%9B%B4%E6%94%B9%E6%9D%A1%E7%9B%AE%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%97%E6%AE%B5"><span class="toc-text">[2025-01-07]ZOTERO批量更改条目的语言字段</span></a></li></ol></li></ol>
     </div>
 
           <h2 id="数据处理">数据处理</h2>
 <h3 id="ffmpeg在使用filter后默认输出的码率降低">[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？</h3>
 <p>在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用<code>-b:v 12000k</code>之类的指定码率。
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_below%~xf"</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> %f <span class="keyword">in</span> (*.*) <span class="keyword">do</span> ffmpeg -i "%f" -filter:v "crop=iw*(<span class="number">10</span>/<span class="number">10</span>):ih*(<span class="number">3</span>/<span class="number">10</span>):iw:ih*(<span class="number">7</span>/<span class="number">10</span>)" "<span class="variable">%~nf_lower%</span>~xf"</span><br></pre></td></tr></table></figure></p>
+<h3 id="deeplabcut2024年12月版本no-unfiltered-data-file-found">[2025-01-13]<code>DeepLabCut</code>2024年12月版本<code>No unfiltered data file found</code></h3>
+<p>前段时间更新的某版本有bug，如下情况不生成<code>.h5</code>：</p>
+<ul>
+<li>使用TensorFlow模型（据开发者，但是我在服务器用TensorFlow训练好之后在本地用没问题）</li>
+<li>本地训练的pyTorch模型（我遇到的）</li>
+</ul>
+<p>最新main分支已经修复，但是不知道为什么，直接pip
+install没法覆盖，先卸载再安装。</p>
 <h2 id="杂项">杂项</h2>
 <h3 id="word中zotero自动设置交叉引用提示用户定义的类型未定义">[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”</h3>
 使用以下<a target="_blank" rel="noopener" href="https://forums.zotero.org/discussion/12431/word-possibility-to-link-references-and-bibliography-in-a-document/p3">开源的宏</a>就可以在Word中自动设置交叉引用：

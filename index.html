@@ -347,7 +347,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.2k 词 
+            7.4k 词 
           </div>
         </div>
         
@@ -361,15 +361,17 @@ mjx-container[display="true"] + br {
               数据处理
 [2025-01-13]FFmpeg在使用filter后默认输出的码率降低？
 在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
-1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_below%~xf"
+1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_lower%~xf"
+[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found
+前段时间更新的某版本有bug，如下情况不生成.h5：
+
+使用TensorFlow模型（据开发者，但是我在服务器用TensorFlow训练好之后在本地用没问题）
+本地训练的pyTorch模型（我遇到的）
+
+最新main分支已经修复，但是不知道为什么，直接pip
+install没法覆盖，先卸载再安装。
 杂项
-[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”
-使用以下开源的宏就可以在Word中自动设置交叉引用：
-
-
-ZoteroLinkCitation.bas
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848...
+[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”...
             
           </div>
         

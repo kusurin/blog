@@ -12,26 +12,21 @@
   
 
   
-  <title>自定义&#34;border-style&#34; | kusurin.blog</title>
+  <title>祥，移動 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:image">
+  <meta name="description" content=".saki-container {         --size: 400px;         --border-width: calc(var(--size) &#x2F; 100);         --border-radius: calc(var(--size) &#x2F; 20);         --padding: calc(var(--size) &#x2F; 20);">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自定义&quot;border-style&quot;">
-<meta property="og:url" content="https://kusurin.github.io/blog/2023/07/03/custom-border-style/index.html">
+<meta property="og:title" content="祥，移動">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/01/16/saki-idou/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:image">
+<meta property="og:description" content=".saki-container {         --size: 400px;         --border-width: calc(var(--size) &#x2F; 100);         --border-radius: calc(var(--size) &#x2F; 20);         --padding: calc(var(--size) &#x2F; 20);">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-b80f882796e6f59ce184ec55e400444c_720w.webp">
-<meta property="og:image" content="https://pic2.zhimg.com/v2-7d90fd9238c68039ed8ce1391ffc5ac1_r.jpg">
-<meta property="article:published_time" content="2023-07-02T19:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-21T15:02:24.842Z">
+<meta property="article:published_time" content="2025-01-16T09:19:57.000Z">
+<meta property="article:modified_time" content="2025-01-16T09:53:07.177Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="CSS">
-<meta property="article:tag" content="边框">
+<meta property="article:tag" content="杂谈">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -319,7 +314,7 @@ mjx-container[display="true"] + br {
        
 
 
-<article id="post-custom-border-style" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-saki-idou" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -332,7 +327,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        自定义&#34;border-style&#34;
+        祥，移動
       </h1>
     
   
@@ -340,44 +335,433 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2023-07-02T19:00:00.000Z" itemprop="datePublished">2023-07-03</time>
+  <time class="dt-published" datetime="2025-01-16T09:19:57.000Z" itemprop="datePublished">2025-01-16</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.2k 词 
+            9.1k 词 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           
-    <div id="toc">
-        <strong class="sidebar-title">目录</strong>
-        
-    </div>
+          <style>
+    .saki-container {
+        --size: 400px;
+        --border-width: calc(var(--size) / 100);
+        --border-radius: calc(var(--size) / 20);
+        --padding: calc(var(--size) / 20);
+        --shadow-offset: calc(var(--size) / 40);
 
-          <p><img src="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp" alt="预设的border">
-css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。<br>
-例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。<br>
-这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。<br>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>:</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) top left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='-6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) top right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='-6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) bottom left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3csvg width='100% ' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='-6' y='-6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e"</span>) bottom right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat;</span><br></pre></td></tr></table></figure> <img src="https://pic1.zhimg.com/80/v2-b80f882796e6f59ce184ec55e400444c_720w.webp" alt="自定义的&quot;border&quot;">
-此“边框”由裁切的四部分互相补充而成，他们在形状上是完全相同的，但位置不一样，因此可以在裁切后完美组合起来。不使用单个矩形是因为使用CSS设置样式(calc)在SVG中兼容性不佳，并且双calc()会出现问题，否则我们可以直接绘制一个固定边距的矩形。<br>
-<br>
-我们可以通过stroke-linecap（线帽形状）、stroke-dasharray（虚线长度）、stroke-width（线宽）改变形状，通过rx、ry和border-radius应用圆角。<br>
-<br>
-例如，在此处，线帽为圆形，虚线长度为0px，间隔为12px，线宽为12px，因此呈现出数个圆点。同时仅保留每个部分的一角。<br>
-<img src="https://pic2.zhimg.com/v2-7d90fd9238c68039ed8ce1391ffc5ac1_r.jpg" alt="&quot;border&quot;的各个部分"><br>
-可以到这里生成：<a href="https://kusurin.github.io/tools/CustomBorder/">CustomBorder</a></p>
+        position: relative;
+        margin: calc(var(--size) / 10) auto;
+        border: var(--border-width) solid #000;
+        border-radius: var(--border-radius);
+        padding: 0;
+        box-sizing: border-box;
+        width: var(--size);
+        height: var(--size);
+
+        background: #fff;
+    }
+
+    .saki-container::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: calc(var(--shadow-offset) - var(--border-width));
+        top: calc(var(--shadow-offset) - var(--border-width));
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        border-radius: var(--border-radius);
+        background: repeating-linear-gradient(-45deg, #0008, #0008 10pt, #0002 10pt, #0002 20pt);
+        z-index: -1;
+    }
+
+    .background,
+    .foreground {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        padding: var(--padding);
+    }
+
+    .ground-text {
+        width: 100%;
+        height: 10%;
+        color: #000 !important;
+        font-size: calc((var(--size) - var(--padding) * 2) / 10 - var(--border-width));
+        line-height: calc((var(--size) - var(--padding) * 2) / 10);
+        font-weight: bold;
+        text-align: center;
+        transform: translateY(calc(0pt - var(--border-width)));
+    }
+
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 75%;
+    }
+
+    .image-container img {
+        box-sizing: border-box;
+        width: 100%;
+        height: calc(100% - var(--border-width));
+        object-fit: contain;
+
+        border: var(--border-width) solid #808080;
+        border-radius: var(--border-width);
+    }
+
+    .background .image-container img {
+        background: #b0b0b0;
+    }
+
+    .slider-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        padding: var(--padding);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .flag-container {
+        flex-grow: 1;
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        height: 15%;
+        margin: calc(var(--size) * 0.1 - var(--border-width)) 0 var(--border-width) 0;
+        border: transparent solid var(--border-width);
+        border-radius: var(--border-width);
+        background: transparent;
+        overflow: hidden;
+    }
+
+    .flag {
+
+        width: calc(var(--size) / 10 + var(--border-width) * 2);
+        height: 100%;
+
+
+        position: relative;
+    }
+
+    .flag img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: calc(((var(--size) - var(--padding) * 2 - var(--border-width) * 2) * 0.75 - (var(--size) - var(--padding) * 2) * 1080 / 1920 - var(--border-width) * 0.75) / 2);
+
+        box-sizing: border-box;
+        max-width: unset !important;
+        width: calc(81 / 480 * (var(--size) - var(--padding) * 2 - var(--border-width) * 4));
+        height: auto;
+        object-fit: contain;
+    }
+
+    .slider-container {
+        box-sizing: border-box;
+        position: relative;
+        width: 100%;
+        height: 15%;
+        border: #000 solid var(--border-width);
+        border-radius: calc(var(--border-width) * 2);
+        background: transparent;
+
+        overflow: hidden;
+
+        z-index: 1;
+    }
+
+    .slider {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        -webkit-appearance: none !important;
+        background: transparent !important;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none !important;
+        box-sizing: border-box !important;
+        width: calc((var(--size) - var(--border-width) * 2 - var(--padding) * 2) * 0.15 - var(--border-width) * 2) !important;
+        height: calc((var(--size) - var(--border-width) * 2 - var(--padding) * 2) * 0.15 - var(--border-width) * 2) !important;
+        border: #808080 solid var(--border-width) !important;
+        border-radius: var(--border-width) !important;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 14 24'%3E%3Cpath d='M 0 0 L 10 10 M 10 10 L 0 20' stroke='%23808080' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center center / auto 80% no-repeat #b0b0b0 !important;
+        cursor: pointer !important;
+    }
+
+    .slider-container::before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: calc(100% - var(--size) / 10 - var(--border-width) * 2);
+        height: 100%;
+        background: transparent;
+
+        z-index: 1;
+    }
+
+    .result {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        width: 100%;
+        height: 100%;
+
+        font-size: calc(var(--size) / 10);
+        line-height: var(--size);
+        text-align: center;
+
+        border-radius: calc(var(--border-radius) - var(--border-width));
+        background: #fffb;
+
+        transition: all ease 0.4s;
+    }
+
+    .result.hidden {
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .result.block {
+        opacity: 1;
+        z-index: 1000;
+    }
+</style>
+<div class="saki-frame">
+
+</div>
+<script>
+    let imageSrc = {
+        nosaki: '/blog/assets/saki_idou/nosaki.png',
+        saki: '/blog/assets/saki_idou/saki.png',
+        desk: '/blog/assets/saki_idou/desk.png'
+    }
+
+    let soundSrc = {
+        saki: '/blog/assets/saki_idou/saki.mp3',
+        idou: '/blog/assets/saki_idou/idou.mp3',
+        correct: '/blog/assets/saki_idou/correct.mp3',
+        gomennasai: '/blog/assets/saki_idou/gomennasai.mp3',
+        kuku: '/blog/assets/saki_idou/kuku.mp3'
+    }
+
+    Array.from(document.getElementsByClassName('saki-frame')).forEach(frame => {
+        const container = document.createElement('div');
+        container.className = 'saki-container';
+        frame.appendChild(container);
+
+        const background = document.createElement('div');
+        background.className = 'background';
+        container.appendChild(background);
+
+        const groundText = document.createElement('div');
+        groundText.className = 'ground-text';
+        groundText.innerText = '';
+        background.appendChild(groundText);
+
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'image-container';
+        background.appendChild(imageContainer);
+
+        const image = document.createElement('img');
+        image.src = imageSrc.nosaki;
+        imageContainer.appendChild(image);
+
+        const sliderArea = document.createElement('div');
+        sliderArea.className = 'slider-area';
+        container.appendChild(sliderArea);
+
+        const flagContainer = document.createElement('div');
+        flagContainer.className = 'flag-container';
+        sliderArea.appendChild(flagContainer);
+
+        const flag = document.createElement('div');
+        flag.className = 'flag';
+        flagContainer.appendChild(flag);
+
+        const flagImage = document.createElement('img');
+        flagImage.src = imageSrc.saki;
+        flag.appendChild(flagImage);
+
+        const sliderContainer = document.createElement('div');
+        sliderContainer.className = 'slider-container';
+        sliderArea.appendChild(sliderContainer);
+
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 0;
+        slider.max = 100;
+        slider.step = 0.01;
+        slider.value = 0;
+        slider.className = 'slider';
+        sliderContainer.appendChild(slider);
+
+        const foreground = document.createElement('div');
+        foreground.className = 'foreground';
+        container.appendChild(foreground);
+
+        const groundText2 = document.createElement('div');
+        groundText2.className = 'ground-text';
+        groundText2.innerText = '祥，移動';
+        foreground.appendChild(groundText2);
+
+        const imageContainer2 = document.createElement('div');
+        imageContainer2.className = 'image-container';
+        foreground.appendChild(imageContainer2);
+
+        const image2 = document.createElement('img');
+        image2.src = imageSrc.desk;
+        imageContainer2.appendChild(image2);
+
+        const result = document.createElement('div');
+        result.className = 'result hidden';
+        container.appendChild(result);
+    });
+
+    let soundCollection = [
+        { name: 'saki', dom: new Audio(soundSrc.saki), volume: 1, time: (404 + 20), playing: false },
+        { name: 'idou', dom: new Audio(soundSrc.idou), volume: 1, time: 417, playing: false },
+        { name: 'correct', dom: new Audio(soundSrc.correct), volume: 1, time: 2000, playing: false },
+        { name: 'gomennasai', dom: new Audio(soundSrc.gomennasai), volume: 1, time: 2000, playing: false },
+        { name: 'kuku', dom: new Audio(soundSrc.kuku), volume: 1, time: 2000, playing: false }
+    ];
+
+    function easeInOut(t, degree) {
+        return t < 0.5 ? (0.5 / Math.pow(0.5, degree)) * Math.pow(t, degree) : 1 - (0.5 / Math.pow(0.5, degree)) * Math.pow(1 - t, degree);
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function isCorrectValue(value, correctValue = 60.0484, threshold = 2) {
+        return Math.abs(value - correctValue) < threshold;
+    }
+
+    function playSound(soundName) {
+        if (soundCollection.find(sound => sound.playing === true) != undefined) {
+            sleep(soundCollection.find(sound => sound.playing === true).time).then(() => { playSound(soundName) })
+            return
+        }
+        let soundNow = soundCollection.find(sound => sound.name === soundName);
+        if (soundNow == undefined) return;
+        soundNow.dom.volume = soundNow.volume
+        soundNow.playing = true
+        soundNow.dom.play()
+        setTimeout(function () { soundNow.playing = false }, soundNow.time + 100)
+    }
+
+    function displayResult(container, value, correctValue, threshold) {
+        const resultElement = container.querySelector('.result');
+        if (isCorrectValue(value, correctValue, threshold)) {
+            playSound('correct');
+            resultElement.innerText = '✔';
+        }
+        else if (isCorrectValue(value, 20.5)) {
+            playSound('kuku');
+            resultElement.innerText = '😭';
+        }
+        else {
+            playSound('gomennasai');
+            resultElement.innerText = '✘';
+        }
+        resultElement.className = 'result block';
+
+        sleep(2000).then(() => {
+            resultElement.className = 'result hidden';
+        });
+    }
+
+    function animateSlider(container, slider, duration, flag) {
+        let startValue = parseFloat(slider.value);
+        let startTime = null;
+
+        function animationFrame(time) {
+            if (!startTime) startTime = time;
+            const rawProgress = Math.min((time - startTime) / duration, 1);
+            const easedProgress = easeInOut(rawProgress, 2);
+
+            slider.value = startValue + (0 - startValue) * easedProgress;
+            if (rawProgress < 1) {
+                requestAnimationFrame(animationFrame);
+
+            } else {
+                slider.value = 0;
+            }
+
+            flag.style.left = `calc(${slider.value / 100} * (100% - ${flag.offsetWidth}px))`;
+        }
+
+        sleep(2000).then(() => {
+            requestAnimationFrame(animationFrame);
+        });
+    }
+
+    Array.from(document.getElementsByClassName('saki-container')).forEach(container => {
+        let flag = container.querySelector('.flag');
+        let slider = container.querySelector('.slider');
+
+        var lastValue;
+        var lastDirection;
+
+        slider.addEventListener('mousedown', () => {
+            playSound('saki');
+
+            lastValue = 0;
+            lastDirection = null;
+        });
+        slider.addEventListener('input', () => {
+            let direction = slider.value - lastValue >= 0 ? 'right' : 'left';
+            if (lastDirection != direction) {
+                playSound('idou');
+            }
+
+            flag.style.left = `calc(${slider.value / 100} * (100% - ${flag.offsetWidth}px))`;
+
+            lastDirection = direction;
+            lastValue = slider.value;
+        });
+        
+        slider.addEventListener('mouseup', () => {
+            displayResult(container, slider.value);
+            animateSlider(container, slider, 500, flag);
+        });
+    });
+</script>
 
         
       </div>
@@ -390,27 +774,22 @@ css中的border-style渲染结果固定，并且不同浏览器中的表现也�
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/blog/2023/11/23/wpa2psk-aircrack/"
-      title="Linux使用aircrack-ng攻击WPA2-PSK"
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        Linux使用aircrack-ng攻击WPA2-PSK
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2023/01/01/csm-preface/"
-      title="完全じさつマニュアル 前言"
+      href="/blog/2025/01/13/its-a-trap-2025/"
+      title="踩坑日记[2025]"
      >
 
     <p class="title-text">
       
-        完全じさつマニュアル 前言
+        踩坑日记[2025]
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

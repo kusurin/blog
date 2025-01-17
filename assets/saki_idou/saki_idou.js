@@ -13,8 +13,11 @@ let soundSrc = {
 }
 
 Array.from(document.getElementsByClassName('saki-frame')).forEach(frame => {
+    tohref = frame.getAttribute('data-tohref');
+
     const container = document.createElement('div');
     container.className = 'saki-container';
+    container.setAttribute('tohref', tohref);
     frame.appendChild(container);
 
     const background = document.createElement('div');
@@ -119,10 +122,14 @@ function playSound(soundName) {
 }
 
 function displayResult(container, value, correctValue, threshold) {
+    tohref = container.getAttribute('tohref');
+
+    let result;
     const resultElement = container.querySelector('.result');
     if (isCorrectValue(value, correctValue, threshold)) {
         playSound('correct');
         resultElement.innerText = '✔';
+        result = true;
     }
     else if (isCorrectValue(value, 20.5)) {
         playSound('kuku');
@@ -136,6 +143,7 @@ function displayResult(container, value, correctValue, threshold) {
 
     sleep(2000).then(() => {
         resultElement.className = 'result hidden';
+        if (result) window.location.href = tohref;
     });
 }
 

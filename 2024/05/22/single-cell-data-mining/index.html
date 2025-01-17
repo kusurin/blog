@@ -23,7 +23,6 @@
 <meta property="og:description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
-<meta property="og:image" content="https://cdn-ak.f.st-hatena.com/images/fotolife/k/kimoppy126/20180902/20180902233845.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
 <meta property="article:modified_time" content="2024-08-12T12:23:29.875Z">
 <meta property="article:author" content="kusurin">
@@ -47,119 +46,7 @@
   
 <link rel="stylesheet" href="/blog/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
   
@@ -374,7 +261,7 @@ RNA-seq（整体（？）RNA测序）来找出GBM分化相关基因然后预测�
 differentiation trajectory predicts patient potential immunotherapy
 response and prognosis in gastric cancer》这篇文章，主要是使用integrated
 scRNA-seq和bulk
-RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）<br>
+RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）<br />
 这个用的数据集是GSE112302和GSE84437，和案例类似的部分用的是GSE112302。</p>
 <h2 id="实验原理">实验原理</h2>
 <p>主要就是干了质控、基因可视化、降维与聚类、周期判断、double
@@ -390,20 +277,20 @@ droplet、细胞类型注释、轨迹分析。</p>
 Consortium），<em>“是一组合成的RNA分子，它们的浓度已知，并且在测序实验中添加到样本中，以便可以用来校正技术变异和进行数据标准化”</em>，在所有单元格中的浓度应该是一致的，所以如果ERCC基因百分比高，那这个单元格的RNA可能较少。</li>
 </ul>
 <p><code>Seurat</code>包可以傻瓜实现。</p>
-<p>案例里还提到了double droplet和周期判断。<br>
-double droplet就是上面说的双细胞。<br>
-而周期判断就是说，一些细胞处于分裂期，它们会高表达某些基因，可能会影响聚类，所以要去掉。<br>
+<p>案例里还提到了double droplet和周期判断。<br />
+double droplet就是上面说的双细胞。<br />
+而周期判断就是说，一些细胞处于分裂期，它们会高表达某些基因，可能会影响聚类，所以要去掉。<br />
 <code>scran</code>包可以傻瓜实现。</p>
 <h3 id="挑选高变异基因">挑选高变异基因</h3>
 <p>highly Variable
 gene是在一组样本或细胞中，表达水平变化大的基因，它们可能是驱动细胞异质性的关键。
 <code>Seurat</code>包同样可以傻瓜实现。</p>
 <h3 id="降维与聚类">降维与聚类</h3>
-<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。<br>
+<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。<br />
 PCA对数据的尺度（即每个特征的平均值和标准差）非常敏感，如果不同的feature有不同的尺度（0-1vs0-1000），那么PCA的结果将主要受到尺度大的特征的影响，所以PCA之前要标准化。</p>
 <p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。欸还是无监督学习，感兴趣看看吧。</p>
 <p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（<em>“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”</em>
-）。<br>
+）。<br />
 另外PCA是线性的，而t-SNE是非线性的。</p>
 <style>
     #square-hole img {
@@ -423,25 +310,28 @@ right the square hole</del>
 <p>字面意思，就比如把一些细胞标注成B细胞之类的甚至更精细一些，幼稚B细胞之类的。这靠的是一些特异性高的marker基因。
 可以用<code>SingleR</code>包。</p>
 <h3 id="轨迹分析">轨迹分析</h3>
-<p>就是“构建细胞的变化轨迹，重塑细胞随时间的变化过程”，目的是绘制祖细胞到分化细胞的进展情况。<br>
+<p>就是“构建细胞的变化轨迹，重塑细胞随时间的变化过程”，目的是绘制祖细胞到分化细胞的进展情况。<br />
 可以用<code>Monocle</code>包。</p>
-<hr>
-<p><span style="color:#808080;"><em><del>本来这点东西一天下班时间就能搞完的，现在下来两三天了，不光是因为只有业余时间，还真是怠惰啊。</del></em></span></p>
-<hr>
+<hr />
+<p><span
+style="color:#808080;"><em><del>本来这点东西一天下班时间就能搞完的，现在下来两三天了，不光是因为只有业余时间，还真是怠惰啊。</del></em></span></p>
+<hr />
 <h2 id="r语言实现">R语言实现</h2>
-<p>代码详见<a target="_blank" rel="noopener" href="https://github.com/kusurin/single-cell-data-mining">single-cell-data-mining</a>。</p>
+<p>代码详见<a
+target="_blank" rel="noopener" href="https://github.com/kusurin/single-cell-data-mining">single-cell-data-mining</a>。</p>
 <h3 id="提取数据">提取数据</h3>
 <p>怎么两个数据集形式差那么多，你们能不能统一一下（骂骂咧咧）。</p>
-<p>先看GSE84465学习一下。<br>
-案例里的GSE84465集合到了一个<code>.csv</code>里，列名是某样本的plate_id（微孔板）和Well（孔）（我还没做过湿实验啊），行名就是基因。<br>
+<p>先看GSE84465学习一下。<br />
+案例里的GSE84465集合到了一个<code>.csv</code>里，列名是某样本的plate_id（微孔板）和Well（孔）（我还没做过湿实验啊），行名就是基因。<br />
 然后还有一个SraRunTable.txt，刚刚还奇怪，上面的文件都没有分组信息，这个文件里就有，就是每个样本的一些元信息，比如组织类型、患者编号、对应的样本编号等。这个就是SRA里的元数据，进SRA
-Run Selector里就能找到。<br>
+Run Selector里就能找到。<br />
 所以这个SraRunTable.txt就是用来给上面那些sc RNA-seq数据分组。</p>
-<p>我们要做的就是从SRA生成GSE对应的列名，并使用SRA的信息筛选出肿瘤组织，借助对应的列名筛选出GSE中的肿瘤组织。<br>
+<p>我们要做的就是从SRA生成GSE对应的列名，并使用SRA的信息筛选出肿瘤组织，借助对应的列名筛选出GSE中的肿瘤组织。<br />
 还有SRA记录着分组信息，也要一起筛选出来。</p>
 <p>所以说拿到GSE112302也是一样的，就是GSE112302没有给全部合在一起的数据，需要我们自己合起来（附加列，也就是样本），然后用SRA筛选出肿瘤组织。</p>
 <h3 id="质控-1">质控</h3>
-<h4 id="创建seurat对象简单筛选细胞">创建<code>Seurat</code>对象，简单筛选细胞</h4>
+<h4
+id="创建seurat对象简单筛选细胞">创建<code>Seurat</code>对象，简单筛选细胞</h4>
 <p>要先创建<code>Seurat</code>对象。<code>CreateSeuratObject()</code>函数的文档如下：</p>
 <blockquote>
 <ul>
@@ -456,18 +346,20 @@ Run Selector里就能找到。<br>
 </blockquote>
 <p>（对了R语言的函数是这样调用的：<code>function_name(arg1 = value1, arg2 = value2, ...)</code>）</p>
 <p>其实只要用到<code>counts</code>、<code>meta.data</code>、<code>min.cells</code>、<code>min.features</code>就行了。
-这里<code>counts</code>就是数据，<code>meta.data</code>就是分组信息，用<code>data.frame()</code>上面说了是这样的：<code>...</code>是列（额外的元数据字段，这里就是病人编号，要用来分组嘛），<code>row.names</code>是行（样本编号）,要和<code>counts</code>的列名对应。<br>
+这里<code>counts</code>就是数据，<code>meta.data</code>就是分组信息，用<code>data.frame()</code>上面说了是这样的：<code>...</code>是列（额外的元数据字段，这里就是病人编号，要用来分组嘛），<code>row.names</code>是行（样本编号）,要和<code>counts</code>的列名对应。<br />
 然后后两个前者用来筛选表达的细胞的数量低的基因，后者用来筛选基因少的细胞，顺便还能过滤空细胞。</p>
-<h4 id="筛选线粒体基因和ercc基因过多细胞">筛选线粒体基因和ERCC基因过多细胞</h4>
-<p>然后还要筛选掉线粒体基因过多的细胞： <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scRNA<span class="punctuation">[[</span><span class="string">"percent.mt"</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> PercentageFeatureSet<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> pattern <span class="operator">=</span> <span class="string">"^MT-"</span><span class="punctuation">)</span> <span class="comment">#先全部算了比较好，PercentageFeatureSet()计算满足给定模式的特征在每个单元格中的百分比，后面那个参数就是正则（真是先进啊（大嘘））</span></span><br><span class="line">scRNA <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> subset <span class="operator">=</span> percent.mt <span class="operator">&lt;</span> <span class="number">5</span><span class="punctuation">)</span> <span class="comment">#案例取5%，subset()就是Array.filter()（确信）</span></span><br></pre></td></tr></table></figure>
+<h4
+id="筛选线粒体基因和ercc基因过多细胞">筛选线粒体基因和ERCC基因过多细胞</h4>
+<p>然后还要筛选掉线粒体基因过多的细胞： <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scRNA<span class="punctuation">[[</span><span class="string">&quot;percent.mt&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> PercentageFeatureSet<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> pattern <span class="operator">=</span> <span class="string">&quot;^MT-&quot;</span><span class="punctuation">)</span> <span class="comment">#先全部算了比较好，PercentageFeatureSet()计算满足给定模式的特征在每个单元格中的百分比，后面那个参数就是正则（真是先进啊（大嘘））</span></span><br><span class="line">scRNA <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>scRNA<span class="punctuation">,</span> subset <span class="operator">=</span> percent.mt <span class="operator">&lt;</span> <span class="number">5</span><span class="punctuation">)</span> <span class="comment">#案例取5%，subset()就是Array.filter()（确信）</span></span><br></pre></td></tr></table></figure>
 还有ERCC基因一样的，选40%。</p>
 <h4 id="筛选双细胞">筛选双细胞</h4>
 <p>才发现这个要等到先聚类...别急。</p>
 <h4 id="周期判断">周期判断</h4>
-<p>这个要先标准化...别急...看<a target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/7942">seurat#7942</a>。
-我说怎么把这两个放在后面。 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test <span class="operator">&lt;-</span> scDblFinder<span class="operator">::</span>findDoubletClusters<span class="punctuation">(</span>GetAssayData<span class="punctuation">(</span>scRNA<span class="punctuation">,</span>slot<span class="operator">=</span><span class="string">"counts"</span><span class="punctuation">,</span>assay<span class="operator">=</span><span class="string">"RNA"</span><span class="punctuation">)</span><span class="punctuation">,</span> clusters<span class="operator">=</span>scRNA<span class="operator">@</span>meta.data<span class="operator">$</span>seurat_clusters<span class="punctuation">)</span></span><br></pre></td></tr></table></figure></p>
+<p>这个要先标准化...别急...看<a
+target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/7942">seurat#7942</a>。
+我说怎么把这两个放在后面。 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.test <span class="operator">&lt;-</span> scDblFinder<span class="operator">::</span>findDoubletClusters<span class="punctuation">(</span>GetAssayData<span class="punctuation">(</span>scRNA<span class="punctuation">,</span>slot<span class="operator">=</span><span class="string">&quot;counts&quot;</span><span class="punctuation">,</span>assay<span class="operator">=</span><span class="string">&quot;RNA&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> clusters<span class="operator">=</span>scRNA<span class="operator">@</span>meta.data<span class="operator">$</span>seurat_clusters<span class="punctuation">)</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="质控绘图">质控绘图</h4>
-<p>最后就是绘图。<br>
+<p>最后就是绘图。<br />
 看他们都是 - 图A：观察不同组cell的counts、feature分布 -
 图B：nCount_RNA与对应的nFeature_RNA关系</p>
 <p>图A用小提琴图，复习一下，VlnPlot()：</p>
@@ -504,17 +396,19 @@ stabilizing transformation）或"mean.var.plot"（均值方差图）。</li>
 <li>还有一些其它的，还有使用vst法时的参数。</li>
 </ul>
 </blockquote>
-<p>然后用<code>VariableFeaturePlot()</code>绘制变异特征图。<br>
+<p>然后用<code>VariableFeaturePlot()</code>绘制变异特征图。<br />
 <code>LabelPoints()</code>可以标记点，<code>head()</code>就可以取前几个。</p>
-<h3 id="降维与聚类主要是找marker基因">降维与聚类，主要是找marker基因</h3>
+<h3
+id="降维与聚类主要是找marker基因">降维与聚类，主要是找marker基因</h3>
 <h4 id="pca">PCA</h4>
 <p>要先标准化，这里用<code>ScaleData()</code>，对每个基因的表达量进行缩放和中心化，可以消除不同基因之间由于表达量级别不同而产生的差异。而不止用<code>NormalizeData()</code>，因为它对每个细胞之间的某个基因表达量进行归一化，可以消除不同细胞之间由于测序深度不同而产生的差异，所以归一化后，不同的基因可能仍然有不同的表达量级别。</p>
 <p>然后就是简单的<code>scRNA &lt;- RunPCA(scRNA, features = VariableFeatures(scRNA))</code>，绘图可以用<code>DimPlot()</code>。</p>
 <p>最后挑选主成分，<code>jackStraw()</code>评估每个基因的PCA得分的显著性（对于每个主成分，它会对数据进行PCA，然后对PCA的结果进行随机重排，然后再次进行PCA，然后计算原始PCA（实际）和重排PCA（随机下理论）的差异，这个差异越大，说明这个主成分越重要。），<code>ScoreJackStraw</code>用于分析jackStraw函数的结果，<code>JackStrawPlot()</code>绘制jackStraw图。</p>
 这个图，empirical是实际的PCA得分，theoretical是随机重排的PCA得分（这两个对应彩色点），虚线是"均匀分布的
 p
-值的累积分布函数"，如果主成分轴显着，则二者应显示出差异。<del>不是很清楚，反正选不一样的就完了。</del><br>
-这里结果都挺好的，盗用一下某人的例子，像11、12这种就不应该选了： <img src="https://cdn-ak.f.st-hatena.com/images/fotolife/k/kimoppy126/20180902/20180902233845.png">
+值的累积分布函数"，如果主成分轴显着，则二者应显示出差异。<del>不是很清楚，反正选不一样的就完了。</del><br />
+这里结果都挺好的，盗用一下某人的例子，像11、12这种就不应该选了： <img
+src="https://cdn-ak.f.st-hatena.com/images/fotolife/k/kimoppy126/20180902/20180902233845.png" />
 <center>
 <a target="_blank" rel="noopener" href="https://www.kimoton.com/entry/20180903/1535903928">《JackStraw
 Plot (QQ-plot) を理解する》</a>
@@ -522,19 +416,19 @@ Plot (QQ-plot) を理解する》</a>
 <h4 id="聚类还有一堆东西">聚类还有一堆东西</h4>
 <p>烦了，调包就完了。</p>
 <p>这里结果可能不太一样（<del>甚至教程的复现和原文不一样</del>），数据集应该是没变，重复运行一样应该也不是随机过程的问题，<del>暂且按下不表就当是版本差异</del>。</p>
-<p><code>FindAllMarkers()</code>找marker基因，真慢啊，有必要换RRO或者python。<br>
+<p><code>FindAllMarkers()</code>找marker基因，真慢啊，有必要换RRO或者python。<br />
 完了再筛选出P&lt;0.05的，还有在不同类型细胞中表达量差异大的基因。</p>
 <h3 id="qc之二">QC之二</h3>
 <p>刚才说的要先聚类或标准化的筛选双细胞和周期判断。</p>
 <p><code>emptyDrops()</code>检测空液滴，而检测双细胞可以用<code>doubletFinder()</code>，案例里的<code>doubletCluster()</code>其实寻找的是表达介于两个Cluster之间的Cluster，但他解释的是“有无double
-droplet聚在一起的类”（而且好像已经废弃了）。<br>
+droplet聚在一起的类”（而且好像已经废弃了）。<br />
 <code>CellCycleScoring()</code>评估细胞周期。</p>
 <h3 id="细胞类型注释-1">细胞类型注释</h3>
 <p>按下不表。</p>
 <h3 id="轨迹分析-1">轨迹分析</h3>
 <p>选择特定基因代表细胞不同阶段的特征，然后用<code>Monocle</code>包，<code>newCellDataSet()</code>创建数据集，<code>estimateSizeFactors()</code>估计因子，<code>estimateDispersions()</code>估计离散度，<code>reduceDimension()</code>降维，<code>clusterCells()</code>聚类，<code>plot_cell_trajectory()</code>绘制轨迹图。</p>
 <h2 id="总结">总结</h2>
-<p>前面这一半的最终目标就是找出分化相关基因。<br>
+<p>前面这一半的最终目标就是找出分化相关基因。<br />
 抛开具体的实现来说，要做的事就是：</p>
 <ul>
 <li>质控：提升数据质量</li>
@@ -628,20 +522,6 @@ droplet聚在一起的类”（而且好像已经废弃了）。<br>
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

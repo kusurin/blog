@@ -437,7 +437,7 @@ mjx-container[display="true"] + br {
               异形描边
 使用SVG，设置viewBox、preserveAspectRatio='none'以及子的stroke、vector-effect='non-scaling-stroke'，转为base64设置为background，实现居中描边。
 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。
-12background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ffdda8' stroke-width='16' vector-effect='non-scaling-stroke' d...
+12background: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; xmlns:xlink=&#x27;http://www.w3.org/1999/xlink&#x27; width=&#x27;100%25&#x27; height=&#x27;100%25&#x27; viewBox=&#x27;0 0 580 143&#x27; preserveAspectRatio=&#x27;none&#x27;%3E%3Cpath fill-rule=&#x27;evenodd&#x27; fill=&#x27...
             
           </div>
         
@@ -684,11 +684,11 @@ mjx-container[display="true"] + br {
               JavaScript
 [2023]方法使用jQuery.ajax获取数据，同步致假死，异步无法获取数据
 在一个方法里使用ajax从后端获取数据，可以使用同步(async:false)
-123456789101112function getTemperature() {    var temperature;    $.ajax({        async: false,        type: 'GET',        url: '',        success: function (responseData) {            temperature = responseData;        }    });    return temperature;}
+123456789101112function getTemperature() &#123;    var temperature;    $.ajax(&#123;        async: false,        type: &#x27;GET&#x27;,        url: &#x27;&#x27;,        success: function (responseData) &#123;            temperature = responseData;        &#125;    &#125;);    return temperature;&#125;
 但是，当方法运行时，即使新开一个进程，也会使页面的渲染停止，造成假死，可以使用Deferred对象：
 
 Deferred.resolve()传递参数arg给回调函数。
-Deferred.promise()返回Deferred.Promise对象，仅包含Deferred对象的done(),t...
+Deferred.pr...
             
           </div>
         
@@ -765,7 +765,8 @@ WPA2-PSK认证模式
 如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成MIC(Message
 Integrity Check)，而
 
-
+\[ PTK = \text{PRF}(PMK + ANONCE + SNONCE +
+MAC(AA) + MAC(SA)) \]
 (PTK:Pairwise Transient
 Key,PRF:Pseudorandom
 Function,PMK:Pairwise Master
@@ -773,14 +774,13 @@ Key,Nonce:仅使用一次的随机数)
 
 其中PMK由PSK派生，而
 
-
+\[ PSK=\text{pdkdf2}(passphrase,SSID,SSID
+\space length,4096) \]
 (PSK:Pre-Shared
 Key,pdkdf2:Passphrase-Based Key Derivation Function
 2)
 
-于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确，进行离线攻击。
-取消认证攻击
-123456789uint8_t deauthPacket[26] = {    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: d...
+于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确...
             
           </div>
         
@@ -855,7 +855,7 @@ Key,pdkdf2:Passphrase-Based Key Derivation Function
 css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。
 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。
 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。
-12345background:    url("data:image/svg+xml,%3csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3e%3crect x='6' y='6' width='100%' height='100%' fill='none' stroke='black' stroke-width='12' stroke-dasharray='0%2c 12' stroke-linecap='round'/%3e%3c/svg%3e") top left / calc(100% - 12px) calc(100% - 12px) no-repeat,  ...
+12345background:    url(&quot;data:image/svg+xml,%3csvg width=&#x27;100%&#x27; height=&#x27;100%&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3e%3crect x=&#x27;6&#x27; y=&#x27;6&#x27; width=&#x27;100%&#x27; height=&#x27;100%&#x27; fill=&#x27;none&#x27; stroke=&#x27;black&#x27; stroke-width=&#x27;12&#x27; stroke-dasharray=&#x...
             
           </div>
         
@@ -1101,20 +1101,6 @@ today.），然而关于其背后的事情，却让我失望...
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

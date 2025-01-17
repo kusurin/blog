@@ -347,7 +347,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            9.1k 词 
+            9.3k 词 
           </div>
         </div>
         
@@ -360,7 +360,7 @@ mjx-container[display="true"] + br {
             
               
     .saki-container {
-        --size: 400px;
+        --size: min(400px,80vw,80vh);
         --border-width: calc(var(--size) / 100);
         --border-radius: calc(var(--size) / 20);
         --padding: calc(var(--size) / 20);
@@ -372,7 +372,7 @@ mjx-container[display="true"] + br {
         border-radius: var(--border-radius);
         padding: 0;
         box-sizing: border-box;
-        width: var(--size);...
+        width...
             
           </div>
         
@@ -446,7 +446,7 @@ mjx-container[display="true"] + br {
               数据处理
 [2025-01-13]FFmpeg在使用filter后默认输出的码率降低？
 在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
-1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_lower%~xf"
+1for %f in (*.*) do ffmpeg -i &quot;%f&quot; -filter:v &quot;crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)&quot; &quot;%~nf_lower%~xf&quot;
 [2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found
 前段时间更新的某版本有bug，如下情况不生成.h5：
 
@@ -456,8 +456,7 @@ mjx-container[display="true"] + br {
 最新版本已经修复，但是不知道为什么，直接pip
 install没法覆盖，先卸载再安装。
 杂项
-[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”
-使用...
+[2025-01-07]Word中ZO...
             
           </div>
         
@@ -1223,20 +1222,6 @@ RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。�
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

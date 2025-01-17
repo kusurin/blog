@@ -15,25 +15,18 @@
   <title>css-collection | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&quot;da">
+  <meta name="description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&amp;qu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="css-collection">
 <meta property="og:url" content="https://kusurin.github.io/blog/2023/12/31/css-collection/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&quot;da">
+<meta property="og:description" content="异形描边 使用SVG，设置viewBox、preserveAspectRatio&#x3D;&#39;none&#39;以及子的stroke、vector-effect&#x3D;&#39;non-scaling-stroke&#39;，转为base64设置为background，实现居中描边。 然后使用同样参数但无stroke有fill的SVG作为mask，消除外描边以及其被裁掉显示不理想的部分。 12background: url(&amp;qu">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/v2-8af0ab45408a0aaf2399d5f866d29a5a_r.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/v2-030acae8e94e1cc1719b82bf763c7aa2_r.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/v2-b2467af828b9cbdc6d0e34b0e3ac4089_r.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/v2-c3c54317fdf379516710134b821ab9a6_r.jpg">
-<meta property="og:image" content="https://pic3.zhimg.com/v2-0de2e2062216918596e9201365fc606a_r.jpg">
 <meta property="article:published_time" content="2023-12-31T06:27:30.000Z">
 <meta property="article:modified_time" content="2024-12-16T16:11:36.531Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
   
@@ -50,119 +43,7 @@
   
 <link rel="stylesheet" href="/blog/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
   
@@ -370,16 +251,18 @@ mjx-container[display="true"] + br {
     </div>
 
           <h2 id="异形描边">异形描边</h2>
-<p>使用SVG，设置<code>viewBox</code>、<code>preserveAspectRatio='none'</code>以及子的<code>stroke</code>、<code>vector-effect='non-scaling-stroke'</code>，转为base64设置为<code>background</code>，实现居中描边。<br>
+<p>使用SVG，设置<code>viewBox</code>、<code>preserveAspectRatio='none'</code>以及子的<code>stroke</code>、<code>vector-effect='non-scaling-stroke'</code>，转为base64设置为<code>background</code>，实现居中描边。<br />
 然后使用同样参数但无<code>stroke</code>有<code>fill</code>的SVG作为<code>mask</code>，消除外描边以及其被裁掉显示不理想的部分。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ffdda8' stroke-width='16' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3Cpath fill-rule='evenodd' fill='none' stroke='%23ba383f' stroke-width='10' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3C/svg%3E"</span>);</span><br><span class="line">-webkit-<span class="attribute">mask</span>: <span class="built_in">url</span>(<span class="string">"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='100%25' height='100%25' viewBox='0 0 580 143' preserveAspectRatio='none'%3E%3Cpath fill-rule='evenodd' fill='%23f00' stroke='none' vector-effect='non-scaling-stroke' d='M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z'/%3E%3C/svg%3E"</span>);</span><br></pre></td></tr></table></figure>
-<div style="width:auto;height:20vh;overflow:hidden;resize:both;margin:auto;">
-<div style="width:100%;height:100%;background: url(&quot; data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; width=&#39;100%25&#39; height=&#39;100%25&#39; viewBox=&#39;0 0 580 143&#39; preserveAspectRatio=&#39;none&#39;%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ffdda8&#39; stroke-width=&#39;16&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ba383f&#39; stroke-width=&#39;10&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3C/svg%3E&quot; );
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; xmlns:xlink=&#x27;http://www.w3.org/1999/xlink&#x27; width=&#x27;100%25&#x27; height=&#x27;100%25&#x27; viewBox=&#x27;0 0 580 143&#x27; preserveAspectRatio=&#x27;none&#x27;%3E%3Cpath fill-rule=&#x27;evenodd&#x27; fill=&#x27;none&#x27; stroke=&#x27;%23ffdda8&#x27; stroke-width=&#x27;16&#x27; vector-effect=&#x27;non-scaling-stroke&#x27; d=&#x27;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#x27;/%3E%3Cpath fill-rule=&#x27;evenodd&#x27; fill=&#x27;none&#x27; stroke=&#x27;%23ba383f&#x27; stroke-width=&#x27;10&#x27; vector-effect=&#x27;non-scaling-stroke&#x27; d=&#x27;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#x27;/%3E%3C/svg%3E&quot;</span>);</span><br><span class="line">-webkit-<span class="attribute">mask</span>: <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; xmlns:xlink=&#x27;http://www.w3.org/1999/xlink&#x27; width=&#x27;100%25&#x27; height=&#x27;100%25&#x27; viewBox=&#x27;0 0 580 143&#x27; preserveAspectRatio=&#x27;none&#x27;%3E%3Cpath fill-rule=&#x27;evenodd&#x27; fill=&#x27;%23f00&#x27; stroke=&#x27;none&#x27; vector-effect=&#x27;non-scaling-stroke&#x27; d=&#x27;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#x27;/%3E%3C/svg%3E&quot;</span>);</span><br></pre></td></tr></table></figure>
+<div
+style="width:auto;height:20vh;overflow:hidden;resize:both;margin:auto;">
+<div
+style="width:100%;height:100%;background: url(&quot; data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; width=&#39;100%25&#39; height=&#39;100%25&#39; viewBox=&#39;0 0 580 143&#39; preserveAspectRatio=&#39;none&#39;%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ffdda8&#39; stroke-width=&#39;16&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;none&#39; stroke=&#39;%23ba383f&#39; stroke-width=&#39;10&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3C/svg%3E&quot; );
     -webkit-mask: url(&quot; data:image/svg+xml,%3Csvg xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; width=&#39;100%25&#39; height=&#39;100%25&#39; viewBox=&#39;0 0 580 143&#39; preserveAspectRatio=&#39;none&#39;%3E%3Cpath fill-rule=&#39;evenodd&#39; fill=&#39;%23f00&#39; stroke=&#39;none&#39; vector-effect=&#39;non-scaling-stroke&#39; d=&#39;M78.326,139.366 C90.716,141.505 110.433,142.093 128.617,141.603 C161.287,143.123 191.119,142.023 191.119,142.023 C199.272,141.661 207.342,140.962 215.218,139.794 C233.509,137.078 246.589,130.641 266.593,130.523 C286.547,130.404 307.471,133.340 326.052,136.268 C347.272,139.610 366.526,144.987 389.952,141.867 C402.565,140.184 411.399,135.390 424.221,133.877 C455.068,130.238 487.094,139.306 516.083,131.468 C539.635,125.099 575.920,123.253 579.668,96.961 C581.080,87.060 553.300,85.336 560.647,74.918 C570.860,60.409 573.683,51.126 565.480,36.318 C557.944,22.740 519.649,13.001 486.294,12.150 C464.255,11.593 422.791,18.529 400.278,17.590 C349.616,15.477 299.576,-10.015 247.899,4.539 C229.344,9.765 189.216,9.079 164.348,11.064 C113.602,15.111 83.247,-7.420 26.718,37.158 C17.866,44.147 29.597,66.499 23.706,73.743 C17.431,81.455 0.413,87.064 1.912,95.984 C3.846,107.557 -4.270,109.893 7.241,115.259 C18.753,120.625 21.389,129.544 78.326,139.366 Z&#39;/%3E%3C/svg%3E&quot; );">
 
 </div>
 </div>
-<hr>
+<hr />
 <details>
 <summary>
 已归档
@@ -388,20 +271,21 @@ mjx-container[display="true"] + br {
 <p>效果是子元素沿弧线分布，圆盘会随新元素出现旋转一格。</p>
 <div style="width:50%;height:auto;margin:auto;">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00000113249 -0.5 72.5 40">
-<path d="M 42 21 C 42 22 43 23 44 23 L 70 23 C 71 23 72 22 72 21 L 72 18 C 72 17 71 16 70 16 L 44 16 C 43 16 42 17 42 18 Z M 20 0 A 1 1 0 0 0 20 39 A 1 1 0 0 0 20 0 M 39 8 C 39 9 40 10 41 10 L 67 10 C 68 10 69 9 69 8 L 69 5 C 69 4 68 3 67 3 L 41 3 C 40 3 39 4 39 5 Z M 39 31 C 39 30 40 29 41 29 L 67 29 C 68 29 69 30 69 31 L 69 34 C 69 35 68 36 67 36 L 41 36 C 40 36 39 35 39 34 Z M 20 3 A 1 1 0 0 0 20 10 A 1 1 0 0 0 20 3 M 20 36 A 1 1 0 0 0 20 29 A 1 1 0 0 0 20 36 M 10.5 19.5 A 1 1 0 0 0 3.5 19.5 A 1 1 0 0 0 10.5 19.5 M 29.5 20 A 1 1 0 0 0 36.5 20 A 1 1 0 0 0 29.5 20" stroke="#000" stroke-width="0.5" fill="#ccc"></path>
+<path d="M 42 21 C 42 22 43 23 44 23 L 70 23 C 71 23 72 22 72 21 L 72 18 C 72 17 71 16 70 16 L 44 16 C 43 16 42 17 42 18 Z M 20 0 A 1 1 0 0 0 20 39 A 1 1 0 0 0 20 0 M 39 8 C 39 9 40 10 41 10 L 67 10 C 68 10 69 9 69 8 L 69 5 C 69 4 68 3 67 3 L 41 3 C 40 3 39 4 39 5 Z M 39 31 C 39 30 40 29 41 29 L 67 29 C 68 29 69 30 69 31 L 69 34 C 69 35 68 36 67 36 L 41 36 C 40 36 39 35 39 34 Z M 20 3 A 1 1 0 0 0 20 10 A 1 1 0 0 0 20 3 M 20 36 A 1 1 0 0 0 20 29 A 1 1 0 0 0 20 36 M 10.5 19.5 A 1 1 0 0 0 3.5 19.5 A 1 1 0 0 0 10.5 19.5 M 29.5 20 A 1 1 0 0 0 36.5 20 A 1 1 0 0 0 29.5 20" stroke="#000" stroke-width="0.5" fill="#ccc"/>
 </svg>
 </div>
 <p>将<code>flex</code>布局调到适当方向，使用<code>nth-child()</code>或者<code>nth-last-child()</code>选择器，设定好每个子元素的偏移量，完成右侧的弧形分布，固定大小效果更理想。</p>
 <p>左侧弹巢使用父元素上的静态伪元素作为背景，使用第一/最后一个子元素上的动态伪元素来播放旋转动画</p>
 （老板怎么都接不到客单啊，这些效果全都能做的啊）
 </details>
-<hr>
-<h2 id="祖宗元素contain-layout配合子元素position-fixed使子元素越过父元素非static定位">祖宗元素<code>contain: layout</code>配合子元素<code>position: fixed</code>，使子元素越过父元素非<code>static</code>定位</h2>
+<hr />
+<h2
+id="祖宗元素contain-layout配合子元素position-fixed使子元素越过父元素非static定位">祖宗元素<code>contain: layout</code>配合子元素<code>position: fixed</code>，使子元素越过父元素非<code>static</code>定位</h2>
 <p>（用来造奇怪的东西的办法x</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father_n</span> {</span><br><span class="line">    <span class="attribute">contain</span>: layout;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father_1</span> {</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> {</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-<p>这样子，即使父元素<code>.father_1</code>为相对定位或绝对定位，子元素<code>.child</code>仍会越过父元素，作为祖宗元素<code>.father_n</code>的绝对定位。相当于父元素在使用相对定位或绝对定位时，对于子元素来说其可视为<code>static</code>定位。<br>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father_n</span> &#123;</span><br><span class="line">    <span class="attribute">contain</span>: layout;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father_1</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样子，即使父元素<code>.father_1</code>为相对定位或绝对定位，子元素<code>.child</code>仍会越过父元素，作为祖宗元素<code>.father_n</code>的绝对定位。相当于父元素在使用相对定位或绝对定位时，对于子元素来说其可视为<code>static</code>定位。<br />
 应用场景：父元素需要非<code>static</code>定位设置位置，但子元素需要相对父元素的父元素进行定位、确定相对大小，而非父元素。（奇技淫巧用）</p>
-<hr>
+<hr />
 <h2 id="纯css实现文本外描边">纯CSS实现文本外描边</h2>
 <h3 id="一透明text-stroke-文本裁剪background">一、透明text-stroke +
 文本裁剪background</h3>
@@ -410,11 +294,12 @@ mjx-container[display="true"] + br {
 <summary>
 效果
 </summary>
-<img src="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg">
+<img
+src="https://pic4.zhimg.com/v2-f095bd01777296e7945aa197bc852e13_r.jpg" />
 </details>
-<p>效果完美，还能整些花活，但某些情况可能无法使用。<br>
-单用text-stroke，会同时产生内描边，这在一些情况下是不希望发生的，特别是描边比例过大时。<br>
-使用有透明text-stroke的文本裁剪背景，背景便填充在未被文本覆盖的stroke中，从而消除内描边。<br>
+<p>效果完美，还能整些花活，但某些情况可能无法使用。<br />
+单用text-stroke，会同时产生内描边，这在一些情况下是不希望发生的，特别是描边比例过大时。<br />
+使用有透明text-stroke的文本裁剪背景，背景便填充在未被文本覆盖的stroke中，从而消除内描边。<br />
 （从b站源码里偷的x</p>
 <h3 id="二多重模糊text-shadow">二、多重模糊text-shadow</h3>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line"><span class="attribute">text-shadow</span>:<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red,<span class="number">0</span> <span class="number">0</span> <span class="number">3px</span> red;</span><br></pre></td></tr></table></figure>
@@ -422,9 +307,10 @@ mjx-container[display="true"] + br {
 <summary>
 效果
 </summary>
-<img src="https://pic3.zhimg.com/v2-8af0ab45408a0aaf2399d5f866d29a5a_r.jpg">
+<img
+src="https://pic3.zhimg.com/v2-8af0ab45408a0aaf2399d5f866d29a5a_r.jpg" />
 </details>
-<p>会出现边缘模糊，但兼容性好。<br>
+<p>会出现边缘模糊，但兼容性好。<br />
 使用无偏移、带模糊半径的扩散text-shadow，从而产生外描边，但是边缘会产生模糊。</p>
 <h3 id="三多向text-shadow">三、多向text-shadow</h3>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line"><span class="attribute">text-shadow</span>:<span class="number">2px</span> <span class="number">0</span> red,-<span class="number">2px</span> <span class="number">0</span> red,<span class="number">0</span> <span class="number">2px</span> red,<span class="number">0</span> -<span class="number">2px</span> red,<span class="number">1.4px</span> <span class="number">1.4px</span> red,<span class="number">1.4px</span> -<span class="number">1.4px</span> red,-<span class="number">1.4px</span> <span class="number">1.4px</span> red,-<span class="number">1.4px</span> -<span class="number">1.4px</span> red;</span><br></pre></td></tr></table></figure>
@@ -432,27 +318,32 @@ mjx-container[display="true"] + br {
 <summary>
 效果
 </summary>
-<img src="https://pic3.zhimg.com/v2-030acae8e94e1cc1719b82bf763c7aa2_r.jpg">
+<img
+src="https://pic3.zhimg.com/v2-030acae8e94e1cc1719b82bf763c7aa2_r.jpg" />
 </details>
-<p>边缘锐利，但可产生部分瑕疵。<br>
-使用多向偏移的无模糊text-shadow，实现锐利边缘，但是在某些地方可能产生瑕疵，增加更多方向可能可以优化。<br>
-可以在这里生成css：<a href="https://kusurin.github.io/tools/StrokeGenerator/main.html">StrokeGenerator</a></p>
-<hr>
+<p>边缘锐利，但可产生部分瑕疵。<br />
+使用多向偏移的无模糊text-shadow，实现锐利边缘，但是在某些地方可能产生瑕疵，增加更多方向可能可以优化。<br />
+可以在这里生成css：<a
+href="https://kusurin.github.io/tools/StrokeGenerator/main.html">StrokeGenerator</a></p>
+<hr />
 <details>
 <summary>
 已归档
 </summary>
 <h2 id="纯css更改单行文本的公共前缀">纯CSS更改单行文本的公共前缀</h2>
-有时候要改文本，但只能用CSS，元素都被定死了。比如要把下面的CNY全部改成RMB：<br>
-<img src="https://pic2.zhimg.com/v2-b2467af828b9cbdc6d0e34b0e3ac4089_r.jpg">
+有时候要改文本，但只能用CSS，元素都被定死了。比如要把下面的CNY全部改成RMB：<br />
+<img
+src="https://pic2.zhimg.com/v2-b2467af828b9cbdc6d0e34b0e3ac4089_r.jpg" />
 可以规定元素大小，使用<code>text-indent</code>偏移首行文本开头，插值为前缀长度，设置任意间断，使间断落于公共前缀之后：
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> {</span><br><span class="line">    <span class="attr">--prefix-width</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--text-width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width));</span><br><span class="line">    <span class="attribute">text-indent</span>: <span class="built_in">var</span>(--text-width);</span><br><span class="line">    <span class="attribute">overflow-wrap</span>: anywhere;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> &#123;</span><br><span class="line">    <span class="attr">--prefix-width</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--text-width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width));</span><br><span class="line">    <span class="attribute">text-indent</span>: <span class="built_in">var</span>(--text-width);</span><br><span class="line">    <span class="attribute">overflow-wrap</span>: anywhere;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 然后设置<code>line-height</code>为0或者往上偏移，再设置首行颜色为透明就好了：
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> {</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::first-line</span> {</span><br><span class="line">    <span class="attribute">color</span>: transparent;</span><br><span class="line">}</span><br></pre></td></tr></table></figure> <img src="https://pic3.zhimg.com/v2-c3c54317fdf379516710134b821ab9a6_r.jpg">
-加上前缀，偏移整体： <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::before</span> {</span><br><span class="line">    <span class="attr">--prefix-width-new</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"RMB"</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">right</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width-new));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span> {</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">left</span>: <span class="built_in">var</span>(--prefix-width-new);</span><br><span class="line">}</span><br></pre></td></tr></table></figure> <img src="https://pic3.zhimg.com/v2-0de2e2062216918596e9201365fc606a_r.jpg">
-但是很不幸的是，这样就只能从左侧进行定位了。<br>
-全部的设置：<br>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> {</span><br><span class="line">    <span class="attr">--prefix-width</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--prefix-width-new</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--text-width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width));</span><br><span class="line">    <span class="attribute">text-indent</span>: <span class="built_in">var</span>(--text-width);</span><br><span class="line">    <span class="attribute">overflow-wrap</span>: anywhere;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">left</span>: <span class="built_in">var</span>(--prefix-width-new);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::first-line</span> {</span><br><span class="line">    <span class="attribute">color</span>: transparent;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::before</span> {</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">"RMB"</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">right</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width-new));</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> &#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> <img
+src="https://pic3.zhimg.com/v2-c3c54317fdf379516710134b821ab9a6_r.jpg" />
+加上前缀，偏移整体： <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attr">--prefix-width-new</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&quot;RMB&quot;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">right</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width-new));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">left</span>: <span class="built_in">var</span>(--prefix-width-new);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> <img
+src="https://pic3.zhimg.com/v2-0de2e2062216918596e9201365fc606a_r.jpg" />
+但是很不幸的是，这样就只能从左侧进行定位了。<br />
+全部的设置：<br />
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#element</span> &#123;</span><br><span class="line">    <span class="attr">--prefix-width</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--prefix-width-new</span>: <span class="number">70px</span>;</span><br><span class="line">    <span class="attr">--text-width</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width));</span><br><span class="line">    <span class="attribute">text-indent</span>: <span class="built_in">var</span>(--text-width);</span><br><span class="line">    <span class="attribute">overflow-wrap</span>: anywhere;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">left</span>: <span class="built_in">var</span>(--prefix-width-new);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#element</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&quot;RMB&quot;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">right</span>: <span class="built_in">calc</span>(<span class="built_in">var</span>(--text-width) + <span class="built_in">var</span>(--prefix-width-new));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 
         
@@ -537,20 +428,6 @@ mjx-container[display="true"] + br {
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

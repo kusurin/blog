@@ -44,119 +44,7 @@
   
 <link rel="stylesheet" href="/blog/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
-  direction: ltr;
-}
-
-mjx-container[jax="SVG"] > svg {
-  overflow: visible;
-}
-
-mjx-container[jax="SVG"][display="true"] {
-  display: block;
-  text-align: center;
-  margin: 1em 0;
-}
-
-mjx-container[jax="SVG"][justify="left"] {
-  text-align: left;
-}
-
-mjx-container[jax="SVG"][justify="right"] {
-  text-align: right;
-}
-
-g[data-mml-node="merror"] > g {
-  fill: red;
-  stroke: red;
-}
-
-g[data-mml-node="merror"] > rect[data-background] {
-  fill: yellow;
-  stroke: none;
-}
-
-g[data-mml-node="mtable"] > line[data-line] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > rect[data-frame] {
-  stroke-width: 70px;
-  fill: none;
-}
-
-g[data-mml-node="mtable"] > .mjx-dashed {
-  stroke-dasharray: 140;
-}
-
-g[data-mml-node="mtable"] > .mjx-dotted {
-  stroke-linecap: round;
-  stroke-dasharray: 0,140;
-}
-
-g[data-mml-node="mtable"] > svg {
-  overflow: visible;
-}
-
-[jax="SVG"] mjx-tool {
-  display: inline-block;
-  position: relative;
-  width: 0;
-  height: 0;
-}
-
-[jax="SVG"] mjx-tool > mjx-tip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-mjx-tool > mjx-tip {
-  display: inline-block;
-  padding: .2em;
-  border: 1px solid #888;
-  font-size: 70%;
-  background-color: #F8F8F8;
-  color: black;
-  box-shadow: 2px 2px 5px #AAAAAA;
-}
-
-g[data-mml-node="maction"][data-toggle] {
-  cursor: pointer;
-}
-
-mjx-status {
-  display: block;
-  position: fixed;
-  left: 1em;
-  bottom: 1em;
-  min-width: 25%;
-  padding: .2em .4em;
-  border: 1px solid #888;
-  font-size: 90%;
-  background-color: #F8F8F8;
-  color: black;
-}
-
-foreignObject[data-mjx-xml] {
-  font-family: initial;
-  line-height: normal;
-  overflow: visible;
-}
-
-.MathJax path {
-  stroke-width: 3;
-}
-
-mjx-container[display="true"] {
-  overflow: auto hidden;
-}
-
-mjx-container[display="true"] + br {
-  display: none;
-}
-</style></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
   
@@ -366,23 +254,27 @@ action自动部署github pages</span></a></li><li class="toc-item toc-level-3"><
           <h2 id="html">HTML</h2>
 <h3 id="gif的播放">[2024-04-23]GIF的播放</h3>
 <p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
-<hr>
+<hr />
 <h2 id="javascript">JavaScript</h2>
-<h3 id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
-<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br>
+<h3
+id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
+<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br />
 <code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
-<h3 id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
+<h3
+id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
 <p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
-<h3 id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
+<h3
+id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
 <p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
-<hr>
+<hr />
 <h2 id="css">CSS</h2>
-<h3 id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
+<h3
+id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
 <p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
-<hr>
+<hr />
 <h2 id="杂项">杂项</h2>
 <h3 id="svg莫名其妙被裁剪">[2024-04-03]SVG莫名其妙被裁剪</h3>
-<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br>
+<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br />
 把这个突变点改成平滑曲线就完了。</p>
 <h3 id="svg中的mask">[2024-5-20]SVG中的mask</h3>
 <p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩...</p>
@@ -428,7 +320,7 @@ action自动部署github pages</span></a></li><li class="toc-item toc-level-3"><
 </style>
 <div id="date">
 <svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200">
-<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textpath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line"></path><text style="transform: translate(-4px,-4px);"><textpath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text><text><textpath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textpath></text>
+<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textPath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textPath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textPath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textPath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line" /><text style="transform: translate(-4px,-4px);"><textPath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%"text-anchor="middle"> 9 </textPath></text><text><textPath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%"text-anchor="middle"> 9 </textPath></text>
 </svg>
 </div>
 <h3 id="android-studio网络问题">[2024-07-03]Android Studio网络问题</h3>
@@ -439,22 +331,25 @@ action自动部署github pages</span></a></li><li class="toc-item toc-level-3"><
 <p>踩的是什么坑呢，大概就是出生在这种家庭里。</p>
 <h3 id="github-action自动部署github-pages">[2024-12-16]github
 action自动部署github pages</h3>
-<p>一般来说，hexo只要在本地设置<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">一键部署</a>就能自动部署静态文件了，但是github
-pages现在根目录下的index.html不变更就不会触发部署（至少）。<br>
-而action可以设置特定条件下执行workflow，因此可以实现自动部署。<br>
+<p>一般来说，hexo只要在本地设置<a
+target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">一键部署</a>就能自动部署静态文件了，但是github
+pages现在根目录下的index.html不变更就不会触发部署（至少）。<br />
+而action可以设置特定条件下执行workflow，因此可以实现自动部署。<br />
 我们只需要在<code>repo_url/actions/new</code>添加官方的<code>Static HTML</code>工作流在<code>.github/workflows/auto_deploy.yml</code>里：</p>
 <details>
 <summary>
 auto_deploy.yml
 </summary>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Simple workflow for deploying static content to GitHub Pages</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">static</span> <span class="string">content</span> <span class="string">to</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment"># Runs on pushes targeting the default branch</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">"main"</span>] <span class="comment"># 注意分支名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Allows you to run this workflow manually from the Actions tab</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages</span></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.</span></span><br><span class="line"><span class="comment"># However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.</span></span><br><span class="line"><span class="attr">concurrency:</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">"pages"</span></span><br><span class="line">  <span class="attr">cancel-in-progress:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="comment"># Single deploy job since we're just deploying</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">${{</span> <span class="string">steps.deployment.outputs.page_url</span> <span class="string">}}</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/configure-pages@v5</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">artifact</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-pages-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="comment"># Upload entire repository</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">'.'</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">deployment</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/deploy-pages@v4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Simple workflow for deploying static content to GitHub Pages</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">static</span> <span class="string">content</span> <span class="string">to</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment"># Runs on pushes targeting the default branch</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">&quot;main&quot;</span>] <span class="comment"># 注意分支名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Allows you to run this workflow manually from the Actions tab</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages</span></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.</span></span><br><span class="line"><span class="comment"># However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.</span></span><br><span class="line"><span class="attr">concurrency:</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">&quot;pages&quot;</span></span><br><span class="line">  <span class="attr">cancel-in-progress:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="comment"># Single deploy job since we&#x27;re just deploying</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">$&#123;&#123;</span> <span class="string">steps.deployment.outputs.page_url</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/configure-pages@v5</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">artifact</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-pages-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="comment"># Upload entire repository</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">&#x27;.&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">deployment</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/deploy-pages@v4</span></span><br></pre></td></tr></table></figure>
 </details>
-<p>而如果没有设置本地一键部署，需要在工作流中build一下，<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">网上教程</a>大多是这种。<br>
+<p>而如果没有设置本地一键部署，需要在工作流中build一下，<a
+target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">网上教程</a>大多是这种。<br />
 （之前一直手动，我真傻，真的）</p>
 <h3 id="github-f2a-中国手机号">[2024-12-16]github F2A 中国手机号</h3>
 <p>github
 F2A没有中国区号，尝试通过改前端添加，获悉悲报<code>2023-03</code>左右github已经采取手段在后端添加了校验。</p>
-<h3 id="通过itunes下载app历史版本">[2024-12-26]通过iTunes下载app历史版本</h3>
+<h3
+id="通过itunes下载app历史版本">[2024-12-26]通过iTunes下载app历史版本</h3>
 <p>教程搜一下一大把，主要是如果下载的版本不是想要的，就算删掉，iTunes里也会一直显示“已下载”，可以进已购项目里选择“隐藏”。</p>
 
         
@@ -539,20 +434,6 @@ F2A没有中国区号，尝试通过改前端添加，获悉悲报<code>2023-03<
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 </body>
 </html>

@@ -23,6 +23,7 @@ let soundCollection = [
 
 soundCollection.forEach(sound => {
     sound.dom.load();
+    sound.dom.preload = 'auto';
 });
 
 function injectSakiCaptcha() {
@@ -133,12 +134,11 @@ function injectSakiCaptcha() {
         function displayResult(container, value, correctValue, threshold) {
             tohref = container.getAttribute('tohref');
     
-            let result;
             const resultElement = container.querySelector('.result');
             if (isCorrectValue(value, correctValue, threshold)) {
+                soundCollection.find(sound => sound.name === 'correct').dom.onended = () => { resolve(tohref) }
                 playSound('correct');
                 resultElement.innerText = '✔';
-                result = true;
             }
             else if (isCorrectValue(value, 20.5)) {
                 playSound('kuku');
@@ -150,11 +150,8 @@ function injectSakiCaptcha() {
             }
             resultElement.className = 'result block';
     
-            sleep(2000).then(() => {
+            sleep(1500).then(() => {
                 resultElement.className = 'result hidden';
-                if (result) {
-                    resolve(tohref);
-                }
             });
         }
     

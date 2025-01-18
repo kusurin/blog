@@ -440,7 +440,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            129 词 
+            131 词 
           </div>
         </div>
         
@@ -451,9 +451,9 @@ mjx-container[display="true"] + br {
         
           <div class="truncate-text">
             
-              很多包里都有einsum()，可以用相同的方式构建表达式，简单学习一下。
-对于n维矩阵\(M_{d_1,d_2,...,d_n}\)，
-1dot_product = np.einsum(&#x27;ij,ij-&gt;i&#x27;, vector1, vector2)
+              很多包里都实现了einsum()，可以用相同的方式构建表达式，简单学习一下。
+对于n维矩阵，
+1dot_product = np.einsum('ij,ij-&gt;i', vector1, vector2)
 
             
           </div>

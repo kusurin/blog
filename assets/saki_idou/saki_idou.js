@@ -136,7 +136,10 @@ function injectSakiCaptcha() {
     
             const resultElement = container.querySelector('.result');
             if (isCorrectValue(value, correctValue, threshold)) {
-                soundCollection.find(sound => sound.name === 'correct').dom.onended = () => { resolve(tohref) }
+                soundCollection.find(sound => sound.name === 'correct').dom.onended = () => {
+                    soundCollection.find(sound => sound.name === 'correct').dom.onended = null;
+                    resolve(tohref)
+                }
                 playSound('correct');
                 resultElement.innerText = '✔';
             }

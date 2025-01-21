@@ -421,7 +421,7 @@ mjx-container[display="true"] + br {
   
     
       <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/01/19/uninstall-linux-on-windows-double-system/">在UEFI引导模式+GPT分区表格式的windows+linux双系统中卸载Linux</a>
+        <a class="p-name article-title" href="/blog/2025/01/19/uninstall-linux-on-windows-double-system/">在UEFI+GPT的windows+linux双系统中卸载Linux</a>
       </h1>
     
   
@@ -440,7 +440,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            624 词 
+            634 词 
           </div>
         </div>
         
@@ -452,7 +452,7 @@ mjx-container[display="true"] + br {
           <div class="truncate-text">
             
               前言
-之前看到好多人说自己卸载win+linux双系统的linux之后，启动项、引导之类的都坏了，但是在了解UEFI+GPT和Legacy+MBR的区别后，如果自己的双系统是UEFI+GPT的，不用害怕，问题多出在Legacy+MBR。
+之前看到好多人说自己卸载win+linux双系统的linux之后，启动项、引导之类的都坏了，但是在了解UEFI+GPT和Legacy+MBR的区别后，如果自己的双系统是在UEFI引导模式+GPT分区表格式的，不用害怕，问题多出在Legacy+MBR。
 UEFI+GPT
 UEFI+GPT需要一个存放引导启动文件的fat分区，名字可能叫做ESP、System_DRV、EFI等，我的这个分区下面还有一个EFI目录，里面是windows和debian的引导文件。
 而另外装系统的分区就只有系统而已。
@@ -463,7 +463,7 @@ Legacy+MBR在最前面的一段引导扇区中描述了分区引导信息（MBR�
 UEFI+GPT卸载Linux流程
 
 确定自己的模式是UEFI+GPT
-UEFI这个在bios里就能看到，或者运行msinfo32，在系统摘要-BIOS模式里；...
+UEFI这个在bios里就能看到，或者运行msinfo32，在系统摘...
             
           </div>
         

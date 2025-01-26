@@ -26,15 +26,15 @@
   <title>踩坑日记[2024] | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
+  <meta name="description" content="HTML[2024-04-23]GIF的播放整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript[2024-03]VUE3生命周期中setup()的位置VUE的生命周期中，setup()在created()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。o">
 <meta property="og:type" content="article">
 <meta property="og:title" content="踩坑日记[2024]">
 <meta property="og:url" content="https://kusurin.github.io/blog/2024/12/26/its-a-trap-2024/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="HTML [2024-04-23]GIF的播放 整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript [2024-03]VUE3生命周期中setup()的位置 VUE的生命周期中，setup()在create()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向un">
+<meta property="og:description" content="HTML[2024-04-23]GIF的播放整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。  JavaScript[2024-03]VUE3生命周期中setup()的位置VUE的生命周期中，setup()在created()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。o">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-26T11:35:54.000Z">
-<meta property="article:modified_time" content="2024-12-25T16:07:17.461Z">
+<meta property="article:modified_time" content="2025-01-25T14:03:30.009Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -247,7 +247,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.8k 词 
+            2.9k 词 
           </div>
         </div>
         
@@ -259,37 +259,19 @@
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#html"><span class="toc-text">HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gif%E7%9A%84%E6%92%AD%E6%94%BE"><span class="toc-text">[2024-04-23]GIF的播放</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript"><span class="toc-text">JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%ADsetup%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-text">[2024-03]VUE3生命周期中setup()的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3%E5%BA%9F%E5%BC%83setget%E7%9B%B4%E6%8E%A5%E6%93%8D%E4%BD%9Cdata"><span class="toc-text">[2024-03]VUE3废弃set()、get()，直接操作data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#audio%E5%BC%82%E6%AD%A5%E6%92%AD%E6%94%BE%E9%9F%B3%E6%95%88"><span class="toc-text">[2024-03-19]&lt;audio&gt;异步播放音效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css"><span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#display-inline%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E5%AD%90%E5%85%83%E7%B4%A0"><span class="toc-text">[2024-05-25]display: inline元素的绝对定位子元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#svg%E8%8E%AB%E5%90%8D%E5%85%B6%E5%A6%99%E8%A2%AB%E8%A3%81%E5%89%AA"><span class="toc-text">[2024-04-03]SVG莫名其妙被裁剪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#svg%E4%B8%AD%E7%9A%84mask"><span class="toc-text">[2024-5-20]SVG中的mask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#android-studio%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="toc-text">[2024-07-03]Android Studio网络问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%B4%E6%95%AC%E4%BC%A0%E5%A5%87rm--rf"><span class="toc-text">[2024-08-15]致敬传奇rm -rf &#x2F;*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hrt%E7%AC%AC1780%E5%A4%A9%E6%9C%AAsrs"><span class="toc-text">[2024-08-23]HRT第1780天未SRS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2github-pages"><span class="toc-text">[2024-12-16]github
-action自动部署github pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github-f2a-%E4%B8%AD%E5%9B%BD%E6%89%8B%E6%9C%BA%E5%8F%B7"><span class="toc-text">[2024-12-16]github F2A 中国手机号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87itunes%E4%B8%8B%E8%BD%BDapp%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC"><span class="toc-text">[2024-12-26]通过iTunes下载app历史版本</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML"><span class="toc-text">HTML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-04-23-GIF%E7%9A%84%E6%92%AD%E6%94%BE"><span class="toc-text">[2024-04-23]GIF的播放</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-text">JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-03-VUE3%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%ADsetup-%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-text">[2024-03]VUE3生命周期中setup()的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-03-VUE3%E5%BA%9F%E5%BC%83set-%E3%80%81get-%EF%BC%8C%E7%9B%B4%E6%8E%A5%E6%93%8D%E4%BD%9Cdata"><span class="toc-text">[2024-03]VUE3废弃set()、get()，直接操作data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-03-19-%E5%BC%82%E6%AD%A5%E6%92%AD%E6%94%BE%E9%9F%B3%E6%95%88"><span class="toc-text">[2024-03-19]&lt;audio&gt;异步播放音效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-05-25-display-inline%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E5%AD%90%E5%85%83%E7%B4%A0"><span class="toc-text">[2024-05-25]display: inline元素的绝对定位子元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-04-03-SVG%E8%8E%AB%E5%90%8D%E5%85%B6%E5%A6%99%E8%A2%AB%E8%A3%81%E5%89%AA"><span class="toc-text">[2024-04-03]SVG莫名其妙被裁剪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-5-20-SVG%E4%B8%AD%E7%9A%84mask"><span class="toc-text">[2024-5-20]SVG中的mask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-07-03-Android-Studio%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98"><span class="toc-text">[2024-07-03]Android Studio网络问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-08-15-%E8%87%B4%E6%95%AC%E4%BC%A0%E5%A5%87rm-rf"><span class="toc-text">[2024-08-15]致敬传奇rm -rf &#x2F;*</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-08-23-HRT%E7%AC%AC1780%E5%A4%A9%E6%9C%AASRS"><span class="toc-text">[2024-08-23]HRT第1780天未SRS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-12-16-github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2github-pages"><span class="toc-text">[2024-12-16]github action自动部署github pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-12-16-github-F2A-%E4%B8%AD%E5%9B%BD%E6%89%8B%E6%9C%BA%E5%8F%B7"><span class="toc-text">[2024-12-16]github F2A 中国手机号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2024-12-26-%E9%80%9A%E8%BF%87iTunes%E4%B8%8B%E8%BD%BDapp%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC"><span class="toc-text">[2024-12-26]通过iTunes下载app历史版本</span></a></li></ol></li></ol>
     </div>
 
-          <h2 id="html">HTML</h2>
-<h3 id="gif的播放">[2024-04-23]GIF的播放</h3>
-<p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
-<hr />
-<h2 id="javascript">JavaScript</h2>
-<h3
-id="vue3生命周期中setup的位置">[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3>
-<p>VUE的生命周期中，<code>setup()</code>在<code>create()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br />
-<code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
-<h3
-id="vue3废弃setget直接操作data">[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3>
-<p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
-<h3
-id="audio异步播放音效">[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3>
-<p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
-<hr />
-<h2 id="css">CSS</h2>
-<h3
-id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3>
-<p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
-<hr />
-<h2 id="杂项">杂项</h2>
-<h3 id="svg莫名其妙被裁剪">[2024-04-03]SVG莫名其妙被裁剪</h3>
-<p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br />
-把这个突变点改成平滑曲线就完了。</p>
-<h3 id="svg中的mask">[2024-5-20]SVG中的mask</h3>
-<p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩...</p>
+          <h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><h3 id="2024-04-23-GIF的播放"><a href="#2024-04-23-GIF的播放" class="headerlink" title="[2024-04-23]GIF的播放"></a>[2024-04-23]GIF的播放</h3><p>整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。</p>
+<hr>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="2024-03-VUE3生命周期中setup-的位置"><a href="#2024-03-VUE3生命周期中setup-的位置" class="headerlink" title="[2024-03]VUE3生命周期中setup()的位置"></a>[2024-03]VUE3生命周期中<code>setup()</code>的位置</h3><p>VUE的生命周期中，<code>setup()</code>在<code>created()</code>之前，在VUE2中尚可设置延时使<code>setup()</code>能够使用<code>methods()</code>和<code>data</code>，但VUE3已经完全禁止了这一点，将<code>this</code>指向<code>undefined</code>。<br><code>onMounted()</code>是用来初始化数据的，不是拿去修改组件的，用<code>mounted()</code>。</p>
+<h3 id="2024-03-VUE3废弃set-、get-，直接操作data"><a href="#2024-03-VUE3废弃set-、get-，直接操作data" class="headerlink" title="[2024-03]VUE3废弃set()、get()，直接操作data"></a>[2024-03]VUE3废弃<code>set()</code>、<code>get()</code>，直接操作<code>data</code></h3><p>VUE3中废弃了<code>set()</code>、<code>get()</code>，并且直接操作<code>data</code>也会引发组件渲染更新。</p>
+<h3 id="2024-03-19-异步播放音效"><a href="#2024-03-19-异步播放音效" class="headerlink" title="[2024-03-19]&lt;audio&gt;异步播放音效"></a>[2024-03-19]<code>&lt;audio&gt;</code>异步播放音效</h3><p>和<code>PlaySound</code>不一样，一个<code>&lt;audio&gt;</code>没法异步，只能多弄几个了（）</p>
+<hr>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="2024-05-25-display-inline元素的绝对定位子元素"><a href="#2024-05-25-display-inline元素的绝对定位子元素" class="headerlink" title="[2024-05-25]display: inline元素的绝对定位子元素"></a>[2024-05-25]<code>display: inline</code>元素的绝对定位子元素</h3><p>如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——</p>
+<hr>
+<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><h3 id="2024-04-03-SVG莫名其妙被裁剪"><a href="#2024-04-03-SVG莫名其妙被裁剪" class="headerlink" title="[2024-04-03]SVG莫名其妙被裁剪"></a>[2024-04-03]SVG莫名其妙被裁剪</h3><p>一些拥有锐利边缘的SVG，某一方向上拥有描边，另一方向大小过小时，即使<code>viewbox</code>充分大也会把此处描边裁剪掉。<br>把这个突变点改成平滑曲线就完了。</p>
+<h3 id="2024-5-20-SVG中的mask"><a href="#2024-5-20-SVG中的mask" class="headerlink" title="[2024-5-20]SVG中的mask"></a>[2024-5-20]SVG中的mask</h3><p>SVG中的<code>&lt;mask&gt;</code>默认是亮度遮罩，不是alpha遮罩…</p>
 <p>也由此可以实现透明文字的单纯外描边无内描边，使用亮度遮罩和<code>paint-order: stroke</code>让黑色的<code>fill</code>覆盖<code>stroke</code>的内描边部分，就可以只遮罩外描边，可以实现以下效果（什么东西好看吗）：</p>
 <style>
     #date {
@@ -330,39 +312,22 @@ id="display-inline元素的绝对定位子元素">[2024-05-25]<code>display: inl
         stroke-width: 4px;
     }
 </style>
-<div id="date">
-<svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200">
-<defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textPath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textPath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textPath xlink:href="#line" startOffset="50%" text-anchor="middle"> 9 </textPath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line" /><text style="transform: translate(-4px,-4px);"><textPath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%"text-anchor="middle"> 9 </textPath></text><text><textPath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%"text-anchor="middle"> 9 </textPath></text>
-</svg>
-</div>
-<h3 id="android-studio网络问题">[2024-07-03]Android Studio网络问题</h3>
-<p>有时候代理和镜像都不好使，Gradle之类的可以手动下载，剩下的听天由命吧。</p>
-<h3 id="致敬传奇rm--rf">[2024-08-15]致敬传奇rm -rf /*</h3>
-<p>从来没想过这种事情会发生在自己身上（）。</p>
-<h3 id="hrt第1780天未srs">[2024-08-23]HRT第1780天未SRS</h3>
-<p>踩的是什么坑呢，大概就是出生在这种家庭里。</p>
-<h3 id="github-action自动部署github-pages">[2024-12-16]github
-action自动部署github pages</h3>
-<p>一般来说，hexo只要在本地设置<a
-target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">一键部署</a>就能自动部署静态文件了，但是github
-pages现在根目录下的index.html不变更就不会触发部署（至少）。<br />
-而action可以设置特定条件下执行workflow，因此可以实现自动部署。<br />
-我们只需要在<code>repo_url/actions/new</code>添加官方的<code>Static HTML</code>工作流在<code>.github/workflows/auto_deploy.yml</code>里：</p>
+
+<div id="date"><svg xmlns="http://www.w3.org/2000/svg" id="date_svg" view-box="0 0 100 200"><defs><mask id="spanmask" x="0" y="0" width="100%" height="100%"><text><textPath xlink:href="#line" startOffset="50%" text-anchor="middle">&nbsp;9&nbsp;</textPath></text></mask><mask id="spanmask_solid" x="0" y="0" width="100%" height="100%"><text style="transform: translate(4px,4px);"><textPath xlink:href="#line" startOffset="50%" text-anchor="middle">&nbsp;9&nbsp;</textPath></text></mask></defs><path d="M 0,120 l 100 0 " fill="none" stroke="none" id="line" /><text style="transform: translate(-4px,-4px);"><textPath class="timespan solid" mask="url(#spanmask_solid)" xlink:href="#line" startOffset="50%"text-anchor="middle">&nbsp;9&nbsp;</textPath></text><text><textPath class="timespan edge" mask="url(#spanmask)" xlink:href="#line" startOffset="50%"text-anchor="middle">&nbsp;9&nbsp;</textPath></text></svg></div>
+
+<h3 id="2024-07-03-Android-Studio网络问题"><a href="#2024-07-03-Android-Studio网络问题" class="headerlink" title="[2024-07-03]Android Studio网络问题"></a>[2024-07-03]Android Studio网络问题</h3><p>有时候代理和镜像都不好使，Gradle之类的可以手动下载，剩下的听天由命吧。</p>
+<h3 id="2024-08-15-致敬传奇rm-rf"><a href="#2024-08-15-致敬传奇rm-rf" class="headerlink" title="[2024-08-15]致敬传奇rm -rf &#x2F;*"></a>[2024-08-15]致敬传奇rm -rf &#x2F;*</h3><p>从来没想过这种事情会发生在自己身上（）。</p>
+<h3 id="2024-08-23-HRT第1780天未SRS"><a href="#2024-08-23-HRT第1780天未SRS" class="headerlink" title="[2024-08-23]HRT第1780天未SRS"></a>[2024-08-23]HRT第1780天未SRS</h3><p>踩的是什么坑呢，大概就是出生在这种家庭里。</p>
+<h3 id="2024-12-16-github-action自动部署github-pages"><a href="#2024-12-16-github-action自动部署github-pages" class="headerlink" title="[2024-12-16]github action自动部署github pages"></a>[2024-12-16]github action自动部署github pages</h3><p>一般来说，hexo只要在本地设置<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">一键部署</a>就能自动部署静态文件了，但是github pages现在根目录下的index.html不变更就不会触发部署（至少）。<br>而action可以设置特定条件下执行workflow，因此可以实现自动部署。<br>我们只需要在<code>repo_url/actions/new</code>添加官方的<code>Static HTML</code>工作流在<code>.github/workflows/auto_deploy.yml</code>里：</p>
 <details>
-<summary>
-auto_deploy.yml
-</summary>
+<summary>auto_deploy.yml</summary>
+
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Simple workflow for deploying static content to GitHub Pages</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">static</span> <span class="string">content</span> <span class="string">to</span> <span class="string">Pages</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment"># Runs on pushes targeting the default branch</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">&quot;main&quot;</span>] <span class="comment"># 注意分支名</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Allows you to run this workflow manually from the Actions tab</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages</span></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">read</span></span><br><span class="line">  <span class="attr">pages:</span> <span class="string">write</span></span><br><span class="line">  <span class="attr">id-token:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.</span></span><br><span class="line"><span class="comment"># However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.</span></span><br><span class="line"><span class="attr">concurrency:</span></span><br><span class="line">  <span class="attr">group:</span> <span class="string">&quot;pages&quot;</span></span><br><span class="line">  <span class="attr">cancel-in-progress:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="comment"># Single deploy job since we&#x27;re just deploying</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">github-pages</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">$&#123;&#123;</span> <span class="string">steps.deployment.outputs.page_url</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/configure-pages@v5</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">artifact</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-pages-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="comment"># Upload entire repository</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">&#x27;.&#x27;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line">        <span class="attr">id:</span> <span class="string">deployment</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/deploy-pages@v4</span></span><br></pre></td></tr></table></figure>
 </details>
-<p>而如果没有设置本地一键部署，需要在工作流中build一下，<a
-target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">网上教程</a>大多是这种。<br />
-（之前一直手动，我真傻，真的）</p>
-<h3 id="github-f2a-中国手机号">[2024-12-16]github F2A 中国手机号</h3>
-<p>github
-F2A没有中国区号，尝试通过改前端添加，获悉悲报<code>2023-03</code>左右github已经采取手段在后端添加了校验。</p>
-<h3
-id="通过itunes下载app历史版本">[2024-12-26]通过iTunes下载app历史版本</h3>
-<p>教程搜一下一大把，主要是如果下载的版本不是想要的，就算删掉，iTunes里也会一直显示“已下载”，可以进已购项目里选择“隐藏”。</p>
+
+<p>而如果没有设置本地一键部署，需要在工作流中build一下，<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages.html#%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2">网上教程</a>大多是这种。<br>（之前一直手动，我真傻，真的）</p>
+<h3 id="2024-12-16-github-F2A-中国手机号"><a href="#2024-12-16-github-F2A-中国手机号" class="headerlink" title="[2024-12-16]github F2A 中国手机号"></a>[2024-12-16]github F2A 中国手机号</h3><p>github F2A没有中国区号，尝试通过改前端添加，获悉悲报<code>2023-03</code>左右github已经采取手段在后端添加了校验。</p>
+<h3 id="2024-12-26-通过iTunes下载app历史版本"><a href="#2024-12-26-通过iTunes下载app历史版本" class="headerlink" title="[2024-12-26]通过iTunes下载app历史版本"></a>[2024-12-26]通过iTunes下载app历史版本</h3><p>教程搜一下一大把，主要是如果下载的版本不是想要的，就算删掉，iTunes里也会一直显示“已下载”，可以进已购项目里选择“隐藏”。</p>
 
         
       </div>

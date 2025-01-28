@@ -286,6 +286,11 @@ mjx-container[display="true"] + br {
                 <div class="category-count">3</div>
             </a>
         </div></div>
+            <a class="category-link" href="/blog/categories/Coding/">
+                Coding
+                <div class="category-count">2</div>
+            </a>
+        
             <a class="category-link" href="/blog/categories/CSS-tricks/">
                 CSS-tricks
                 <div class="category-count">3</div>
@@ -299,11 +304,6 @@ mjx-container[display="true"] + br {
             <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
                 生信
                 <div class="category-count">3</div>
-            </a>
-        
-            <a class="category-link" href="/blog/categories/Coding/">
-                Coding
-                <div class="category-count">2</div>
             </a>
         </div>
     </div>
@@ -440,7 +440,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            6.7k 词 
+            6.6k 词 
           </div>
         </div>
         
@@ -451,13 +451,43 @@ mjx-container[display="true"] + br {
         
           <div class="truncate-text">
             
-              线性回归引言在中学就学习过，一元线性回归中，对于某组常数项和回归系数，有评价标准$$SSE=\displaystyle\sum_{i=1}^{m}(y_{i}-\hat{y}{i})^{2}使用最小二乘法（正规方程）可以使其最小，此时\begin{align*}b   &amp;= \frac{\displaystyle\sum{i=1}^{m}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\displaystyle\sum_{i=1}^{m}(x_{i}-\bar{x})^{2}} \a &amp;= \bar{y}-b\bar{x}\end{align*}$$
-多元线性回归损失函数类似地，多元线性回归中，对于个样本的个特征以及一组回归系数，有相同的评价标准，为了去掉样本规模的影响除以，定义损失函数
-正规方程同样可以使用正规方程，求解使得最小。
+              线性回归
+引言
+在中学就学习过，一元线性回归中，对于某组常数项和回归系数，有评价标准  使用最小二乘法（正规方程）可以使其最小，此时 
+多元线性回归
+损失函数
+类似地，多元线性回归中，对于个样本的个特征  以及一组回归系数，有相同的评价标准，为了去掉样本规模的影响除以，定义损失函数 
+正规方程
+同样可以使用正规方程，求解使得最小。 
+
 
 标量对向量的求导方法
 
-或依据和形式一致（Denominator Layout）或和形式一致（Numerator Layout）而定，以下采用Denominator Layout。于是我们有（或者说，，则）进一步地，...
+ 或  依据和形式一致（Denominator Layout）或和形式一致（Numerator
+Layout）而定，以下采用Denominator Layout。 于是我们有  （或者说，，则）
+进一步地，对于二次型
+
+于是 
+
+所以  这也就是雅可比矩阵。
+
+
+二阶导
+
+上面直接认定了代价函数有最小值，在这里我们可以向量对向量求导求海森矩阵
+ （因为连续函数偏导和求导顺序无关，其海森矩阵是对称矩阵）
+而对于任意非零实列向量，的特征值 （内积） 所以是凸函数
+
+令，若可逆，有
+
+
+
+带回到一元线性回归
+
+对于  和上文一致。
+
+梯度下降法
+就是让某组不...
             
           </div>
         
@@ -611,16 +641,21 @@ UEFI这个在bios里就能看到，或者运行msinfo32，在系...
         
           <div class="truncate-text">
             
-              数据处理[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
+              数据处理
+[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？
+在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
 1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_lower%~xf"
 另外其实我上面命令写错了，但是结果正常，这也说明保留画面的大小是优先于其位置的。
-[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found前段时间更新的某版本有bug，如下情况不生成.h5：
+[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found
+前段时间更新的某版本有bug，如下情况不生成.h5：
 
 使用TensorFlow模型（据开发者，但是我在服务器用TensorFlow训练好之后在本地用没问题）
 本地训练的pyTorch模型（我遇到的）
 
-最新版本已经修复，但是不知道为什么，直接pip install没法覆盖，先卸载再安装。
-杂项[2025-01-07]Word中ZOTERO自动...
+最新版本已经修复，但是不知道为什么，直接pip
+install没法覆盖，先卸载再安装。
+杂项
+[2025-0...
             
           </div>
         
@@ -691,17 +726,23 @@ UEFI这个在bios里就能看到，或者运行msinfo32，在系...
         
           <div class="truncate-text">
             
-              将二元数映射到一元数给定一个二元数，其中的整数部分依次为数列，小数部分依次为数列，同理的整数部分为数列，小数部分为数列。
+              将二元数映射到一元数
+给定一个二元数，其中的整数部分依次为数列，小数部分依次为数列，同理的整数部分为数列，小数部分为数列。
 可以构造出与其唯一对应的一元数：的整数部分有一分隔标记，其左方为逆序的数列，右方为正序的数列，小数部分同理。
 （内心OS：这样二元数不就和一元数一样多了么（没学好）
 结果还真一样多，别人的构造方法还漂亮多了：小数部分的第位为，第位为，整数部分同理。
-证明：有无穷多个质数给定质数，构造，再构造，则除以中任意一个数都余，并且大于中任意一个数包括，所以要么是质数，要么有一个大于的质因数。所以对于任意质数，都存在一个比它大的质数。（好像是阿基米德的方法）
+证明：有无穷多个质数
+给定质数，构造，再构造，则除以中任意一个数都余，并且大于中任意一个数包括，所以要么是质数，要么有一个大于的质因数。
+所以对于任意质数，都存在一个比它大的质数。
+（好像是阿基米德的方法）
 SpinLaunch的角动量问题
 
 
 
+
 如上00:25说：发射器一端圆盘的近端慢于远端，所以圆盘释放时会带有角动量，听起来很符合直觉。这或许也是SpinLaunch（怎么logo像厕纸一样）面临的问题之一，下面对这个问题进行定量分析。
-假设发射器角速度为，均质等厚圆盘中心到发射器轴的距离为，圆盘半径为，密度为。那么，以发射器轴为中心画圆弧分割，为圆盘某点与圆心的距离，为此连线与圆盘中心到发射器轴连线夹角,发射器上圆盘...
+假设发射器角速度为，均质等厚圆盘中心到发射器轴的距离为，圆盘半径为，密度为。
+那么，以发射器轴为中心画圆弧分割，为圆盘某点与圆心的距离，为此连...
             
           </div>
         
@@ -761,7 +802,7 @@ SpinLaunch的角动量问题
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.3k 词 
+            2.2k 词 
           </div>
         </div>
         
@@ -772,10 +813,18 @@ SpinLaunch的角动量问题
         
           <div class="truncate-text">
             
-              scRNA-seq(R)[2024-07-25]Rstudio server的Python venv配置有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。
-[2024-12-15]Read10x()在Seurat V5中新功能的表现（多数据库报错）在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多个样本时会报Error in cbind.Matrix(x, y, deparse.level = 0L) :   number of rows of matrices must match，还会卡住。并且运行速度慢于lapply()分别读取（虽说这样还要merge、JoinLayers吧），还会产生没法回收的内存垃圾。
-[2024-12-17]基因ID转换从前用的org.Hs.eg.db之类的，但是他们的转换率不太行。换用biomaRt，但是注意，举例来说，biomRt不仅会扔掉一些没法识别的ENSEMBL，还会把一些转换成NA，一些转换成&quot;&quot;，需要特殊处理一下。
-[2024-12-16]去...
+              scRNA-seq(R)
+[2024-07-25]Rstudio
+server的Python venv配置
+有时候安装设置完之后即使看到配置成功了，但是还是无效，试着重启一下吧。
+[2024-12-15]Read10x()在Seurat
+V5中新功能的表现（多数据库报错）
+在V5中，Read10x()可以读取一个目录的列表，直接整合成一个表达矩阵，但是实测在遇到基因没法对应的多个样本时会报Error in cbind.Matrix(x, y, deparse.level = 0L) :   number of rows of matrices must match，还会卡住。
+并且运行速度慢于lapply()分别读取（虽说这样还要merge、JoinLayers吧），还会产生没法回收的内存垃圾。
+[2024-12-17]基因ID转换
+从前用的org.Hs.eg.db之类的，但是他们的转换率不太行。
+换用biomaRt，但是注意，举例来说，biomRt不仅会扔掉一些没法识别的ENSEMBL，还会把一些转换成NA，一些转换成""，需要特殊处理一下。
+[2024-...
             
           </div>
         
@@ -926,7 +975,7 @@ SpinLaunch的角动量问题
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.9k 词 
+            2.8k 词 
           </div>
         </div>
         
@@ -937,15 +986,25 @@ SpinLaunch的角动量问题
         
           <div class="truncate-text">
             
-              HTML[2024-04-23]GIF的播放整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
+              HTML
+[2024-04-23]GIF的播放
+整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
 
-JavaScript[2024-03]VUE3生命周期中setup()的位置VUE的生命周期中，setup()在created()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。onMounted()是用来初始化数据的，不是拿去修改组件的，用mounted()。
-[2024-03]VUE3废弃set()、get()，直接操作dataVUE3中废弃了set()、get()，并且直接操作data也会引发组件渲染更新。
-[2024-03-19]&lt;audio&gt;异步播放音效和PlaySound不一样，一个&lt;audio&gt;没法异步，只能多弄几个了（）
+JavaScript
+[2024-03]VUE3生命周期中setup()的位置
+VUE的生命周期中，setup()在created()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。
+onMounted()是用来初始化数据的，不是拿去修改组件的，用mounted()。
+[2024-03]VUE3废弃set()、get()，直接操作data
+VUE3中废弃了set()、get()，并且直接操作data也会引发组件渲染更新。
+[2024-03-19]&lt;audio&gt;异步播放音效
+和PlaySound不一样，一个&lt;audio&gt;没法异步，只能多弄几个了（）
 
-CSS[2024-05-25]display: inline元素的绝对定位子元素如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——
+CSS
+[2024-05-25]display: inline元素的绝对定位子元素
+如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——
 
-杂项[2024-04-03]SVG莫名其妙被裁剪一些拥有锐利边缘...
+杂项
+[2...
             
           </div>
         

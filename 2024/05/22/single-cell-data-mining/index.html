@@ -35,7 +35,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
-<meta property="article:modified_time" content="2025-01-25T14:12:02.053Z">
+<meta property="article:modified_time" content="2025-01-31T12:38:15.573Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -300,7 +300,8 @@ gene是在一组样本或细胞中，表达水平变化大的基因，它们可�
 <h3 id="降维与聚类">降维与聚类</h3>
 <p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。<br />
 PCA对数据的尺度（即每个特征的平均值和标准差）非常敏感，如果不同的feature有不同的尺度（0-1vs0-1000），那么PCA的结果将主要受到尺度大的特征的影响，所以PCA之前要标准化。</p>
-<p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。聚类是一种无监督学习，也就是机器自己把数据根据特征分类，而不需要标注的指导。</p>
+<p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。聚类是一种无监督学习，也就是机器自己把数据根据特征分类，而不需要标注的指导。更多可见<a
+href="/blog/2025/01/21/ML-induction/#聚类">另一篇博客</a>。</p>
 <p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（<em>“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”</em>
 ）。<br />
 另外PCA是线性的，而t-SNE是非线性的。</p>

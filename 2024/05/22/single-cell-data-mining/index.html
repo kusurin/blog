@@ -35,7 +35,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
-<meta property="article:modified_time" content="2025-01-31T12:38:15.573Z">
+<meta property="article:modified_time" content="2025-02-05T08:19:54.853Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -165,6 +165,11 @@
     <div class="widget">
       <h3 class="widget-title">分类</h3>
       <div class="category-box">
+            <a class="category-link" href="/blog/categories/Coding/">
+                Coding
+                <div class="category-count">2</div>
+            </a>
+        
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
                 <div class="category-count">10</div>
@@ -175,11 +180,6 @@
                 <div class="category-count">3</div>
             </a>
         </div></div>
-            <a class="category-link" href="/blog/categories/Coding/">
-                Coding
-                <div class="category-count">2</div>
-            </a>
-        
             <a class="category-link" href="/blog/categories/CSS-tricks/">
                 CSS-tricks
                 <div class="category-count">3</div>
@@ -298,13 +298,12 @@ double droplet就是上面说的双细胞。<br />
 gene是在一组样本或细胞中，表达水平变化大的基因，它们可能是驱动细胞异质性的关键。
 <code>Seurat</code>包同样可以傻瓜实现。</p>
 <h3 id="降维与聚类">降维与聚类</h3>
-<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得数据的方差尽可能大（保留变异性），而均方误差尽可能小（和原数据的差距尽可能小），欸网上看证明去吧。<br />
-PCA对数据的尺度（即每个特征的平均值和标准差）非常敏感，如果不同的feature有不同的尺度（0-1vs0-1000），那么PCA的结果将主要受到尺度大的特征的影响，所以PCA之前要标准化。</p>
+<p>降维机器学习里也有，<em>“将数据从原始的高维空间转换到低维空间，同时尽可能保留数据的变异性”</em>，总的来说目的就是去掉冗杂信息。一个方法就是PCA（主成分分析），能使得降维后数据的方差尽可能大（保留变异性），而和原本数据的均方误差尽可能小(减小和原数据的差距)，这两个其实殊途同归。更多可见<a
+href="/blog/2025/01/21/ML-induction/#降维">另一篇博客</a>。<br />
+PCA对数据的尺度（可以用标准差度量）非常敏感，如果不同的特征有不同的尺度（0-1vs0-1000），那么PCA的结果将主要受到尺度大的特征的影响，所以PCA之前可以先缩放特征到同一尺度。</p>
 <p>聚类就是把数据分成几类，使得同一个类内数据的相似性尽可能大，同时不同类数据的差异性也尽可能地大。聚类是一种无监督学习，也就是机器自己把数据根据特征分类，而不需要标注的指导。更多可见<a
 href="/blog/2025/01/21/ML-induction/#聚类">另一篇博客</a>。</p>
-<p>案例里PCA之后聚类然后又用t-SNE降维，有人说是因为先用PCA去除噪声，利于准确聚类，然后用t-SNE更好地可视化（<em>“在低维空间中保留高维空间中的邻域结构，可以有效地揭示数据中的群体结构和模式”</em>
-）。<br />
-另外PCA是线性的，而t-SNE是非线性的。</p>
+<p>案例里PCA之后聚类然后又用t-SNE降维（也可以用UMAP），后者主要是为了降至2或3维方便可视化。</p>
 <style>
     #square-hole img {
         display:none;
@@ -416,7 +415,8 @@ stabilizing transformation）或"mean.var.plot"（均值方差图）。</li>
 <h3
 id="降维与聚类主要是找marker基因">降维与聚类，主要是找marker基因</h3>
 <h4 id="pca">PCA</h4>
-<p>要先标准化，这里用<code>ScaleData()</code>，对每个基因的表达量进行缩放和中心化，可以消除不同基因之间由于表达量级别不同而产生的差异。而不止用<code>NormalizeData()</code>，因为它对每个细胞之间的某个基因表达量进行归一化，可以消除不同细胞之间由于测序深度不同而产生的差异，所以归一化后，不同的基因可能仍然有不同的表达量级别。</p>
+<p>先<code>NormalizeData()</code>，对每个细胞之间的某个基因表达量进行标准化，可以消除不同细胞之间由于测序深度不同而产生的差异，所以归一化后，不同的基因可能仍然有不同的表达量级别。<br />
+然后<code>ScaleData()</code>，对每个基因的表达量进行缩放并中心化，可以消除不同基因之间由于表达量级别不同而产生的差异，并且PCA需要基于中心化的数据。</p>
 <p>然后就是简单的<code>scRNA &lt;- RunPCA(scRNA, features = VariableFeatures(scRNA))</code>，绘图可以用<code>DimPlot()</code>。</p>
 <p>最后挑选主成分，<code>jackStraw()</code>评估每个基因的PCA得分的显著性（对于每个主成分，它会对数据进行PCA，然后对PCA的结果进行随机重排，然后再次进行PCA，然后计算原始PCA（实际）和重排PCA（随机下理论）的差异，这个差异越大，说明这个主成分越重要。），<code>ScoreJackStraw</code>用于分析jackStraw函数的结果，<code>JackStrawPlot()</code>绘制jackStraw图。</p>
 这个图，empirical是实际的PCA得分，theoretical是随机重排的PCA得分（这两个对应彩色点），虚线是"均匀分布的
@@ -428,7 +428,7 @@ src="https://cdn-ak.f.st-hatena.com/images/fotolife/k/kimoppy126/20180902/201809
 <a target="_blank" rel="noopener" href="https://www.kimoton.com/entry/20180903/1535903928">《JackStraw
 Plot (QQ-plot) を理解する》</a>
 </center>
-<p>或者也可以画<code>ElbowPlot</code>，可以选择累积解释方差≥90%的主成分数。</p>
+<p>或者可以画<code>ElbowPlot</code>，也可以选择累积解释方差≥90%的主成分数。</p>
 <h4 id="聚类还有一堆东西">聚类还有一堆东西</h4>
 <p>先<code>FindNeighbors()</code>计算最近邻，然后用<code>FindClusters()</code>聚类。</p>
 <p>这里结果可能不太一样（<del>甚至教程的复现和原文不一样</del>），有可能是质控的参数不一样，也有可能作者给出的数据经过质控。</p>

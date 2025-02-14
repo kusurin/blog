@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+<script src="/blog/js/color.global.min.js" ></script>
+<script src="/blog/js/load-settings.js" ></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-31GM7RWSBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-31GM7RWSBJ');
+</script>
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>对PBMC进行scATAC-seq分析 | kusurin.blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="description" content="ATAC-seq的原理可以通过这个视频简单了解，在染色质开放区域，转座事件更容易发生，产生更多片段，形成peak。  通过scATAC-seq分析，我们可以得出，例如，不同条件下染色质开放区域的差异，高度开放区域可能为活跃转录的基因。 这里使用Seurat V5和signac对PBMC进行scATAC-seq分析，原始代码见signac文档。 数据导入  peak-细胞计数矩阵 元数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对PBMC进行scATAC-seq分析">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/02/13/ATACseq-on-PBMC/index.html">
+<meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="ATAC-seq的原理可以通过这个视频简单了解，在染色质开放区域，转座事件更容易发生，产生更多片段，形成peak。  通过scATAC-seq分析，我们可以得出，例如，不同条件下染色质开放区域的差异，高度开放区域可能为活跃转录的基因。 这里使用Seurat V5和signac对PBMC进行scATAC-seq分析，原始代码见signac文档。 数据导入  peak-细胞计数矩阵 元数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.10xgenomics.com/image/upload/v1696618847/software-support/Cell%20Ranger%20ATAC/peak_calling.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/ATACseq-on-PBMC/ATAC-celltype.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/ATACseq-on-PBMC/chr6-13302533-13303459.png">
+<meta property="og:image" content="https://stuartlab.org/signac/articles/pbmc_vignette_files/figure-html/unnamed-chunk-44-1.png">
+<meta property="article:published_time" content="2025-02-13T13:43:29.000Z">
+<meta property="article:modified_time" content="2025-02-14T10:34:04.398Z">
+<meta property="article:author" content="kusurin">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="R based">
+<meta property="article:tag" content="scATAC-seq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.10xgenomics.com/image/upload/v1696618847/software-support/Cell%20Ranger%20ATAC/peak_calling.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+   
+  <div id="main-grid" class="shadow   ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/blog/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>kusurin.blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/blog/">Home</a>
+    
+      <a class="main-nav-link" href="/blog/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/blog/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/blog/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/blog/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/blog/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/blog/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/blog/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/blog/images/profile_pic_2.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">kusurin </div>
+      <div class="dot"></div>
+      <div class="subtitle">文字の中に沈む </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu" title="Home Page"><i class="fa-solid fa-globe"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu/blog" title="Blog Home Page"><i class="fa-solid fa-house"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/kusurin" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/5404263" title="bilibili"><i class="fa-brands fa-bilibili"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/blog/categories/Coding/">
+                Coding
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
+                杂谈
+                <div class="category-count">10</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/%E7%BD%91%E5%AE%89/">
+                网安
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/blog/categories/CSS-tricks/">
+                CSS-tricks
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
+                踩坑日记
+                <div class="category-count">4</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
+                生信
+                <div class="category-count">4</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/Linux/" rel="tag">Linux</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scRNA-seq/" rel="tag">scRNA-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%82%85%E7%AB%8B%E5%8F%B6/" rel="tag">傅立叶</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-ATACseq-on-PBMC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        对PBMC进行scATAC-seq分析
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-02-13T13:43:29.000Z" itemprop="datePublished">2025-02-13</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5.7k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5"><span class="toc-text">数据导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%A8%E6%8E%A7"><span class="toc-text">质控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E9%99%8D%E7%BB%B4%E8%81%9A%E7%B1%BB%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-text">线性降维、聚类和可视化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A"><span class="toc-text">类型注释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#da%E5%88%86%E6%9E%90"><span class="toc-text">DA分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%9F%9F%E5%86%85tn5%E6%8F%92%E5%85%A5%E9%A2%91%E7%8E%87%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-text">区域内Tn5插入频率可视化</span></a></li></ol>
+    </div>
+
+          <p>ATAC-seq的原理可以通过<a
+target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9K5Q7oEO7ss">这个视频</a>简单了解，在染色质开放区域，转座事件更容易发生，产生更多片段，形成peak。</p>
+<p><img src="https://cdn.10xgenomics.com/image/upload/v1696618847/software-support/Cell%20Ranger%20ATAC/peak_calling.png" style="max-height:40vh;width:auto;"></p>
+<p>通过scATAC-seq分析，我们可以得出，例如，不同条件下染色质开放区域的差异，高度开放区域可能为活跃转录的基因。</p>
+<p>这里使用Seurat V5和signac对PBMC进行scATAC-seq分析，原始代码见<a
+target="_blank" rel="noopener" href="https://stuartlab.org/signac/articles/pbmc_vignette">signac文档</a>。</p>
+<h2 id="数据导入">数据导入</h2>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/cell-atac/2.1.0/10k_pbmc_ATACv2_nextgem_Chromium_Controller/10k_pbmc_ATACv2_nextgem_Chromium_Controller_filtered_peak_bc_matrix.h5">peak-细胞计数矩阵</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/cell-atac/2.1.0/10k_pbmc_ATACv2_nextgem_Chromium_Controller/10k_pbmc_ATACv2_nextgem_Chromium_Controller_singlecell.csv">元数据</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/cell-atac/2.1.0/10k_pbmc_ATACv2_nextgem_Chromium_Controller/10k_pbmc_ATACv2_nextgem_Chromium_Controller_fragments.tsv.gz">片段信息</a>
+这个<a
+target="_blank" rel="noopener" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/output/fragments">片段信息结构</a>里包含了染色体-起始位置-终止位置-barcode等</li>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/cell-atac/2.1.0/10k_pbmc_ATACv2_nextgem_Chromium_Controller/10k_pbmc_ATACv2_nextgem_Chromium_Controller_fragments.tsv.gz.tbi">片段信息索引</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://signac-objects.s3.amazonaws.com/pbmc_10k_v3.rds">scRNA-seq数据</a></li>
+</ul>
+<p>（所以其实，可以只用片段信息来生成peak-细胞计数矩阵。）</p>
+<p>还可以添加注释信息，便于下游分析直接从对象中读取。</p>
+<details>
+<summary>
+生成Seurat对象
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">pkgs <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Signac&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Seurat&quot;</span><span class="punctuation">,</span> <span class="string">&quot;hdf5r&quot;</span><span class="punctuation">,</span> <span class="string">&quot;AnnotationHub&quot;</span><span class="punctuation">,</span> <span class="string">&quot;GenomicRanges&quot;</span><span class="punctuation">,</span> <span class="string">&quot;ggplot2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;patchwork&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="keyword">for</span><span class="punctuation">(</span>pkg <span class="keyword">in</span> pkgs<span class="punctuation">)</span><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="keyword">if</span><span class="punctuation">(</span><span class="operator">!</span>requireNamespace<span class="punctuation">(</span>pkg<span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">    install.packages<span class="punctuation">(</span>pkg<span class="punctuation">,</span> dependencies <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line">  library<span class="punctuation">(</span>pkg<span class="punctuation">,</span> character.only <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">counts <span class="operator">&lt;-</span> Read10X_h5<span class="punctuation">(</span>filename <span class="operator">=</span> <span class="string">&quot;10k_pbmc_ATACv2_nextgem_Chromium_Controller_filtered_peak_bc_matrix.h5&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">metadata <span class="operator">&lt;-</span> read.csv<span class="punctuation">(</span></span><br><span class="line">  file <span class="operator">=</span> <span class="string">&quot;10k_pbmc_ATACv2_nextgem_Chromium_Controller_singlecell.csv&quot;</span><span class="punctuation">,</span></span><br><span class="line">  header <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span></span><br><span class="line">  row.names <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">chrom_assay <span class="operator">&lt;-</span> CreateChromatinAssay<span class="punctuation">(</span></span><br><span class="line">  counts <span class="operator">=</span> counts<span class="punctuation">,</span></span><br><span class="line">  sep <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;:&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">  fragments <span class="operator">=</span> <span class="string">&quot;10k_pbmc_ATACv2_nextgem_Chromium_Controller_fragments.tsv.gz&quot;</span><span class="punctuation">,</span></span><br><span class="line">  min.cells <span class="operator">=</span> <span class="number">10</span><span class="punctuation">,</span></span><br><span class="line">  min.features <span class="operator">=</span> <span class="number">200</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">pbmc <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span></span><br><span class="line">  counts <span class="operator">=</span> chrom_assay<span class="punctuation">,</span></span><br><span class="line">  assay <span class="operator">=</span> <span class="string">&quot;peaks&quot;</span><span class="punctuation">,</span></span><br><span class="line">  meta.data <span class="operator">=</span> metadata</span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">ah <span class="operator">&lt;-</span> AnnotationHub<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line">ensdb_v98 <span class="operator">&lt;-</span> ah<span class="punctuation">[[</span><span class="string">&quot;AH75011&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span></span><br><span class="line">annotations <span class="operator">&lt;-</span> GetGRangesFromEnsDb<span class="punctuation">(</span>ensdb <span class="operator">=</span> ensdb_v98<span class="punctuation">)</span></span><br><span class="line">seqlevels<span class="punctuation">(</span>annotations<span class="punctuation">)</span> <span class="operator">&lt;-</span> paste0<span class="punctuation">(</span><span class="string">&#x27;chr&#x27;</span><span class="punctuation">,</span> seqlevels<span class="punctuation">(</span>annotations<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">genome<span class="punctuation">(</span>annotations<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&quot;hg38&quot;</span></span><br><span class="line"></span><br><span class="line">Annotation<span class="punctuation">(</span>pbmc<span class="punctuation">)</span> <span class="operator">&lt;-</span> annotations</span><br><span class="line"></span><br><span class="line">rm<span class="punctuation">(</span><span class="built_in">list</span> <span class="operator">=</span> setdiff<span class="punctuation">(</span>ls<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&quot;pbmc&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">gc<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="质控">质控</h2>
+<ul>
+<li>有一些特征，peak，可能是染色体支架，或者不在22+X+Y染色体上，可以去除</li>
+<li>Nucleosome banding
+pattern：通过将核小体相关片段和无核小体片段的比例量化为核小体信号，保留低信号（开放染色质区域占主导）的样本</li>
+<li>Transcriptional start site (TSS) enrichment
+score：反映转录起始位点周围的片段数量（与背景的比值），一般TSS周围富集着开放区域之类的，低就是不好</li>
+<li>peak内片段数：低可能是因为测序深度不够，高可能是双细胞</li>
+<li>peak内片段数比例：低可能代表着低质量细胞或者伪迹</li>
+<li>黑名单区域比例：一些区域内的片段代表着伪迹</li>
+</ul>
+<details>
+<summary>
+质控
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删掉一些peak</span></span><br><span class="line">peaks.keep <span class="operator">&lt;-</span> seqnames<span class="punctuation">(</span>granges<span class="punctuation">(</span>pbmc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">%in%</span> standardChromosomes<span class="punctuation">(</span>granges<span class="punctuation">(</span>pbmc<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> pbmc<span class="punctuation">[</span>as.vector<span class="punctuation">(</span>peaks.keep<span class="punctuation">)</span><span class="punctuation">,</span> <span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># compute nucleosome signal score per cell</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> NucleosomeSignal<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># compute TSS enrichment score per cell</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> TSSEnrichment<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add fraction of reads in peaks</span></span><br><span class="line">pbmc<span class="operator">$</span>pct_reads_in_peaks <span class="operator">&lt;-</span> pbmc<span class="operator">$</span>peak_region_fragments <span class="operator">/</span> pbmc<span class="operator">$</span>passed_filters <span class="operator">*</span> <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add blacklist ratio</span></span><br><span class="line">pbmc<span class="operator">$</span>blacklist_ratio <span class="operator">&lt;-</span> FractionCountsInRegion<span class="punctuation">(</span></span><br><span class="line">  object <span class="operator">=</span> pbmc<span class="punctuation">,</span> </span><br><span class="line">  assay <span class="operator">=</span> <span class="string">&#x27;peaks&#x27;</span><span class="punctuation">,</span></span><br><span class="line">  regions <span class="operator">=</span> blacklist_hg38_unified</span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pbmc <span class="operator">&lt;-</span> subset<span class="punctuation">(</span></span><br><span class="line">  x <span class="operator">=</span> pbmc<span class="punctuation">,</span></span><br><span class="line">  subset <span class="operator">=</span> nCount_peaks <span class="operator">&gt;</span> <span class="number">9000</span> <span class="operator">&amp;</span></span><br><span class="line">    nCount_peaks <span class="operator">&lt;</span> <span class="number">100000</span> <span class="operator">&amp;</span></span><br><span class="line">    pct_reads_in_peaks <span class="operator">&gt;</span> <span class="number">40</span> <span class="operator">&amp;</span></span><br><span class="line">    blacklist_ratio <span class="operator">&lt;</span> <span class="number">0.01</span> <span class="operator">&amp;</span></span><br><span class="line">    nucleosome_signal <span class="operator">&lt;</span> <span class="number">4</span> <span class="operator">&amp;</span></span><br><span class="line">    TSS.enrichment <span class="operator">&gt;</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="线性降维聚类和可视化">线性降维、聚类和可视化</h2>
+<p>对于标准化，这里使用TF-IDF，其思想是，假如某特征，peak，在某样本，细胞，中较多，而在其它细胞中较少，则这个peak的类别区分效果较好。</p>
+<p>对于选择用于降维的特征，由于scATAC-seq的低变化范围，可以选择总和最大的一些peak，或者丢弃仅在少数细胞中出现的peak。</p>
+<p>对于线性降维，官方用SVD，然而PCA和SVD是可以互相转化的，而且PCA也多用SVD实现，就当成PCA了。<br />
+需要注意的是，对于scATAC-seq，第一个主成分常常与测序深度相关，可以检查每个主成分与测序深度的相关性，不使用相关性较高的。</p>
+<p>然后一样的计算kNN图然后聚类，UMAP等降到2维用于可视化。</p>
+<details>
+<summary>
+线性降维、聚类和可视化
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pbmc <span class="operator">&lt;-</span> RunTFIDF<span class="punctuation">(</span>pbmc<span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> FindTopFeatures<span class="punctuation">(</span>pbmc<span class="punctuation">,</span> min.cutoff <span class="operator">=</span> <span class="string">&#x27;q0&#x27;</span><span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> RunSVD<span class="punctuation">(</span>pbmc<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 去掉与测序深度相关性较高的主成分，在余下主成分中选择保留90%方差的主成分（感觉我这样搞有点问题）</span></span><br><span class="line">depth_correlation <span class="operator">&lt;-</span> DepthCor<span class="punctuation">(</span>pbmc<span class="punctuation">,</span> n <span class="operator">=</span> <span class="number">50</span><span class="punctuation">)</span></span><br><span class="line">pcs_todrop <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span>which<span class="punctuation">(</span>lapply<span class="punctuation">(</span>depth_correlation<span class="operator">$</span>data<span class="operator">$</span>counts<span class="punctuation">,</span><span class="built_in">abs</span><span class="punctuation">)</span> <span class="operator">&gt;</span> <span class="number">0.5</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">pcs_filt <span class="operator">&lt;-</span> setdiff<span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="built_in">length</span><span class="punctuation">(</span>pbmc<span class="punctuation">[[</span><span class="string">&quot;lsi&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="punctuation">)</span><span class="punctuation">,</span> pcs_todrop<span class="punctuation">)</span></span><br><span class="line">pcs_use <span class="operator">&lt;-</span> pcs_filt<span class="punctuation">[</span><span class="built_in">cumsum</span><span class="punctuation">(</span>pbmc<span class="punctuation">[[</span><span class="string">&quot;lsi&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="punctuation">[</span>pcs_filt<span class="punctuation">]</span><span class="operator">^</span><span class="number">2</span><span class="punctuation">)</span> <span class="operator">/</span> <span class="built_in">sum</span><span class="punctuation">(</span>pbmc<span class="punctuation">[[</span><span class="string">&quot;lsi&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="punctuation">[</span>pcs_filt<span class="punctuation">]</span><span class="operator">^</span><span class="number">2</span><span class="punctuation">)</span> <span class="operator">&lt;</span> <span class="number">0.9</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pbmc <span class="operator">&lt;-</span> RunUMAP<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&#x27;lsi&#x27;</span><span class="punctuation">,</span> dims <span class="operator">=</span> pcs_use<span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> FindNeighbors<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&#x27;lsi&#x27;</span><span class="punctuation">,</span> dims <span class="operator">=</span> pcs_use<span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> FindClusters<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span> algorithm <span class="operator">=</span> <span class="number">3</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="类型注释">类型注释</h2>
+<p>通过与scRNA-seq整合进行类型注释，但是呢，需要相同的特征，基因，来寻找锚点，所以需要通过片段来预测ATAC-seq的基因活动性。</p>
+<p>可以通过<code>prediction.score.max</code>检查准确性。</p>
+<p>（这里因为血小板无核，不应该被ATAC-seq检测到，应该进一步探究，但它们很少，直接删掉。）</p>
+<details>
+<summary>
+类型注释
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 预测基因活动性</span></span><br><span class="line">gene.activities <span class="operator">&lt;-</span> GeneActivity<span class="punctuation">(</span>pbmc<span class="punctuation">)</span></span><br><span class="line">pbmc<span class="punctuation">[[</span><span class="string">&#x27;RNA&#x27;</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> CreateAssayObject<span class="punctuation">(</span>counts <span class="operator">=</span> gene.activities<span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> NormalizeData<span class="punctuation">(</span></span><br><span class="line">  object <span class="operator">=</span> pbmc<span class="punctuation">,</span></span><br><span class="line">  assay <span class="operator">=</span> <span class="string">&#x27;RNA&#x27;</span><span class="punctuation">,</span></span><br><span class="line">  normalization.method <span class="operator">=</span> <span class="string">&#x27;LogNormalize&#x27;</span><span class="punctuation">,</span></span><br><span class="line">  scale.factor <span class="operator">=</span> median<span class="punctuation">(</span>pbmc<span class="operator">$</span>nCount_RNA<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line">DefaultAssay<span class="punctuation">(</span>pbmc<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&#x27;RNA&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算锚点后与scRNA-seq整合</span></span><br><span class="line">pbmc_rna <span class="operator">&lt;-</span> UpdateSeuratObject<span class="punctuation">(</span>pbmc_rna<span class="punctuation">)</span></span><br><span class="line">transfer.anchors <span class="operator">&lt;-</span> FindTransferAnchors<span class="punctuation">(</span></span><br><span class="line">  reference <span class="operator">=</span> pbmc_rna<span class="punctuation">,</span></span><br><span class="line">  query <span class="operator">=</span> pbmc<span class="punctuation">,</span></span><br><span class="line">  reduction <span class="operator">=</span> <span class="string">&#x27;cca&#x27;</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line">predicted.labels <span class="operator">&lt;-</span> TransferData<span class="punctuation">(</span></span><br><span class="line">  anchorset <span class="operator">=</span> transfer.anchors<span class="punctuation">,</span></span><br><span class="line">  refdata <span class="operator">=</span> pbmc_rna<span class="operator">$</span>celltype<span class="punctuation">,</span></span><br><span class="line">  weight.reduction <span class="operator">=</span> pbmc<span class="punctuation">[[</span><span class="string">&#x27;lsi&#x27;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  dims <span class="operator">=</span> pcs_use</span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> AddMetaData<span class="punctuation">(</span>object <span class="operator">=</span> pbmc<span class="punctuation">,</span> metadata <span class="operator">=</span> predicted.labels<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">predicted_id_counts <span class="operator">&lt;-</span> table<span class="punctuation">(</span>pbmc<span class="operator">$</span>predicted.id<span class="punctuation">)</span></span><br><span class="line">major_predicted_ids <span class="operator">&lt;-</span> <span class="built_in">names</span><span class="punctuation">(</span>predicted_id_counts<span class="punctuation">[</span>predicted_id_counts <span class="operator">&gt;</span> <span class="number">20</span><span class="punctuation">]</span><span class="punctuation">)</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> pbmc<span class="punctuation">[</span><span class="punctuation">,</span> pbmc<span class="operator">$</span>predicted.id <span class="operator">%in%</span> major_predicted_ids<span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Idents<span class="punctuation">(</span>pbmc<span class="punctuation">)</span> <span class="operator">&lt;-</span> pbmc<span class="operator">$</span>predicted.id</span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="/blog/images/ATACseq-on-PBMC/ATAC-celltype.png" style="max-height:40vh;width:auto;"></p>
+<h2 id="da分析">DA分析</h2>
+<p>类似地，我们可以在不同细胞类型间进行差异可及性分析，这里选CD4
+Naive和CD14+ Monocytes。</p>
+<p>但是只有peak有些难以解释，可以使用<code>ClosestFeature()</code>找到附近的基因，然后就可以做富集分析之类的了。</p>
+<details>
+<summary>
+DA分析
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DefaultAssay<span class="punctuation">(</span>pbmc<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&#x27;peaks&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># wilcox is the default option for test.use</span></span><br><span class="line">da_peaks <span class="operator">&lt;-</span> FindMarkers<span class="punctuation">(</span></span><br><span class="line">  object <span class="operator">=</span> pbmc<span class="punctuation">,</span></span><br><span class="line">  ident.1 <span class="operator">=</span> <span class="string">&quot;CD4 Naive&quot;</span><span class="punctuation">,</span></span><br><span class="line">  ident.2 <span class="operator">=</span> <span class="string">&quot;CD14+ Monocytes&quot;</span><span class="punctuation">,</span></span><br><span class="line">  test.use <span class="operator">=</span> <span class="string">&#x27;wilcox&#x27;</span><span class="punctuation">,</span></span><br><span class="line">  min.pct <span class="operator">=</span> <span class="number">0.1</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">open_cd4naive <span class="operator">&lt;-</span> rownames<span class="punctuation">(</span>da_peaks<span class="punctuation">[</span>da_peaks<span class="operator">$</span>avg_log2FC <span class="operator">&gt;</span> <span class="number">3</span><span class="punctuation">,</span> <span class="punctuation">]</span><span class="punctuation">)</span></span><br><span class="line">open_cd14mono <span class="operator">&lt;-</span> rownames<span class="punctuation">(</span>da_peaks<span class="punctuation">[</span>da_peaks<span class="operator">$</span>avg_log2FC <span class="operator">&lt;</span> <span class="operator">-</span><span class="number">3</span><span class="punctuation">,</span> <span class="punctuation">]</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">closest_genes_cd4naive <span class="operator">&lt;-</span> ClosestFeature<span class="punctuation">(</span>pbmc<span class="punctuation">,</span> regions <span class="operator">=</span> open_cd4naive<span class="punctuation">)</span></span><br><span class="line">closest_genes_cd14mono <span class="operator">&lt;-</span> ClosestFeature<span class="punctuation">(</span>pbmc<span class="punctuation">,</span> regions <span class="operator">=</span> open_cd14mono<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -&gt;富集分析</span></span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="/blog/images/ATACseq-on-PBMC/chr6-13302533-13303459.png" style="max-height:40vh;width:auto;"></p>
+<h2 id="区域内tn5插入频率可视化">区域内Tn5插入频率可视化</h2>
+<p>最后，我们可以使用<code>CoveragePlot()</code>对不同簇、细胞类型等，可视化基因组感兴趣区域内的Tn5插入频率。</p>
+<details>
+<summary>
+区域内Tn5插入频率可视化
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 便于绘图</span></span><br><span class="line">pbmc <span class="operator">&lt;-</span> SortIdents<span class="punctuation">(</span>pbmc<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># find DA peaks overlapping gene of interest</span></span><br><span class="line">regions_highlight <span class="operator">&lt;-</span> subsetByOverlaps<span class="punctuation">(</span>StringToGRanges<span class="punctuation">(</span>open_cd4naive<span class="punctuation">)</span><span class="punctuation">,</span> LookupGeneCoords<span class="punctuation">(</span>pbmc<span class="punctuation">,</span> <span class="string">&quot;CD4&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">CoveragePlot<span class="punctuation">(</span></span><br><span class="line">  object <span class="operator">=</span> pbmc<span class="punctuation">,</span></span><br><span class="line">  region <span class="operator">=</span> <span class="string">&quot;CD4&quot;</span><span class="punctuation">,</span></span><br><span class="line">  region.highlight <span class="operator">=</span> regions_highlight<span class="punctuation">,</span></span><br><span class="line">  extend.upstream <span class="operator">=</span> <span class="number">1000</span><span class="punctuation">,</span></span><br><span class="line">  extend.downstream <span class="operator">=</span> <span class="number">1000</span></span><br><span class="line"><span class="punctuation">)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="https://stuartlab.org/signac/articles/pbmc_vignette_files/figure-html/unnamed-chunk-44-1.png" style="max-height:40vh;width:auto;"></p>
+<p>在这个图里，灰色那条带标记了差异可及peak。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        祥，移動
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2025/01/31/ML-induction/"
+      title="ML入门"
+     >
+
+    <p class="title-text">
+      
+        ML入门
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 kusurin<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/blog/js/light-dark-switch.js"></script>
+
+</body>
+</html>

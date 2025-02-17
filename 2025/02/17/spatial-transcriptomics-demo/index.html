@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+<script src="/blog/js/color.global.min.js" ></script>
+<script src="/blog/js/load-settings.js" ></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-31GM7RWSBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-31GM7RWSBJ');
+</script>
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>对小鼠脑组织进行空间转录组学分析 | kusurin.blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="description" content="和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：  寻找差异表达基因时，有2种手段  聚类后在簇之间寻找，不需要空间信息 根据空间信息寻找  进行类型注释时，有2种手段  寻找和scRNA-seq之间的锚点，然后整合，每个spot只能预测出1种细胞类型 使用scRNA-seq作为参考，对每个spo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对小鼠脑组织进行空间转录组学分析">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/02/17/spatial-transcriptomics-demo/index.html">
+<meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：  寻找差异表达基因时，有2种手段  聚类后在簇之间寻找，不需要空间信息 根据空间信息寻找  进行类型注释时，有2种手段  寻找和scRNA-seq之间的锚点，然后整合，每个spot只能预测出1种细胞类型 使用scRNA-seq作为参考，对每个spo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/spatial-transcriptomics-demo/DE-between-clusters.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/spatial-transcriptomics-demo/top-variable-types.png">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/spatial-transcriptomics-demo/all-types.png">
+<meta property="article:published_time" content="2025-02-17T14:43:26.000Z">
+<meta property="article:modified_time" content="2025-02-17T15:17:35.282Z">
+<meta property="article:author" content="kusurin">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="R based">
+<meta property="article:tag" content="scATAC-seq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kusurin.github.io/blog/images/spatial-transcriptomics-demo/DE-between-clusters.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+   
+  <div id="main-grid" class="shadow   ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/blog/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>kusurin.blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/blog/">Home</a>
+    
+      <a class="main-nav-link" href="/blog/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/blog/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/blog/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/blog/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/blog/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/blog/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/blog/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/blog/images/profile_pic_2.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">kusurin </div>
+      <div class="dot"></div>
+      <div class="subtitle">文字の中に沈む </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu" title="Home Page"><i class="fa-solid fa-globe"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu/blog" title="Blog Home Page"><i class="fa-solid fa-house"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/kusurin" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/5404263" title="bilibili"><i class="fa-brands fa-bilibili"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/blog/categories/Coding/">
+                Coding
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
+                杂谈
+                <div class="category-count">10</div>
+            </a>
+        <div class="children"><div class="category-box">
+            <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/%E7%BD%91%E5%AE%89/">
+                网安
+                <div class="category-count">3</div>
+            </a>
+        </div></div>
+            <a class="category-link" href="/blog/categories/CSS-tricks/">
+                CSS-tricks
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
+                踩坑日记
+                <div class="category-count">4</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
+                生信
+                <div class="category-count">5</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/Linux/" rel="tag">Linux</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scRNA-seq/" rel="tag">scRNA-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%82%85%E7%AB%8B%E5%8F%B6/" rel="tag">傅立叶</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-spatial-transcriptomics-demo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        对小鼠脑组织进行空间转录组学分析
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-02-17T14:43:26.000Z" itemprop="datePublished">2025-02-17</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5"><span class="toc-text">数据导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%8D%E7%BB%B4%E8%81%9A%E7%B1%BB%E7%AD%89"><span class="toc-text">降维、聚类等</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A"><span class="toc-text">类型注释</span></a></li></ol>
+    </div>
+
+          <p>和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：</p>
+<ul>
+<li>寻找差异表达基因时，有2种手段
+<ul>
+<li>聚类后在簇之间寻找，不需要空间信息</li>
+<li>根据空间信息寻找</li>
+</ul></li>
+<li>进行类型注释时，有2种手段
+<ul>
+<li>寻找和scRNA-seq之间的锚点，然后整合，每个spot只能预测出1种细胞类型</li>
+<li>使用scRNA-seq作为参考，对每个spot进行反卷积，能得到每个spot内不同类型的比例</li>
+</ul></li>
+</ul>
+<p>在这个示例里，都采用前者，原始代码见<a
+target="_blank" rel="noopener" href="https://satijalab.org/seurat/articles/spatial_vignette#integration-with-single-cell-data">seurat官网</a>。</p>
+<h2 id="数据导入">数据导入</h2>
+<p>这里使用feature-barcode矩阵和空间图片作为输入。</p>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Brain_Sagittal_Anterior/V1_Mouse_Brain_Sagittal_Anterior_filtered_feature_bc_matrix.tar.gz">表达矩阵</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Brain_Sagittal_Anterior/V1_Mouse_Brain_Sagittal_Anterior_spatial.tar.gz">空间信息</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.dropbox.com/s/cuowvm4vrf65pvq/allen_cortex.rds?dl=1">用于整合的scRNA-seq数据</a></li>
+</ul>
+<details>
+<summary>
+数据导入
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pkgs <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Seurat&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dplyr&quot;</span><span class="punctuation">,</span> <span class="string">&quot;ggplot2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;patchwork&quot;</span><span class="punctuation">)</span></span><br><span class="line">pkgs_bioconductor <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;glmGamPoi&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="keyword">for</span><span class="punctuation">(</span>pkg <span class="keyword">in</span> pkgs<span class="punctuation">)</span><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="keyword">if</span><span class="punctuation">(</span><span class="operator">!</span>requireNamespace<span class="punctuation">(</span>pkg<span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">    install.packages<span class="punctuation">(</span>pkg<span class="punctuation">,</span> dependencies <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line">  library<span class="punctuation">(</span>pkg<span class="punctuation">,</span> character.only <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"><span class="keyword">for</span><span class="punctuation">(</span>pkg <span class="keyword">in</span> pkgs_bioconductor<span class="punctuation">)</span><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="keyword">if</span><span class="punctuation">(</span><span class="operator">!</span>requireNamespace<span class="punctuation">(</span>pkg<span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">    BiocManager<span class="operator">::</span>install<span class="punctuation">(</span>pkg<span class="punctuation">,</span> update <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span> ask <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line">  library<span class="punctuation">(</span>pkg<span class="punctuation">,</span> character.only <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line">mtx_sp <span class="operator">&lt;-</span> Read10X<span class="punctuation">(</span><span class="string">&quot;./sourceData/filtered_feature_bc_matrix/&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">image_sp <span class="operator">&lt;-</span> Read10X_Image<span class="punctuation">(</span>image.dir <span class="operator">=</span> <span class="string">&quot;./sourceData/spatial/&quot;</span><span class="punctuation">,</span>image.name <span class="operator">=</span> <span class="string">&quot;tissue_hires_image.png&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 详见https://github.com/satijalab/seurat/discussions/4833</span></span><br><span class="line">image_sp<span class="operator">@</span>scale.factors<span class="operator">$</span>lowres <span class="operator">=</span> image_sp<span class="operator">@</span>scale.factors<span class="operator">$</span>hires</span><br><span class="line"></span><br><span class="line">brain <span class="operator">&lt;-</span> CreateSeuratObject<span class="punctuation">(</span>counts <span class="operator">=</span> mtx_sp<span class="punctuation">,</span> assay <span class="operator">=</span> <span class="string">&quot;Spatial&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">image_sp <span class="operator">&lt;-</span> image_sp<span class="punctuation">[</span>colnames<span class="punctuation">(</span>brain<span class="punctuation">)</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line">brain<span class="punctuation">[[</span><span class="string">&#x27;image&#x27;</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> image_sp</span><br><span class="line"></span><br><span class="line">rm<span class="punctuation">(</span><span class="built_in">list</span> <span class="operator">=</span> setdiff<span class="punctuation">(</span>ls<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="string">&quot;brain&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">gc<span class="punctuation">(</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="降维聚类等">降维、聚类等</h2>
+<p>据说对于空转数据，用SCTransform效果更好。</p>
+<p>在簇之间寻找差异表达基因，这里选择和原文一样的2个簇。</p>
+<details>
+<summary>
+降维、聚类等
+</summary>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">brain <span class="operator">&lt;-</span> SCTransform<span class="punctuation">(</span>brain<span class="punctuation">,</span> assay <span class="operator">=</span> <span class="string">&quot;Spatial&quot;</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">brain <span class="operator">&lt;-</span> RunPCA<span class="punctuation">(</span>brain<span class="punctuation">,</span> assay <span class="operator">=</span> <span class="string">&quot;SCT&quot;</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">pcs_use <span class="operator">&lt;-</span> <span class="punctuation">(</span><span class="number">1</span><span class="operator">:</span><span class="built_in">length</span><span class="punctuation">(</span>brain<span class="punctuation">[[</span><span class="string">&quot;pca&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">[</span><span class="built_in">cumsum</span><span class="punctuation">(</span>brain<span class="punctuation">[[</span><span class="string">&quot;pca&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="operator">^</span><span class="number">2</span><span class="punctuation">)</span> <span class="operator">/</span> <span class="built_in">sum</span><span class="punctuation">(</span>brain<span class="punctuation">[[</span><span class="string">&quot;pca&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>stdev<span class="operator">^</span><span class="number">2</span><span class="punctuation">)</span> <span class="operator">&lt;</span> <span class="number">0.95</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line">brain <span class="operator">&lt;-</span> FindNeighbors<span class="punctuation">(</span>brain<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> pcs_use<span class="punctuation">)</span></span><br><span class="line">brain <span class="operator">&lt;-</span> FindClusters<span class="punctuation">(</span>brain<span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line">brain <span class="operator">&lt;-</span> RunUMAP<span class="punctuation">(</span>brain<span class="punctuation">,</span> reduction <span class="operator">=</span> <span class="string">&quot;pca&quot;</span><span class="punctuation">,</span> dims <span class="operator">=</span> pcs_use<span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">de_markers <span class="operator">&lt;-</span> FindMarkers<span class="punctuation">(</span>brain<span class="punctuation">,</span> ident.1 <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span> ident.2 <span class="operator">=</span> <span class="number">7</span><span class="punctuation">)</span></span><br><span class="line">SpatialFeaturePlot<span class="punctuation">(</span>object <span class="operator">=</span> brain<span class="punctuation">,</span> features <span class="operator">=</span> rownames<span class="punctuation">(</span>de_markers<span class="punctuation">)</span><span class="punctuation">[</span><span class="number">1</span><span class="operator">:</span><span class="number">3</span><span class="punctuation">]</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">0.1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> ncol <span class="operator">=</span> <span class="number">3</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="/blog/images/spatial-transcriptomics-demo/DE-between-clusters.png" style="max-height:40vh;width:auto;"></p>
+<h2 id="类型注释">类型注释</h2>
+<p>这里先把空转数据切割成和教程差不多的形状，并在其中重新进行降维。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">coords <span class="operator">&lt;-</span> GetTissueCoordinates<span class="punctuation">(</span>brain<span class="punctuation">)</span></span><br><span class="line">brain<span class="operator">$</span>coords_x <span class="operator">&lt;-</span> coords<span class="operator">$</span>x</span><br><span class="line">brain<span class="operator">$</span>coords_y <span class="operator">&lt;-</span> coords<span class="operator">$</span>y</span><br><span class="line"></span><br><span class="line">cortex <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>brain<span class="punctuation">,</span> idents <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">4</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="number">3</span><span class="punctuation">,</span> <span class="number">2</span><span class="punctuation">,</span><span class="number">1</span><span class="punctuation">,</span><span class="number">7</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">SpatialFeaturePlot<span class="punctuation">(</span>cortex<span class="punctuation">,</span> features <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;coords_x&quot;</span><span class="punctuation">,</span><span class="string">&quot;coords_y&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">cortex <span class="operator">&lt;-</span> subset<span class="punctuation">(</span>cortex<span class="punctuation">,</span>subset <span class="operator">=</span> <span class="punctuation">(</span>coords_y <span class="operator">&lt;</span> <span class="number">6000</span> <span class="operator">|</span> coords_y <span class="operator">&lt;</span> <span class="number">19000</span> <span class="operator">-</span> <span class="number">2</span><span class="operator">*</span>coords_x<span class="punctuation">)</span> <span class="operator">&amp;</span> <span class="punctuation">(</span>coords_x <span class="operator">&lt;</span> <span class="number">7800</span> <span class="operator">&amp;</span> coords_y <span class="operator">&gt;</span> <span class="number">3000</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cortex <span class="operator">&lt;-</span> SCTransform<span class="punctuation">(</span>cortex<span class="punctuation">,</span> assay <span class="operator">=</span> <span class="string">&quot;Spatial&quot;</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span> <span class="operator">%&gt;%</span></span><br><span class="line">  RunPCA<span class="punctuation">(</span>verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>然后和scRNA-seq数据整合。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">allen_reference <span class="operator">&lt;-</span> SCTransform<span class="punctuation">(</span>allen_reference<span class="punctuation">,</span> ncells <span class="operator">=</span> <span class="number">3000</span><span class="punctuation">,</span> verbose <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">save<span class="punctuation">(</span>allen_reference<span class="punctuation">,</span>file <span class="operator">=</span> <span class="string">&quot;allen_reference_SCTed.rdata&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">anchors <span class="operator">&lt;-</span> FindTransferAnchors<span class="punctuation">(</span>reference <span class="operator">=</span> allen_reference<span class="punctuation">,</span> query <span class="operator">=</span> cortex<span class="punctuation">,</span> normalization.method <span class="operator">=</span> <span class="string">&quot;SCT&quot;</span><span class="punctuation">)</span></span><br><span class="line">predictions.assay <span class="operator">&lt;-</span> TransferData<span class="punctuation">(</span>anchorset <span class="operator">=</span> anchors<span class="punctuation">,</span> refdata <span class="operator">=</span> allen_reference<span class="operator">$</span>subclass<span class="punctuation">,</span> prediction.assay <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">,</span></span><br><span class="line">                                  weight.reduction <span class="operator">=</span> cortex<span class="punctuation">[[</span><span class="string">&quot;pca&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">,</span> dims <span class="operator">=</span> <span class="number">1</span><span class="operator">:</span><span class="number">30</span><span class="punctuation">)</span></span><br><span class="line">cortex<span class="punctuation">[[</span><span class="string">&quot;predictions&quot;</span><span class="punctuation">]</span><span class="punctuation">]</span> <span class="operator">&lt;-</span> predictions.assay</span><br><span class="line"></span><br><span class="line">DefaultAssay<span class="punctuation">(</span>cortex<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="string">&quot;predictions&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后我们可以找出哪些细胞类型在空间上具有显著的变化。</p>
+<details>
+<summary>
+SpatiallyVariableFeatures()好像有点问题
+</summary>
+<p>这是<a
+target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/7422">这个issue</a>改进的代码</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">SpatiallyVariableFeatures_workaround <span class="operator">&lt;-</span> <span class="keyword">function</span><span class="punctuation">(</span>object<span class="punctuation">,</span> assay<span class="operator">=</span><span class="string">&quot;SCT&quot;</span><span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;moransi&quot;</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="comment">#&#x27; This is work around function to replace SeuratObject::SpatiallyVariableFeatures function.</span></span><br><span class="line">  <span class="comment">#&#x27; return ranked list of Spatially Variable Features</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Check if object is a Seurat object</span></span><br><span class="line">  <span class="keyword">if</span> <span class="punctuation">(</span><span class="operator">!</span>inherits<span class="punctuation">(</span>object<span class="punctuation">,</span> <span class="string">&quot;Seurat&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">    stop<span class="punctuation">(</span><span class="string">&quot;object must be a Seurat object&quot;</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Check if assay is a valid assay</span></span><br><span class="line">  <span class="keyword">if</span> <span class="punctuation">(</span><span class="operator">!</span>assay <span class="operator">%in%</span> <span class="built_in">names</span><span class="punctuation">(</span>object<span class="operator">@</span>assays<span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">&#123;</span></span><br><span class="line">    stop<span class="punctuation">(</span><span class="string">&quot;assay must be a valid assay&quot;</span><span class="punctuation">)</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Extract meta.features from the specified object and assay</span></span><br><span class="line">  data <span class="operator">&lt;-</span> object<span class="operator">@</span>assays<span class="punctuation">[[</span>assay<span class="punctuation">]</span><span class="punctuation">]</span><span class="operator">@</span>meta.features</span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Select columns starting with the provided col_prefix</span></span><br><span class="line">  moransi_cols <span class="operator">&lt;-</span> grep<span class="punctuation">(</span>paste0<span class="punctuation">(</span><span class="string">&quot;^&quot;</span><span class="punctuation">,</span> selection.method<span class="punctuation">)</span><span class="punctuation">,</span> colnames<span class="punctuation">(</span>data<span class="punctuation">)</span><span class="punctuation">,</span> value <span class="operator">=</span> <span class="literal">TRUE</span><span class="punctuation">)</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Filter rows where &quot;moransi.spatially.variable&quot; is TRUE</span></span><br><span class="line">  filtered_data <span class="operator">&lt;-</span> data<span class="punctuation">[</span>data<span class="punctuation">[[</span>paste0<span class="punctuation">(</span>selection.method<span class="punctuation">,</span> <span class="string">&quot;.spatially.variable&quot;</span><span class="punctuation">)</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">,</span> moransi_cols<span class="punctuation">]</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Sort filtered data by &quot;moransi.spatially.variable.rank&quot; column in ascending order</span></span><br><span class="line">  sorted_data <span class="operator">&lt;-</span> filtered_data<span class="punctuation">[</span>order<span class="punctuation">(</span>filtered_data<span class="punctuation">[[</span>paste0<span class="punctuation">(</span>selection.method<span class="punctuation">,</span> <span class="string">&quot;.spatially.variable.rank&quot;</span><span class="punctuation">)</span><span class="punctuation">]</span><span class="punctuation">]</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="punctuation">]</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Return row names of the sorted data frame</span></span><br><span class="line">  rownames<span class="punctuation">(</span>sorted_data<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</details>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cortex <span class="operator">&lt;-</span> FindSpatiallyVariableFeatures<span class="punctuation">(</span>cortex<span class="punctuation">,</span> assay <span class="operator">=</span> <span class="string">&quot;predictions&quot;</span><span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;moransi&quot;</span><span class="punctuation">,</span></span><br><span class="line">                                        features <span class="operator">=</span> rownames<span class="punctuation">(</span>cortex<span class="punctuation">)</span><span class="punctuation">,</span> r.metric <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span> slot <span class="operator">=</span> <span class="string">&quot;data&quot;</span><span class="punctuation">)</span></span><br><span class="line">top.clusters <span class="operator">&lt;-</span> head<span class="punctuation">(</span>SpatiallyVariableFeatures_workaround<span class="punctuation">(</span>cortex<span class="punctuation">,</span>assay <span class="operator">=</span> <span class="string">&quot;predictions&quot;</span><span class="punctuation">,</span> selection.method <span class="operator">=</span> <span class="string">&quot;moransi&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">SpatialPlot<span class="punctuation">(</span>object <span class="operator">=</span> cortex<span class="punctuation">,</span> features <span class="operator">=</span> top.clusters<span class="punctuation">,</span> ncol <span class="operator">=</span> <span class="number">3</span><span class="punctuation">)</span> <span class="operator">&amp;</span> theme<span class="punctuation">(</span>legend.position <span class="operator">=</span> <span class="string">&quot;right&quot;</span><span class="punctuation">)</span></span><br><span class="line">SpatialFeaturePlot<span class="punctuation">(</span>cortex<span class="punctuation">,</span> features <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Astro&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L2/3 IT&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L4&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L5 PT&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L5 IT&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L6 CT&quot;</span><span class="punctuation">,</span> <span class="string">&quot;L6 IT&quot;</span><span class="punctuation">,</span></span><br><span class="line">                                        <span class="string">&quot;L6b&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Oligo&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span> pt.size.factor <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> ncol <span class="operator">=</span> <span class="number">3</span><span class="punctuation">,</span> crop <span class="operator">=</span> <span class="literal">FALSE</span><span class="punctuation">,</span> alpha <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">0.1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">&amp;</span> theme<span class="punctuation">(</span>legend.position <span class="operator">=</span> <span class="string">&quot;right&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+<p>变化最显著的：</p>
+<p><img src="/blog/images/spatial-transcriptomics-demo/top-variable-types.png" style="max-height:40vh;width:auto;"></p>
+<p>全部的：</p>
+<p><img src="/blog/images/spatial-transcriptomics-demo/all-types.png" style="max-height:40vh;width:auto;"></p>
+<p>额差不多吧。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        祥，移動
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2025/02/13/ATACseq-on-PBMC/"
+      title="对PBMC进行scATAC-seq分析"
+     >
+
+    <p class="title-text">
+      
+        对PBMC进行scATAC-seq分析
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 kusurin<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/blog/js/light-dark-switch.js"></script>
+
+</body>
+</html>

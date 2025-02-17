@@ -301,7 +301,7 @@ mjx-container[display="true"] + br {
         
             <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
                 生信
-                <div class="category-count">4</div>
+                <div class="category-count">5</div>
             </a>
         </div>
     </div>
@@ -391,6 +391,102 @@ mjx-container[display="true"] + br {
     <a class="right-panel  non-pic  "
       
       href="/blog/2030/01/16/saki-idou/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-spatial-transcriptomics-demo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/02/17/spatial-transcriptomics-demo/">对小鼠脑组织进行空间转录组学分析</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-02-17T14:43:26.000Z" itemprop="datePublished">2025-02-17</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：
+
+寻找差异表达基因时，有2种手段
+
+聚类后在簇之间寻找，不需要空间信息
+根据空间信息寻找
+
+进行类型注释时，有2种手段
+
+寻找和scRNA-seq之间的锚点，然后整合，每个spot只能预测出1种细胞类型
+使用scRNA-seq作为参考，对每个spot进行反卷积，能得到每个spot内不同类型的比例
+
+
+在这个示例里，都采用前者，原始代码见seurat官网。
+数据导入
+这里使用feature-barcode矩阵和空间图片作为输入。
+
+表达矩阵
+空间信息
+用于整合的scRNA-seq数据
+
+
+
+数据导入
+
+123456789101112131415161718192021222324252627282930pkgs &lt;- c(&quot;Seurat&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;patchwork&quot;)pkgs_bi...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/02/17/spatial-transcriptomics-demo/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1106,88 +1202,6 @@ CSS
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/12/26/its-a-trap-2024/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-reproduce-10-1038-slash-s41586-024-07504-y" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2024/08/01/reproduce-10-1038-slash-s41586-024-07504-y/">复现：Single-cell and spatial atlases of spinal cord injury in the Tabulae Paralytica</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-08-01T05:52:59.000Z" itemprop="datePublished">2024-08-01</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            2.3k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              snRNA-seq
-数据概览桑基图
-大概是实验设计如此，并没有找到哪个数据包含了实验组条件对应的损伤模型、损伤后取样时间，在文中也没有显式提及，找了几个隐晦提及的地方：
-
-b, Susceptible and resilient subtypes of spinal
-cord neurons. Volcano plot shows log2 odds ratios comparing neuron
-proportions between the uninjured spinal cord and each injured
-condition at 7 days post injury (x axis) versus statistical
-significance (t-test, y axis).
-b,c, Chronophotography (b) and walking performance
-(n = 5 each) (c) of young and old mice after spontaneous recovery
-from moderate ...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2024/08/01/reproduce-10-1038-slash-s41586-024-07504-y/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

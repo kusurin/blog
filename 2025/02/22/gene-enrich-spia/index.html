@@ -34,7 +34,7 @@
 <meta property="og:description" content="引言 一般来说，使用GO和KEGG数据库对差异基因进行基因富集分析，多是  ORA：基于对特定组内外（如通路）的差异基因、背景基因数量进行检验，看组内外的差异基因是否随机分布。比如ClusterProfiler包中的enrichGO()和enrichKEGG() GSEA：差异基因按log2FoldChange降序排序后，顺序遍历，按差异基因是否在特定组（如通路）内进行加减分，并进行检验，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-22T06:14:20.000Z">
-<meta property="article:modified_time" content="2025-02-23T12:50:06.120Z">
+<meta property="article:modified_time" content="2025-02-23T14:04:59.849Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -280,7 +280,8 @@ target="_blank" rel="noopener" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC27
 </ul>
 <p>最后得到累计扰动<code>tA</code>，正负可以认为是激活或抑制，以及全局p值<code>pG</code>。</p>
 <p>所以当然，因为NDE这部分的存在，SPIA的的结果没那么可信。<br />
-并且PERT部分的质量严重依赖于通路的质量。</p>
+并且PERT部分的质量严重依赖于通路的质量，甚至一个通路的新旧数据能得出完全相反的结果。</p>
+<p><del>这也就说明有很好的捏造能力</del></p>
 <h1 id="实践">实践</h1>
 <p>R可以用<code>SPIA</code>包。</p>
 面对那么多通路，计算量有点大，选择先进行ORA，然后拿富集出的感兴趣的通路，比如Cellular

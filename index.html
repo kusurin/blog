@@ -301,7 +301,7 @@ mjx-container[display="true"] + br {
         
             <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
                 生信
-                <div class="category-count">5</div>
+                <div class="category-count">6</div>
             </a>
         </div>
     </div>
@@ -432,7 +432,7 @@ mjx-container[display="true"] + br {
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    未分类 
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
    
 </div>
   
@@ -442,22 +442,20 @@ mjx-container[display="true"] + br {
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           <div class="truncate-text">
             
-              引言
-一般来说，使用GO和KEGG数据库对差异基因进行基因富集分析，多是
+              引言一般来说，使用GO和KEGG数据库对差异基因进行基因富集分析，多是
 
 ORA：基于对特定组内外（如通路）的差异基因、背景基因数量进行检验，看组内外的差异基因是否随机分布。比如ClusterProfiler包中的enrichGO()和enrichKEGG()
 GSEA：差异基因按log2FoldChange降序排序后，顺序遍历，按差异基因是否在特定组（如通路）内进行加减分，并进行检验，最后NES可以看出组内的整体表达趋势。比如同样是ClusterProfiler包中的gseGO()和gseKEGG()
 
-GO数据库条目之间至少可能还有Positively regulates和Negatively
-regulates两种关系，暂且不论。
-但KEGG一个通路内的基因，极度简化，既有正向的也有负向的，而且还有更复杂的，有一些使用KEGG数据库的做法是把上下调的差异基因分别进行ORA，或者一起进行GSEA，仔细想想其实很没道理。以GSEA举例，如果一个通路内正向的基因上调，负向的基因下调，这样子整体表达趋势却可能是不变，会认为不显著。
-SPIA
-于是介绍一个也很古...
+GO数据库条目之间至少可能还有Positively regulates和Negatively regulates两种关系，暂且不论。但KEGG一个通路内的基因，极度简化，既有正向的也有负向的，而且还有更复杂的，有一些使用KEGG数据库的做法是把上下调的差异基因分别进行ORA，或者一起进行GSEA，仔细想想其实很没道理。以GSEA举例，如果一个通路内正向的基因上调，负向的基因下调，这样子整体表达趋势却可能是不变，会认为不显著。
+（GSEA针对这个问题，有一种办法，可以取log2F...
             
           </div>
         

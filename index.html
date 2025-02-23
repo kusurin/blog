@@ -408,6 +408,85 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-gene-enrich-spia" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/02/22/gene-enrich-spia/">基因富集分析（SPIA）</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-02-22T06:14:20.000Z" itemprop="datePublished">2025-02-22</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            3k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              引言
+一般来说，使用GO和KEGG数据库对差异基因进行基因富集分析，多是
+
+ORA：基于对特定组内外（如通路）的差异基因、背景基因数量进行检验，看组内外的差异基因是否随机分布。比如ClusterProfiler包中的enrichGO()和enrichKEGG()
+GSEA：差异基因按log2FoldChange降序排序后，顺序遍历，按差异基因是否在特定组（如通路）内进行加减分，并进行检验，最后NES可以看出组内的整体表达趋势。比如同样是ClusterProfiler包中的gseGO()和gseKEGG()
+
+GO数据库条目之间至少可能还有Positively regulates和Negatively
+regulates两种关系，暂且不论。
+但KEGG一个通路内的基因，极度简化，既有正向的也有负向的，而且还有更复杂的，有一些使用KEGG数据库的做法是把上下调的差异基因分别进行ORA，或者一起进行GSEA，仔细想想其实很没道理。以GSEA举例，如果一个通路内正向的基因上调，负向的基因下调，这样子整体表达趋势却可能是不变，会认为不显著。
+SPIA
+于是介绍一个也很古...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/02/22/gene-enrich-spia/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-spatial-transcriptomics-demo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1113,95 +1192,6 @@ V5中新功能的表现（多数据库报错）
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/12/28/anti-pirate-3F/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-its-a-trap-2024" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2024/12/26/its-a-trap-2024/">踩坑日记[2024]</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-12-26T11:35:54.000Z" itemprop="datePublished">2024-12-26</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            2.8k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              HTML
-[2024-04-23]GIF的播放
-整个html的GIF播放都是同步的，无法做到css动画异步播放的效果。
-
-JavaScript
-[2024-03]VUE3生命周期中setup()的位置
-VUE的生命周期中，setup()在created()之前，在VUE2中尚可设置延时使setup()能够使用methods()和data，但VUE3已经完全禁止了这一点，将this指向undefined。
-onMounted()是用来初始化数据的，不是拿去修改组件的，用mounted()。
-[2024-03]VUE3废弃set()、get()，直接操作data
-VUE3中废弃了set()、get()，并且直接操作data也会引发组件渲染更新。
-[2024-03-19]&lt;audio&gt;异步播放音效
-和PlaySound不一样，一个&lt;audio&gt;没法异步，只能多弄几个了（）
-
-CSS
-[2024-05-25]display: inline元素的绝对定位子元素
-如果这个父元素换了行，那这个子元素就没有了啊啊啊啊啊——
-
-杂项
-[2...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2024/12/26/its-a-trap-2024/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

@@ -327,6 +327,98 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-wpa2psk-aircrack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2023/11/23/wpa2psk-aircrack/">Linux使用aircrack-ng攻击WPA2-PSK</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-11-23T11:56:16.000Z" itemprop="datePublished">2023-11-23</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>><a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/%E7%BD%91%E5%AE%89/">网安</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.7k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              原理
+WPA2-PSK认证模式
+
+如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成MIC(Message
+Integrity Check)，而
+
+\[ PTK = \text{PRF}(PMK + ANONCE + SNONCE +
+MAC(AA) + MAC(SA)) \]
+(PTK:Pairwise Transient
+Key,PRF:Pseudorandom
+Function,PMK:Pairwise Master
+Key,Nonce:仅使用一次的随机数)
+
+其中PMK由PSK派生，而
+
+\[ PSK=\text{pdkdf2}(passphrase,SSID,SSID
+\space length,4096) \]
+(PSK:Pre-Shared
+Key,pdkdf2:Passphrase-Based Key Derivation Function
+2)
+
+于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2023/11/23/wpa2psk-aircrack/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-custom-border-style" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">

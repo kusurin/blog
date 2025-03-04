@@ -281,7 +281,7 @@ mjx-container[display="true"] + br {
         
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
                 杂谈
-                <div class="category-count">10</div>
+                <div class="category-count">11</div>
             </a>
         
             <a class="category-link" href="/blog/categories/CSS-tricks/">
@@ -319,6 +319,92 @@ mjx-container[display="true"] + br {
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-blivechat-tricks" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2023/12/12/blivechat-tricks/">blivechat样式小技巧</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2023-12-12T15:46:03.004Z" itemprop="datePublished">2023-12-12</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2.3k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              小撇步
+更换礼物价格单位
+礼物单位在html定死了是CN￥，但是甲方稿子里又是RMB，这时候我们可以：
+
+对不起，做不到
+魔改blivechat客户端
+
+可以使用attr()获取礼物弹幕根元素里的price属性，创建content: "RMB"attr的伪元素。
+
+但是，这个伪元素不像原来的价格元素一样，在html中处于期望的层级，如果只需要绝对定位还好，要是想用flex布局，与昵称等共处，就有点麻烦了。
+思路：
+
+定义根元素为flex，但原来的整个元素都在左边了。
+使用根元素的伪元素做一个背景，但message里的内容右边距不对。
+根元素有一个属性为price-level，可以依靠它获取新价格元素的的位数，计算宽度（等宽字体），使message或其父元素content加长。
+昵称可以使用绝对定位后限定宽度。
+
+完整关键设置： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849yt-live-chat-paid-mess...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2023/12/12/blivechat-tricks/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
    
 
 
@@ -447,8 +533,7 @@ WPA2-PSK认证模式
 如图，在WPA2-PSK认证过程的四次握手中，PTK的一部分用于生成MIC(Message
 Integrity Check)，而
 
-\[ PTK = \text{PRF}(PMK + ANONCE + SNONCE +
-MAC(AA) + MAC(SA)) \]
+
 (PTK:Pairwise Transient
 Key,PRF:Pseudorandom
 Function,PMK:Pairwise Master
@@ -456,13 +541,14 @@ Key,Nonce:仅使用一次的随机数)
 
 其中PMK由PSK派生，而
 
-\[ PSK=\text{pdkdf2}(passphrase,SSID,SSID
-\space length,4096) \]
+
 (PSK:Pre-Shared
 Key,pdkdf2:Passphrase-Based Key Derivation Function
 2)
 
-于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确...
+于是，如果我们监听到了握手包，则可以获取SSID、二者MAC、ANonce、SNonce、MIC，便可以将其用于验证猜测的密码(passphrase)是否正确，进行离线攻击。
+取消认证攻击
+123456789uint8_t deauthPacket[26] = {    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: d...
             
           </div>
         

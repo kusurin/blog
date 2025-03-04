@@ -591,7 +591,7 @@ from moderate ...
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            11k 词 
+            10k 词 
           </div>
         </div>
         
@@ -604,15 +604,20 @@ from moderate ...
             
               案例里用了《Glioblastoma cell differentiation trajectory predicts the
 immunotherapy response and overall survival of
-patients》，主要是使用integrated
-scRNA-seq（综合（？）单细胞RNA测序）和bulk
-RNA-seq（整体（？）RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。
-换一个类似的做实验，也不懂各种数据有什么差别，就选《Cell
-differentiation trajectory predicts patient potential immunotherapy
-response and prognosis in gastric cancer》这篇文章，主要是使用integrated
-scRNA-seq和bulk
-RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）
-这个用的数据集是GSE112302和GSE84437，和案例类似的部分用的是GSE112302...
+patients》，主要是使用scRNA-seq（单细胞RNA测序）和bulk
+RNA-seq（整体RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。
+实验原理
+主要就是干了质控、基因可视化、降维与聚类、周期判断、double
+droplet、细胞类型注释、拟时序分析。
+数据集
+这堆数据集就是一轴是细胞，一轴是基因种类，每个点代表某个细胞/样本的某个基因表达量。
+质控
+质控主要就是过滤：
+
+低质量的细胞(比如基因少、线粒体基因多)
+双细胞（两个细胞被捕获到同一个液滴中）
+高ERCC基因（External RNA Controls
+Consortium），“是一组合成的RNA分子，它们的浓度已知，并且在测序实验中添加到样本中，以便可以用来校正技术变异和进行数据标准化”，在所有细胞中的浓度应该是一致的，所以如果ERCC基因...
             
           </div>
         

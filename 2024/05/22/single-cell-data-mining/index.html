@@ -26,16 +26,16 @@
   <title>单细胞数据挖掘 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
+  <meta name="description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用scRNA-seq（单细胞RNA测序）和bulk RNA-seq（整体RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。 实验">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单细胞数据挖掘">
 <meta property="og:url" content="https://kusurin.github.io/blog/2024/05/22/single-cell-data-mining/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用integrated scRNA-seq（综合（？）单细胞RNA测序）和bulk RNA-seq（整体（？）RNA测序）来找出GBM分化相关">
+<meta property="og:description" content="案例里用了《Glioblastoma cell differentiation trajectory predicts the immunotherapy response and overall survival of patients》，主要是使用scRNA-seq（单细胞RNA测序）和bulk RNA-seq（整体RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。 实验">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://kusurin.github.io/blog/images/square_hole.png">
 <meta property="article:published_time" content="2024-05-22T15:14:26.000Z">
-<meta property="article:modified_time" content="2025-02-26T04:40:33.232Z">
+<meta property="article:modified_time" content="2025-03-04T05:49:13.832Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="R based">
@@ -244,7 +244,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            11k 词 
+            10k 词 
           </div>
         </div>
         
@@ -261,15 +261,8 @@
 
           <p>案例里用了《Glioblastoma cell differentiation trajectory predicts the
 immunotherapy response and overall survival of
-patients》，主要是使用integrated
-scRNA-seq（综合（？）单细胞RNA测序）和bulk
-RNA-seq（整体（？）RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。</p>
-<p>换一个类似的做实验，也不懂各种数据有什么差别，就选《Cell
-differentiation trajectory predicts patient potential immunotherapy
-response and prognosis in gastric cancer》这篇文章，主要是使用integrated
-scRNA-seq和bulk
-RNA-seq来找出GC分化相关基因然后预测患者总生存期之类的。（干的事都差不多，真是原原又神神啊）<br />
-这个用的数据集是GSE112302和GSE84437，和案例类似的部分用的是GSE112302。</p>
+patients》，主要是使用scRNA-seq（单细胞RNA测序）和bulk
+RNA-seq（整体RNA测序）来找出GBM分化相关基因然后预测患者总生存期之类的。</p>
 <h2 id="实验原理">实验原理</h2>
 <p>主要就是干了质控、基因可视化、降维与聚类、周期判断、double
 droplet、细胞类型注释、拟时序分析。</p>

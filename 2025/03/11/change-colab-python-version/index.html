@@ -26,15 +26,15 @@
   <title>更换Colab的Python版本 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="引言 Colab团队十分自负x，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持最新的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt">
+  <meta name="description" content="引言 Colab团队十分自负x，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持特定的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="更换Colab的Python版本">
 <meta property="og:url" content="https://kusurin.github.io/blog/2025/03/11/change-colab-python-version/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="引言 Colab团队十分自负x，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持最新的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt">
+<meta property="og:description" content="引言 Colab团队十分自负x，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持特定的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-11T05:51:57.000Z">
-<meta property="article:modified_time" content="2025-03-11T08:02:42.820Z">
+<meta property="article:modified_time" content="2025-03-11T10:05:48.042Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta name="twitter:card" content="summary">
@@ -251,13 +251,13 @@
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2python%E7%89%88%E6%9C%AC"><span class="toc-text">更换Python版本</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2python%E7%89%88%E6%9C%AC"><span class="toc-text">更换Python版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2cell%E4%BD%BF%E7%94%A8%E7%9A%84python%E7%89%88%E6%9C%AC"><span class="toc-text">更换cell使用的Python版本</span></a></li></ol>
     </div>
 
           <h2 id="引言">引言</h2>
 <p><a
 target="_blank" rel="noopener" href="https://github.com/googlecolab/colabtools/issues/4759">Colab团队十分自负x</a>，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。</p>
-<p>但是有一些包可能不支持最新的Python版本，这就麻烦大了。</p>
+<p>但是有一些包可能不支持特定的Python版本，这就麻烦大了。</p>
 <p>主要参考这个<a
 target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68657341/how-can-i-update-google-colabs-python-version/74538231#74538231">回答</a>，目前能够成功降级。</p>
 <h2 id="更换python版本">更换Python版本</h2>
@@ -266,6 +266,7 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6865734
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">!sudo apt-get update -y</span><br><span class="line"></span><br><span class="line">!sudo apt-get install python3<span class="number">.9</span></span><br><span class="line"></span><br><span class="line">!sudo apt-get install python3<span class="number">.9</span>-distutils</span><br><span class="line"></span><br><span class="line">!sudo update-alternatives --install /usr/<span class="built_in">bin</span>/python3 python3 /usr/<span class="built_in">bin</span>/python3<span class="number">.9</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">!sudo update-alternatives --config python3</span><br><span class="line"><span class="comment"># 假如知道要选择的版本，可以直接选择</span></span><br><span class="line"><span class="comment"># !echo 3 | sudo update-alternatives --config python3</span></span><br><span class="line"></span><br><span class="line">!apt-get install python3-pip</span><br><span class="line"></span><br><span class="line">!python -m pip install --upgrade pip --user</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下两条可能并不必要</span></span><br><span class="line">!echo -e <span class="string">&#x27;export PATH=&quot;$PATH:/root/.local/bin&quot;&#x27;</span> &gt;&gt; $HOME/.bash_profile</span><br><span class="line">!echo -e <span class="string">&#x27;export PATH=&quot;$PATH:/root/.local/bin&quot;&#x27;</span> &gt;&gt; $HOME/.bashrc</span><br></pre></td></tr></table></figure>
 <p>至此，其实已经成功更换了Python版本。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!python --version</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python 3.9.21</span><br></pre></td></tr></table></figure>
+<h2 id="更换cell使用的python版本">更换cell使用的Python版本</h2>
 <p>但是notebook还没有，另外一些方法到此为止，每个cell都需要执行<code>%%bash</code>来选择环境。</p>
 <p>但是这个方法可以让cell直接使用3.9。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">!sudo update-alternatives  --<span class="built_in">set</span> python3 /usr/<span class="built_in">bin</span>/python3<span class="number">.9</span></span><br><span class="line"></span><br><span class="line">!curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">!python3 get-pip.py --force-reinstall</span><br><span class="line"></span><br><span class="line">!python3 -m pip install ipython ipython_genutils ipykernel jupyter_console prompt_toolkit httplib2 astor</span><br><span class="line"></span><br><span class="line">!ln -s /usr/local/lib/python3<span class="number">.11</span>/dist-packages/google \</span><br><span class="line">       /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google</span><br><span class="line"></span><br><span class="line">!sed -i <span class="string">&quot;s/from IPython.utils import traitlets as _traitlets/import traitlets as _traitlets/&quot;</span> /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google/colab/*.py</span><br><span class="line">!sed -i <span class="string">&quot;s/from IPython.utils import traitlets/import traitlets/&quot;</span> /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google/colab/*.py</span><br></pre></td></tr></table></figure>
@@ -355,6 +356,5 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/6865734
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-
 </body>
 </html>

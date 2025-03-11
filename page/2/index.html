@@ -49,7 +49,119 @@
   
 <link rel="stylesheet" href="/blog/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -207,6 +319,93 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-mathmeth" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/01/04/mathmeth/">一些胡思乱想</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-01-04T12:34:49.000Z" itemprop="datePublished">2025-01-04</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            3.8k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              将二元数映射到一元数
+给定一个二元数，其中的整数部分依次为数列，小数部分依次为数列，同理的整数部分为数列，小数部分为数列。
+可以构造出与其唯一对应的一元数：的整数部分有一分隔标记，其左方为逆序的数列，右方为正序的数列，小数部分同理。
+（内心OS：这样二元数不就和一元数一样多了么（没学好）
+结果还真一样多，别人的构造方法还漂亮多了：小数部分的第位为，第位为，整数部分同理。
+证明：有无穷多个质数
+给定质数，构造，再构造，则除以中任意一个数都余，并且大于中任意一个数包括，所以要么是质数，要么有一个大于的质因数。
+所以对于任意质数，都存在一个比它大的质数。
+（好像是阿基米德的方法）
+SpinLaunch的角动量问题
+
+
+
+
+如上00:25说：发射器一端圆盘的近端慢于远端，所以圆盘释放时会带有角动量，听起来很符合直觉。这或许也是SpinLaunch（怎么logo像厕纸一样）面临的问题之一，下面对这个问题进行定量分析。
+假设发射器角速度为，均质等厚圆盘中心到发射器轴的距离为，圆盘半径为，密度为。
+那么，以发射器轴为中心画圆弧分割，为圆盘某点与圆心的距离，为此连...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/01/04/mathmeth/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
    
 
 
@@ -950,93 +1149,6 @@ Consortium），“是一组合成的RNA分子，它们的浓度已知，并且�
     <a class="right-panel  non-pic  "
       
       href="/blog/2023/12/31/css-collection/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-android-fake-locate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2023/12/18/android-fake-locate/">Android虚拟签到（模拟GPS、基站、摄像头流程）</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2023-12-18T00:22:47.000Z" itemprop="datePublished">2023-12-18</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            243 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              需要注意的地方：
-部分虚拟签到使用的是基站定位（如小程序调用的微信API），假如不是的话只需要GPS定位就好
-流程：
-
-解BL锁
-安装magisk
-安装LSposed
-安装模块：FuckLocation、vcam
-安装Cellular-Pro
-采集模拟地址经纬度、TAC、PCI、ECI等（使用Cellular-Pro，或者可以反向查找，OpenCelliD之类），采集当地视频
-使用FuckLocation模拟位置，使用vcam模拟摄像头
-
-签到王等亲测可用
-
-我解了BL锁的手机屏幕坏了还没开adb
-ლ(ಠ益ಠლ
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2023/12/18/android-fake-locate/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

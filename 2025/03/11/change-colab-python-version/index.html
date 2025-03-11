@@ -23,14 +23,18 @@
   
 
   
-  <title>归档: 2025/3 | kusurin.blog</title>
+  <title>更换Colab的Python版本 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="kusurin.blog">
-<meta property="og:url" content="https://kusurin.github.io/blog/archives/2025/03/index.html">
+  <meta name="description" content="引言 Colab团队十分自负，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持最新的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="更换Colab的Python版本">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/03/11/change-colab-python-version/index.html">
 <meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="引言 Colab团队十分自负，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。 但是有一些包可能不支持最新的Python版本，这就麻烦大了。 主要参考这个回答，目前能够成功降级。 更换Python版本 这里选择降级到Python3.9。 在提示重启的时候重启。 12345678910111213141516171819!sudo apt-">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-03-11T05:51:57.000Z">
+<meta property="article:modified_time" content="2025-03-11T06:22:18.312Z">
 <meta property="article:author" content="kusurin">
 <meta name="twitter:card" content="summary">
   
@@ -201,82 +205,114 @@
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">归档</h1>
-      </div>    
+
+<article id="post-change-colab-python-version" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        更换Colab的Python版本
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-03-11T05:51:57.000Z" itemprop="datePublished">2025-03-11</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.5k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2python%E7%89%88%E6%9C%AC"><span class="toc-text">更换Python版本</span></a></li></ol>
+    </div>
+
+          <h2 id="引言">引言</h2>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/googlecolab/colabtools/issues/4759">Colab团队十分自负</a>，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。</p>
+<p>但是有一些包可能不支持最新的Python版本，这就麻烦大了。</p>
+<p>主要参考这个<a
+target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68657341/how-can-i-update-google-colabs-python-version/74538231#74538231">回答</a>，目前能够成功降级。</p>
+<h2 id="更换python版本">更换Python版本</h2>
+<p>这里选择降级到Python3.9。</p>
+<p>在提示重启的时候重启。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">!sudo apt-get update -y</span><br><span class="line"></span><br><span class="line">!sudo apt-get install python3<span class="number">.9</span></span><br><span class="line"></span><br><span class="line">!sudo apt-get install python3<span class="number">.9</span>-distutils</span><br><span class="line"></span><br><span class="line">!sudo update-alternatives --install /usr/<span class="built_in">bin</span>/python3 python3 /usr/<span class="built_in">bin</span>/python3<span class="number">.9</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">!sudo update-alternatives --config python3</span><br><span class="line"><span class="comment"># 假如知道要选择的版本，可以直接选择</span></span><br><span class="line"><span class="comment"># !echo 3 | sudo update-alternatives --config python3</span></span><br><span class="line"></span><br><span class="line">!apt-get install python3-pip</span><br><span class="line"></span><br><span class="line">!python -m pip install --upgrade pip --user</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下两条可能并不必要</span></span><br><span class="line">!echo -e <span class="string">&#x27;export PATH=&quot;$PATH:/root/.local/bin&quot;&#x27;</span> &gt;&gt; $HOME/.bash_profile</span><br><span class="line">!echo -e <span class="string">&#x27;export PATH=&quot;$PATH:/root/.local/bin&quot;&#x27;</span> &gt;&gt; $HOME/.bashrc</span><br></pre></td></tr></table></figure>
+<p>至此，其实已经成功更换了Python版本。 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!python --version</span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python 3.9.21</span><br></pre></td></tr></table></figure></p>
+<p>但是notebook还没有。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">!sudo update-alternatives  --<span class="built_in">set</span> python3 /usr/<span class="built_in">bin</span>/python3<span class="number">.9</span></span><br><span class="line"></span><br><span class="line">!curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py</span><br><span class="line">!python3 get-pip.py --force-reinstall</span><br><span class="line"></span><br><span class="line">!python3 -m pip install ipython ipython_genutils ipykernel jupyter_console prompt_toolkit httplib2 astor</span><br><span class="line"></span><br><span class="line">!ln -s /usr/local/lib/python3<span class="number">.11</span>/dist-packages/google \</span><br><span class="line">       /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google</span><br><span class="line"></span><br><span class="line">!sed -i <span class="string">&quot;s/from IPython.utils import traitlets as _traitlets/import traitlets as _traitlets/&quot;</span> /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google/colab/*.py</span><br><span class="line">!sed -i <span class="string">&quot;s/from IPython.utils import traitlets/import traitlets/&quot;</span> /usr/local/lib/python3<span class="number">.9</span>/dist-packages/google/colab/*.py</span><br></pre></td></tr></table></figure>
+<p>至此已经完全更换了Python版本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">print</span>(sys.version)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3.9.21 (main, Dec  4 2024, 08:53:33) </span><br><span class="line">[GCC 11.4.0]</span><br></pre></td></tr></table></figure>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2025</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">3 篇文章</div>
-        </div>
-      
-      <a class="archive-article-link" href="/blog/2025/03/11/change-colab-python-version/" title="更换Colab的Python版本">
-        <div class="date">03-11</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    更换Colab的Python版本
-                
-            </div>
-        </div>
-        <div class="tags">
-            
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2025/03/04/controller-joystick-to-mousewheel/" title="一种通过steam用手柄模拟速度可调的鼠标滚轮的方法">
-        <div class="date">03-04</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    一种通过steam用手柄模拟速度可调的鼠标滚轮的方法
-                
-            </div>
-        </div>
-        <div class="tags">
-            #杂谈
-        </div>
-      </a>
-    
-      
-      
-      <a class="archive-article-link" href="/blog/2025/03/03/its-a-trap-2025/" title="踩坑日记[2025]">
-        <div class="date">03-03</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    踩坑日记[2025]
-                
-            </div>
-        </div>
-        <div class="tags">
-            #杂谈 #踩坑
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        祥，移動
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2025/03/04/controller-joystick-to-mousewheel/"
+      title="一种通过steam用手柄模拟速度可调的鼠标滚轮的方法"
+     >
+
+    <p class="title-text">
+      
+        一种通过steam用手柄模拟速度可调的鼠标滚轮的方法
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">

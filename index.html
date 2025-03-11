@@ -403,6 +403,82 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-change-colab-python-version" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/03/11/change-colab-python-version/">更换Colab的Python版本</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-03-11T05:51:57.000Z" itemprop="datePublished">2025-03-11</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.5k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              引言
+Colab团队十分自负，除了在更新Python版本时提供上一个版本的Python，目前没有使用3.11以外版本的选项。
+但是有一些包可能不支持最新的Python版本，这就麻烦大了。
+主要参考这个回答，目前能够成功降级。
+更换Python版本
+这里选择降级到Python3.9。
+在提示重启的时候重启。
+12345678910111213141516171819!sudo apt-get update -y!sudo apt-get install python3.9!sudo apt-get install python3.9-distutils!sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1!sudo update-alternatives --config python3# 假如知道要选择的版本，可以直接选择# !echo 3 | sudo update-alternatives --config python3!apt-get install ...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/03/11/change-colab-python-version/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-controller-joystick-to-mousewheel" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1085,93 +1161,6 @@ UEFI这个在bios里就能看到，或者运行msinfo32，在系...
     <a class="right-panel  non-pic  "
       
       href="/blog/2025/01/19/uninstall-linux-on-windows-double-system/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-mathmeth" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/01/04/mathmeth/">一些胡思乱想</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-01-04T12:34:49.000Z" itemprop="datePublished">2025-01-04</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            3.8k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              将二元数映射到一元数
-给定一个二元数，其中的整数部分依次为数列，小数部分依次为数列，同理的整数部分为数列，小数部分为数列。
-可以构造出与其唯一对应的一元数：的整数部分有一分隔标记，其左方为逆序的数列，右方为正序的数列，小数部分同理。
-（内心OS：这样二元数不就和一元数一样多了么（没学好）
-结果还真一样多，别人的构造方法还漂亮多了：小数部分的第位为，第位为，整数部分同理。
-证明：有无穷多个质数
-给定质数，构造，再构造，则除以中任意一个数都余，并且大于中任意一个数包括，所以要么是质数，要么有一个大于的质因数。
-所以对于任意质数，都存在一个比它大的质数。
-（好像是阿基米德的方法）
-SpinLaunch的角动量问题
-
-
-
-
-如上00:25说：发射器一端圆盘的近端慢于远端，所以圆盘释放时会带有角动量，听起来很符合直觉。这或许也是SpinLaunch（怎么logo像厕纸一样）面临的问题之一，下面对这个问题进行定量分析。
-假设发射器角速度为，均质等厚圆盘中心到发射器轴的距离为，圆盘半径为，密度为。
-那么，以发射器轴为中心画圆弧分割，为圆盘某点与圆心的距离，为此连...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/01/04/mathmeth/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

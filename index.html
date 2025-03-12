@@ -834,7 +834,7 @@ regulates两种关系，暂且不论。
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            5.1k 词 
+            5.3k 词 
           </div>
         </div>
         
@@ -845,7 +845,13 @@ regulates两种关系，暂且不论。
         
           <div class="truncate-text">
             
-              和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：
+              引言
+附：基于barcode的空转原理
+把特定barcode结合到特定位置，其末端是可以与mRNA结合的polyT序列。将切片透化，让其mRNA与barcode结合，在原位合成cDNA，通过NGS就能得到每个mRNA和其barcode，通过barcode又能映射回其位置。
+相较于其它方法，这种方法的优势在于同时兼顾速度、精度和全转录组测序等。在精度上，基于FISH和原位测序的方法可以做到光学极限，但就没法做到全转录组了。
+数据分析
+那么这里使用的数据是通过基于barcode的空转测序得到的。
+和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：
 
 寻找差异表达基因时，有2种手段
 
@@ -858,19 +864,7 @@ regulates两种关系，暂且不论。
 使用scRNA-seq作为参考，对每个spot进行反卷积，能得到每个spot内不同类型的比例
 
 
-在这个示例里，都采用前者，原始代码见seurat官网。
-数据导入
-这里使用feature-barcode矩阵和空间图片作为输入。
-
-表达矩阵
-空间信息
-用于整合的scRNA-seq数据
-
-
-
-数据导入
-
-123456789101112131415161718192021222324252627282930pkgs &lt;- c(&quot;Seurat&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;patchwork&quot;)pkgs_bi...
+在这个示例里，都采用前者...
             
           </div>
         

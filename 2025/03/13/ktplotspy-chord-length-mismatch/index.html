@@ -23,21 +23,23 @@
   
 
   
-  <title>自定义&#34;border-style&#34; | kusurin.blog</title>
+  <title>ktplotspy绘制CellphoneDB结果弦图时tmpdf.index = complex_id处出现ValueError: Length mismatch | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:">
+  <meta name="description" content="报错内容   完整报错示例  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354---------------------------------------------------------------------------ValueE">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自定义&quot;border-style&quot;">
-<meta property="og:url" content="https://kusurin.github.io/blog/2023/07/03/custom-border-style/index.html">
+<meta property="og:title" content="ktplotspy绘制CellphoneDB结果弦图时tmpdf.index &#x3D; complex_id处出现ValueError: Length mismatch">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/03/13/ktplotspy-chord-length-mismatch/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。 例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。 这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。 12345background:    url(&quot;data:">
+<meta property="og:description" content="报错内容   完整报错示例  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354---------------------------------------------------------------------------ValueE">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-02T19:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-21T15:02:24.842Z">
+<meta property="article:published_time" content="2025-03-13T12:42:05.000Z">
+<meta property="article:modified_time" content="2025-03-13T12:51:18.177Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="CSS">
-<meta property="article:tag" content="边框">
+<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="踩坑">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
@@ -208,7 +210,7 @@
        
 
 
-<article id="post-custom-border-style" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-ktplotspy-chord-length-mismatch" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -221,7 +223,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        自定义&#34;border-style&#34;
+        ktplotspy绘制CellphoneDB结果弦图时tmpdf.index = complex_id处出现ValueError: Length mismatch
       </h1>
     
   
@@ -229,22 +231,22 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2023-07-02T19:00:00.000Z" itemprop="datePublished">2023-07-03</time>
+  <time class="dt-published" datetime="2025-03-13T12:42:05.000Z" itemprop="datePublished">2025-03-13</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/blog/categories/CSS-tricks/">CSS-tricks</a>
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2.2k 词 
+            4.2k 词 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
@@ -252,28 +254,24 @@
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E5%86%85%E5%AE%B9"><span class="toc-text">报错内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol>
     </div>
 
-          <p><img
-src="https://pic3.zhimg.com/80/v2-613c86c63d375c287eca3e1400aabd96_720w.webp"
-alt="预设的border" />
-css中的border-style渲染结果固定，并且不同浏览器中的表现也可能不一样，这带来许多不便。<br />
-例如，有时候我们希望圆点边框更加密集，然而此间距与border-width绑定。<br />
-这类边框，需要全边联动的效果，才不显得突兀。因此，我们可以借助SVG中stroke的良好可自定义性，通过background绘制边框。<br />
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>:</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3csvg width=&#x27;100%&#x27; height=&#x27;100%&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3e%3crect x=&#x27;6&#x27; y=&#x27;6&#x27; width=&#x27;100%&#x27; height=&#x27;100%&#x27; fill=&#x27;none&#x27; stroke=&#x27;black&#x27; stroke-width=&#x27;12&#x27; stroke-dasharray=&#x27;0%2c 12&#x27; stroke-linecap=&#x27;round&#x27;/%3e%3c/svg%3e&quot;</span>) top left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3csvg width=&#x27;100% &#x27; height=&#x27;100%&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3e%3crect x=&#x27;-6&#x27; y=&#x27;6&#x27; width=&#x27;100%&#x27; height=&#x27;100%&#x27; fill=&#x27;none&#x27; stroke=&#x27;black&#x27; stroke-width=&#x27;12&#x27; stroke-dasharray=&#x27;0%2c 12&#x27; stroke-linecap=&#x27;round&#x27;/%3e%3c/svg%3e&quot;</span>) top right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3csvg width=&#x27;100% &#x27; height=&#x27;100%&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3e%3crect x=&#x27;6&#x27; y=&#x27;-6&#x27; width=&#x27;100%&#x27; height=&#x27;100%&#x27; fill=&#x27;none&#x27; stroke=&#x27;black&#x27; stroke-width=&#x27;12&#x27; stroke-dasharray=&#x27;0%2c 12&#x27; stroke-linecap=&#x27;round&#x27;/%3e%3c/svg%3e&quot;</span>) bottom left / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat,</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&quot;data:image/svg+xml,%3csvg width=&#x27;100% &#x27; height=&#x27;100%&#x27; xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%3e%3crect x=&#x27;-6&#x27; y=&#x27;-6&#x27; width=&#x27;100%&#x27; height=&#x27;100%&#x27; fill=&#x27;none&#x27; stroke=&#x27;black&#x27; stroke-width=&#x27;12&#x27; stroke-dasharray=&#x27;0%2c 12&#x27; stroke-linecap=&#x27;round&#x27;/%3e%3c/svg%3e&quot;</span>) bottom right / <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) <span class="built_in">calc</span>(<span class="number">100%</span> - <span class="number">12px</span>) no-repeat;</span><br></pre></td></tr></table></figure> <img
-src="https://pic1.zhimg.com/80/v2-b80f882796e6f59ce184ec55e400444c_720w.webp"
-alt="自定义的&quot;border&quot;" />
-此“边框”由裁切的四部分互相补充而成，他们在形状上是完全相同的，但位置不一样，因此可以在裁切后完美组合起来。不使用单个矩形是因为使用CSS设置样式(calc)在SVG中兼容性不佳，并且双calc()会出现问题，否则我们可以直接绘制一个固定边距的矩形。<br />
-<br />
-我们可以通过stroke-linecap（线帽形状）、stroke-dasharray（虚线长度）、stroke-width（线宽）改变形状，通过rx、ry和border-radius应用圆角。<br />
-<br />
-例如，在此处，线帽为圆形，虚线长度为0px，间隔为12px，线宽为12px，因此呈现出数个圆点。同时仅保留每个部分的一角。<br />
-<img
-src="https://pic2.zhimg.com/v2-7d90fd9238c68039ed8ce1391ffc5ac1_r.jpg"
-alt="&quot;border&quot;的各个部分" /><br />
-可以到这里生成：<a
-href="https://kusurin.github.io/tools/CustomBorder/">CustomBorder</a></p>
+          <h2 id="报错内容">报错内容</h2>
+<details>
+<summary>
+完整报错示例
+</summary>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">---------------------------------------------------------------------------</span><br><span class="line">ValueError                                Traceback (most recent call last)</span><br><span class="line">Cell In[48], line 1</span><br><span class="line">----&gt; 1 kpy.plot_cpdb_chord(</span><br><span class="line">      2     adata=adata_cpdb,</span><br><span class="line">      3     cell_type1=&quot;.&quot;,</span><br><span class="line">      4     cell_type2=&#x27;.&#x27;,</span><br><span class="line">      5     means=means,</span><br><span class="line">      6     pvals=pvals,</span><br><span class="line">      7     deconvoluted=decon,</span><br><span class="line">      8     celltype_key=&quot;celltype&quot;,</span><br><span class="line">      9     link_offset=1,</span><br><span class="line">     11     )</span><br><span class="line"></span><br><span class="line">File ~/anaconda3/envs/jupyterlab/lib/python3.10/site-packages/ktplotspy/plot/plot_cpdb_chord.py:170, in plot_cpdb_chord(adata, means, pvals, deconvoluted, celltype_key, interaction, cell_type1, cell_type2, keep_celltypes, remove_self, layer, sector_colors, sector_text_kwargs, sector_radius_limit, equal_sector_size, same_producer_colors, link_colors, link_offset, link_kwargs, legend_width, legend_kwargs, **plot_cpdb_kwargs)</span><br><span class="line">    168     simple_2[i] = re.sub(partner_2[i] + &quot;_|_&quot; + partner_2[i], &quot;&quot;, simple_2[i])</span><br><span class="line">    169 tmpdf = pd.concat([pd.DataFrame(zip(simple_1, partner_1)), pd.DataFrame(zip(partner_2, simple_2))])</span><br><span class="line">--&gt; 170 tmpdf.index = complex_id</span><br><span class="line">    171 tmpdf.columns = [&quot;id_a&quot;, &quot;id_b&quot;]</span><br><span class="line">    172 _interactions_subset = pd.concat([_interactions_subset, tmpdf], axis=1)</span><br><span class="line"></span><br><span class="line">File ~/anaconda3/envs/jupyterlab/lib/python3.10/site-packages/pandas/core/generic.py:6313, in NDFrame.__setattr__(self, name, value)</span><br><span class="line">   6311 try:</span><br><span class="line">   6312     object.__getattribute__(self, name)</span><br><span class="line">-&gt; 6313     return object.__setattr__(self, name, value)</span><br><span class="line">   6314 except AttributeError:</span><br><span class="line">   6315     pass</span><br><span class="line"></span><br><span class="line">File properties.pyx:69, in pandas._libs.properties.AxisProperty.__set__()</span><br><span class="line"></span><br><span class="line">File ~/anaconda3/envs/jupyterlab/lib/python3.10/site-packages/pandas/core/generic.py:814, in NDFrame._set_axis(self, axis, labels)</span><br><span class="line">    809 &quot;&quot;&quot;</span><br><span class="line">    810 This is called from the cython code when we set the `index` attribute</span><br><span class="line">    811 directly, e.g. `series.index = [1, 2, 3]`.</span><br><span class="line">    812 &quot;&quot;&quot;</span><br><span class="line">    813 labels = ensure_index(labels)</span><br><span class="line">--&gt; 814 self._mgr.set_axis(axis, labels)</span><br><span class="line">    815 self._clear_item_cache()</span><br><span class="line"></span><br><span class="line">File ~/anaconda3/envs/jupyterlab/lib/python3.10/site-packages/pandas/core/internals/managers.py:238, in BaseBlockManager.set_axis(self, axis, new_labels)</span><br><span class="line">    236 def set_axis(self, axis: AxisInt, new_labels: Index) -&gt; None:</span><br><span class="line">    237     # Caller is responsible for ensuring we have an Index object.</span><br><span class="line">--&gt; 238     self._validate_set_axis(axis, new_labels)</span><br><span class="line">    239     self.axes[axis] = new_labels</span><br><span class="line"></span><br><span class="line">File ~/anaconda3/envs/jupyterlab/lib/python3.10/site-packages/pandas/core/internals/base.py:98, in DataManager._validate_set_axis(self, axis, new_labels)</span><br><span class="line">     95     pass</span><br><span class="line">     97 elif new_len != old_len:</span><br><span class="line">---&gt; 98     raise ValueError(</span><br><span class="line">     99         f&quot;Length mismatch: Expected axis has &#123;old_len&#125; elements, new &quot;</span><br><span class="line">    100         f&quot;values have &#123;new_len&#125; elements&quot;</span><br><span class="line">    101     )</span><br><span class="line"></span><br><span class="line">ValueError: Length mismatch: Expected axis has 86 elements, new values have 78 elements</span><br></pre></td></tr></table></figure>
+</details>
+<h2 id="问题分析">问题分析</h2>
+<p>是<code>complex_id</code>的长度小于<code>tmpdf.index</code>的长度。</p>
+<p>源码根据<code>interacting_pair</code>字段将相互作用划分到<code>complex_id</code>或<code>simple_id</code>中，标准是这个字段里下划线的数量。</p>
+<p>然后问题出在分隔出来的地方 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">_interactions_subset = interactions_subset.loc[complex_id].copy()</span><br><span class="line">_interactions_subset_simp = interactions_subset.loc[simple_id].copy()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题</span></span><br><span class="line">complex_idx1 = [i <span class="keyword">for</span> i, j <span class="keyword">in</span> _interactions_subset.partner_b.items() <span class="keyword">if</span> re.search(<span class="string">&quot;complex:&quot;</span>, j)]</span><br><span class="line">complex_idx2 = [i <span class="keyword">for</span> i, j <span class="keyword">in</span> _interactions_subset.partner_a.items() <span class="keyword">if</span> re.search(<span class="string">&quot;complex:&quot;</span>, j)]</span><br><span class="line"><span class="comment"># 问题</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># complex_idx</span></span><br><span class="line">simple_1 = <span class="built_in">list</span>(_interactions_subset.loc[complex_idx1, <span class="string">&quot;interacting_pair&quot;</span>])</span><br><span class="line">simple_2 = <span class="built_in">list</span>(_interactions_subset.loc[complex_idx2, <span class="string">&quot;interacting_pair&quot;</span>])</span><br><span class="line">partner_1 = [re.sub(<span class="string">&quot;complex:&quot;</span>, <span class="string">&quot;&quot;</span>, b) <span class="keyword">for</span> b <span class="keyword">in</span> _interactions_subset.loc[complex_idx1, <span class="string">&quot;partner_b&quot;</span>]]</span><br><span class="line">partner_2 = [re.sub(<span class="string">&quot;complex:&quot;</span>, <span class="string">&quot;&quot;</span>, a) <span class="keyword">for</span> a <span class="keyword">in</span> _interactions_subset.loc[complex_idx2, <span class="string">&quot;partner_a&quot;</span>]]</span><br><span class="line"><span class="keyword">for</span> i, _ <span class="keyword">in</span> <span class="built_in">enumerate</span>(simple_1):</span><br><span class="line">    simple_1[i] = re.sub(partner_1[i] + <span class="string">&quot;_|_&quot;</span> + partner_1[i], <span class="string">&quot;&quot;</span>, simple_1[i])</span><br><span class="line"><span class="keyword">for</span> i, _ <span class="keyword">in</span> <span class="built_in">enumerate</span>(simple_2):</span><br><span class="line">    simple_2[i] = re.sub(partner_2[i] + <span class="string">&quot;_|_&quot;</span> + partner_2[i], <span class="string">&quot;&quot;</span>, simple_2[i])</span><br><span class="line">tmpdf = pd.concat([pd.DataFrame(<span class="built_in">zip</span>(simple_1, partner_1)), pd.DataFrame(<span class="built_in">zip</span>(partner_2, simple_2))])</span><br><span class="line">tmpdf.index = complex_id</span><br></pre></td></tr></table></figure></p>
+<p>在这个CellphoneDB结果里，<code>partner_a</code>和<code>partner_b</code>有同时包含<code>complex:</code>的情况，此时会有相同的行被划分到<code>complex_idx1</code>和<code>complex_idx2</code>中，从而导致<code>tmpdf</code>中有重复的部分，行数大于<code>complex_id</code>的长度。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>在作者修好之前，可以暂时先在取<code>complex_idx2</code>的时候，不选<code>complex_idx1</code>中存在的行。
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">complex_idx2 = [</span><br><span class="line">    i <span class="keyword">for</span> i, j <span class="keyword">in</span> _interactions_subset.partner_a.items()</span><br><span class="line">    <span class="keyword">if</span> re.search(<span class="string">&quot;complex:&quot;</span>, j) <span class="keyword">and</span> i <span class="keyword">not</span> <span class="keyword">in</span> complex_idx1</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
 
         
       </div>
@@ -288,25 +286,25 @@ href="https://kusurin.github.io/tools/CustomBorder/">CustomBorder</a></p>
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/blog/2023/11/23/wpa2psk-aircrack/"
-      title="Linux使用aircrack-ng攻击WPA2-PSK"
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        Linux使用aircrack-ng攻击WPA2-PSK
+        祥，移動
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2023/01/01/csm-preface/"
-      title="完全じさつマニュアル 前言"
+      href="/blog/2025/03/11/change-colab-python-version/"
+      title="更换Colab的Python版本"
      >
 
     <p class="title-text">
       
-        完全じさつマニュアル 前言
+        更换Colab的Python版本
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

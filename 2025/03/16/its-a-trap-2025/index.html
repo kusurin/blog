@@ -29,12 +29,12 @@
   <meta name="description" content="数据处理 [2025-01-13]FFmpeg在使用filter后默认输出的码率降低？ 在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。 1for %f in (*.*) do ffmpeg -i &quot;%f&quot; -filter:v &quot;crop&#x3D;iw*(10&#x2F;10):ih*(3&#x2F;10):iw:i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="踩坑日记[2025]">
-<meta property="og:url" content="https://kusurin.github.io/blog/2025/03/03/its-a-trap-2025/index.html">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/03/16/its-a-trap-2025/index.html">
 <meta property="og:site_name" content="kusurin.blog">
 <meta property="og:description" content="数据处理 [2025-01-13]FFmpeg在使用filter后默认输出的码率降低？ 在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。 1for %f in (*.*) do ffmpeg -i &quot;%f&quot; -filter:v &quot;crop&#x3D;iw*(10&#x2F;10):ih*(3&#x2F;10):iw:i">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-03T15:13:31.000Z">
-<meta property="article:modified_time" content="2025-03-04T08:39:05.277Z">
+<meta property="article:published_time" content="2025-03-16T15:13:31.000Z">
+<meta property="article:modified_time" content="2025-03-16T15:18:04.256Z">
 <meta property="article:author" content="kusurin">
 <meta property="article:tag" content="杂谈">
 <meta property="article:tag" content="踩坑">
@@ -341,7 +341,7 @@ mjx-container[display="true"] + br {
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-03-03T15:13:31.000Z" itemprop="datePublished">2025-03-03</time>
+  <time class="dt-published" datetime="2025-03-16T15:13:31.000Z" itemprop="datePublished">2025-03-16</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -352,7 +352,7 @@ mjx-container[display="true"] + br {
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.9k 词 
+            8.1k 词 
           </div>
         </div>
         
@@ -364,7 +364,7 @@ mjx-container[display="true"] + br {
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E5%9C%A8%E4%BD%BF%E7%94%A8filter%E5%90%8E%E9%BB%98%E8%AE%A4%E8%BE%93%E5%87%BA%E7%9A%84%E7%A0%81%E7%8E%87%E9%99%8D%E4%BD%8E"><span class="toc-text">[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deeplabcut2024%E5%B9%B412%E6%9C%88%E7%89%88%E6%9C%ACno-unfiltered-data-file-found"><span class="toc-text">[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E7%94%9F%E6%88%90%E5%B8%A6%E9%80%8F%E6%98%8E%E9%80%9A%E9%81%93%E7%9A%84.mov%E8%A7%86%E9%A2%91%E7%9A%84%E7%95%B8%E5%BD%A2%E6%96%B9%E6%B3%95"><span class="toc-text">[2025-03-03]一种生成带透明通道的.mov视频的畸形方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#word%E4%B8%ADzotero%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E6%8F%90%E7%A4%BA%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%9C%AA%E5%AE%9A%E4%B9%89"><span class="toc-text">[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zotero%E6%89%B9%E9%87%8F%E6%9B%B4%E6%94%B9%E6%9D%A1%E7%9B%AE%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%97%E6%AE%B5"><span class="toc-text">[2025-01-07]ZOTERO批量更改条目的语言字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%90%8E%E4%B8%8D%E9%9C%80%E8%A6%81hexo-renderer-mathjax"><span class="toc-text">[2025-01-17]hexo自动部署后不需要hexo-renderer-mathjax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%A9%E7%9A%84%E5%AE%9E%E9%99%85%E6%84%8F%E4%B9%89"><span class="toc-text">[2025-01-17]矩阵的秩的实际意义</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ffmpeg%E5%9C%A8%E4%BD%BF%E7%94%A8filter%E5%90%8E%E9%BB%98%E8%AE%A4%E8%BE%93%E5%87%BA%E7%9A%84%E7%A0%81%E7%8E%87%E9%99%8D%E4%BD%8E"><span class="toc-text">[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deeplabcut2024%E5%B9%B412%E6%9C%88%E7%89%88%E6%9C%ACno-unfiltered-data-file-found"><span class="toc-text">[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E7%94%9F%E6%88%90%E5%B8%A6%E9%80%8F%E6%98%8E%E9%80%9A%E9%81%93%E7%9A%84.mov%E8%A7%86%E9%A2%91%E7%9A%84%E7%95%B8%E5%BD%A2%E6%96%B9%E6%B3%95"><span class="toc-text">[2025-03-03]一种生成带透明通道的.mov视频的畸形方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%82%E9%A1%B9"><span class="toc-text">杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#word%E4%B8%ADzotero%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E4%BA%A4%E5%8F%89%E5%BC%95%E7%94%A8%E6%8F%90%E7%A4%BA%E7%94%A8%E6%88%B7%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%9C%AA%E5%AE%9A%E4%B9%89"><span class="toc-text">[2025-01-07]Word中ZOTERO自动设置交叉引用提示“用户定义的类型未定义”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zotero%E6%89%B9%E9%87%8F%E6%9B%B4%E6%94%B9%E6%9D%A1%E7%9B%AE%E7%9A%84%E8%AF%AD%E8%A8%80%E5%AD%97%E6%AE%B5"><span class="toc-text">[2025-01-07]ZOTERO批量更改条目的语言字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%90%8E%E4%B8%8D%E9%9C%80%E8%A6%81hexo-renderer-mathjax"><span class="toc-text">[2025-01-17]hexo自动部署后不需要hexo-renderer-mathjax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%A9%E7%9A%84%E5%AE%9E%E9%99%85%E6%84%8F%E4%B9%89"><span class="toc-text">[2025-01-17]矩阵的秩的实际意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux%E5%90%AF%E5%8A%A8chromium%E6%80%BB%E6%8F%90%E7%A4%BA--no-sandbox"><span class="toc-text">[2025-03-16]Linux启动Chromium总提示--no-sandbox</span></a></li></ol></li></ol>
     </div>
 
           <h2 id="数据处理">数据处理</h2>
@@ -410,6 +410,11 @@ install没法覆盖，先卸载再安装。</p>
 而还有另一种情况，样本数小于特征数，这时<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0;" xmlns="http://www.w3.org/2000/svg" width="5.285ex" height="1.904ex" role="img" focusable="false" viewBox="0 -841.7 2336 841.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path></g><g data-mml-node="mi" transform="translate(936.2,363) scale(0.707)"><path data-c="1D447" d="M40 437Q21 437 21 445Q21 450 37 501T71 602L88 651Q93 669 101 677H569H659Q691 677 697 676T704 667Q704 661 687 553T668 444Q668 437 649 437Q640 437 637 437T631 442L629 445Q629 451 635 490T641 551Q641 586 628 604T573 629Q568 630 515 631Q469 631 457 630T439 622Q438 621 368 343T298 60Q298 48 386 46Q418 46 427 45T436 36Q436 31 433 22Q429 4 424 1L422 0Q419 0 415 0Q410 0 363 1T228 2Q99 2 64 0H49Q43 6 43 9T45 27Q49 40 55 46H83H94Q174 46 189 55Q190 56 191 56Q196 59 201 76T241 233Q258 301 269 344Q339 619 339 625Q339 630 310 630H279Q212 630 191 624Q146 614 121 583T67 467Q60 445 57 441T43 437H40Z"></path></g></g><g data-mml-node="mi" transform="translate(1484,0)"><path data-c="1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path></g></g></g></svg></mjx-container></span>存在线性相关，也不可逆（例如经典的拉格朗日插值算114514）。</p>
 <p>所以这两种情况下，也就无法使用正规方程（最小二乘法）求解。<br>
 （以前纯抽象都没好好学...）</p>
+<h3 id="linux启动chromium总提示--no-sandbox">[2025-03-16]Linux启动Chromium总提示<code>--no-sandbox</code></h3>
+<p><code>chrome://version/</code>显示<code>--no-sandbox</code>，而直接启动软件就没问题，发现是使用类似<a target="_blank" rel="noopener" href="https://github.com/mariospr/chromium-browser-flatpak/blob/master/chromium-browser.sh">这个脚本</a>启动的，里面
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f /etc/<span class="variable">$APPNAME</span>/default ] ; <span class="keyword">then</span></span><br><span class="line">  . /etc/<span class="variable">$APPNAME</span>/default</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+source了这个文件，果然在其中发现了<code>CHROMIUM_FLAGS="--no-sandbox --force-renderer-accessibility"</code>，但是不以<code>--no-sandbox</code>启动可能会崩溃...
+他们这么做一定有他们的道理（）。</p>
 
         
       </div>
@@ -424,25 +429,25 @@ install没法覆盖，先卸载再安装。</p>
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/blog/2025/03/04/controller-joystick-to-mousewheel/"
-      title="一种通过steam用手柄模拟速度可调的鼠标滚轮的方法"
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        一种通过steam用手柄模拟速度可调的鼠标滚轮的方法
+        祥，移動
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2025/02/28/its-a-trap-bioinfo-2025/"
-      title="踩坑日记[生信等][2025]"
+      href="/blog/2025/03/13/ktplotspy-chord-length-mismatch/"
+      title="ktplotspy绘制CellphoneDB结果弦图时tmpdf.index = complex_id处出现ValueError: Length mismatch"
      >
 
     <p class="title-text">
       
-        踩坑日记[生信等][2025]
+        ktplotspy绘制CellphoneDB结果弦图时tmpdf.index = complex_id处出现ValueError: Length mismatch
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

@@ -322,6 +322,113 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-ML-induction" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/01/31/ML-induction/">ML入门</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-01-31T13:09:34.000Z" itemprop="datePublished">2025-01-31</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/Coding/">Coding</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            8k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              线性回归
+引言
+在中学就学习过，一元线性回归中，对于某组常数项和回归系数，有评价标准  使用最小二乘法（正规方程）可以使其最小，此时 
+多元线性回归
+损失函数
+类似地，多元线性回归中，对于个样本的个特征  以及一组回归系数，有相同的评价标准，为了去掉样本规模的影响除以，定义损失函数 
+正规方程
+同样可以使用正规方程，求解使得最小。 
+
+
+标量对向量的求导方法
+
+ 或  依据和形式一致（Denominator Layout）或和形式一致（Numerator
+Layout）而定，以下采用Denominator Layout。 于是我们有  （或者说，，则）
+进一步地，对于二次型
+
+于是 
+
+所以  这也就是雅可比矩阵。
+
+
+二阶导
+
+上面直接认定了代价函数有最小值，在这里我们可以向量对向量求导求海森矩阵
+ （因为连续函数偏导和求导顺序无关，其海森矩阵是对称矩阵）
+而对于任意非零实列向量，的特征值 （内积） 所以是凸函数
+
+令，若可逆，有
+
+
+
+带回到一元线性回归
+
+对于  和上文一致。
+
+梯度下降法
+就是让某组不...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/01/31/ML-induction/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-uninstall-linux-on-windows-double-system" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -820,97 +927,6 @@ from moderate ...
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/08/01/reproduce-10-1038-slash-s41586-024-07504-y/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-engineering-wonders" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2024/07/29/engineering-wonders/">工程学奇迹x</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-07-29T11:45:21.000Z" itemprop="datePublished">2024-07-29</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            352 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              拯救者电源接口接触不良维修
-网上大多说是因为散热设计不佳，导致充电口公头损坏，但是有时候扭一下接口就能充电，所以可能单纯是触点问题，也有可能只是因为我的没有那么病入膏肓。
-拯救者电源接口母口的结构如下：
-
-此时我的触点①、③都已经感觉有点往内弯曲看不到了，并且很松，怀疑是他们的问题。
-猜测：
-
-①用于固定
-②、③是电源触点
-
-②又根本碰不着，因此试着将③用针状塑料往外挑开，插上电源，秒杀。
-更新：这样子最多只能生效一会儿，改动公口和触点③对应的触点可以更好地保持状态：自己动手修好联想拯救者电源接触不良问题。
-蓝星P320系列保险无效维修
-原因：扳机传动杆上下旷量过大
-解决方案：
-因为有一个金属块限位，只要在尾部塞东西减少旷量即可。
-
-Nintendo Switch底座拆除前盖
-以防你不知道，switch底座的前盖是可以单独拆下来的。
-
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2024/07/29/engineering-wonders/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

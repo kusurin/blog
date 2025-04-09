@@ -403,6 +403,86 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-its-a-trap-2025" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/04/09/its-a-trap-2025/">踩坑日记[2025]</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-04-09T15:13:31.000Z" itemprop="datePublished">2025-04-09</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            11k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              数据处理[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
+1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_lower%~xf"
+另外其实我上面命令写错了，但是结果正常，这也说明保留画面的大小是优先于其位置的。
+[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found前段时间更新的某版本有bug，如下情况不生成.h5：
+
+使用TensorFlow模型（据开发者，但是我在服务器用TensorFlow训练好之后在本地用没问题）
+本地训练的pyTorch模型（我遇到的）
+
+最新版本已经修复，但是不知道为什么，直接pip install没法覆盖，先卸载再安装。
+[2025-03-03]一种生成带透明通道的.mov视...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/04/09/its-a-trap-2025/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-engineering-wonders" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -478,90 +558,6 @@ Nintendo Switch底座拆除前盖
     <a class="right-panel  non-pic  "
       
       href="/blog/2025/03/17/engineering-wonders/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-its-a-trap-2025" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/03/16/its-a-trap-2025/">踩坑日记[2025]</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-03-16T15:13:31.000Z" itemprop="datePublished">2025-03-16</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            8.1k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              数据处理
-[2025-01-13]FFmpeg在使用filter后默认输出的码率降低？
-在使用如下filter(crop)而不指定码率时，偶然发现输出糊了很多，再仔细看输出的码率降低了很多，或许需要使用-b:v 12000k之类的指定码率。
-1for %f in (*.*) do ffmpeg -i "%f" -filter:v "crop=iw*(10/10):ih*(3/10):iw:ih*(7/10)" "%~nf_lower%~xf"
-另外其实我上面命令写错了，但是结果正常，这也说明保留画面的大小是优先于其位置的。
-[2025-01-13]DeepLabCut2024年12月版本No unfiltered data file found
-前段时间更新的某版本有bug，如下情况不生成.h5：
-
-使用TensorFlow模型（据开发者，但是我在服务器用TensorFlow训练好之后在本地用没问题）
-本地训练的pyTorch模型（我遇到的）
-
-最新版本已经修复，但是不知道为什么，直接pip
-install没法覆盖，先卸载再安装。
-[2025-03-03...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/03/16/its-a-trap-2025/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

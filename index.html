@@ -403,6 +403,157 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-Valsalva-in-AGSM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/05/16/Valsalva-in-AGSM/">简述抗G紧张动作中的Valsalva动作</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-05-16T08:05:43.000Z" itemprop="datePublished">2025-05-16</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            0 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/05/16/Valsalva-in-AGSM/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-its-a-trap-bioinfo-2025" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/05/16/its-a-trap-bioinfo-2025/">踩坑日记[生信等][2025]</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-05-16T03:36:41.000Z" itemprop="datePublished">2025-05-16</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>><a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.3k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              [2025-02-24]seurat
+V5对象转adata对象
+据说对于V4和之前的版本，SeuratDisk可以用，V5则要转回V3的assay。
+还有另一个包SCP，里面的srt_to_adata()中，特征元信息用的变量名是meta.features，但根据这个issue，Assay5对象的特征元信息变量名也改成了meta.data，需要改一下源码里的变量名。
+还有另一个问题，目前这里面转出来的adata对象的write_loom()方法有些问题，特征名样本名都没了，但write_h5ad()方法可以用。
+[2025-02-25]scenic用到的genome
+ranking database
+在这里面找就好了。
+还有，先装个docker或者singularity再跑pySCENIC都比arboreto_with_multiprocessing.py要快。另外他们文档里singularity的部分写错了，按格式写就好。
+[2025-02-28]reticulate查看已安装包信息
+才发现也才意识到以前的不对劲，py_config()可能不会列出所有包，要...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/05/16/its-a-trap-bioinfo-2025/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-engineering-wonders" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -820,87 +971,6 @@ Colab团队十分自负x，除了在更新Python版本时提供上一个版本�
    
 
 
-<article id="post-its-a-trap-bioinfo-2025" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/02/28/its-a-trap-bioinfo-2025/">踩坑日记[生信等][2025]</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-02-28T03:36:41.000Z" itemprop="datePublished">2025-02-28</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>><a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            496 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              [2025-02-24]seurat
-V5对象转adata对象
-据说对于V4和之前的版本，SeuratDisk可以用，V5则要转回V3的assay。
-还有另一个包SCP，里面的srt_to_adata()中，特征元信息用的变量名是meta.features，但根据这个issue，Assay5对象的特征元信息变量名也改成了meta.data，需要改一下源码里的变量名。
-还有另一个问题，目前这里面转出来的adata对象的write_loom()方法有些问题，特征名样本名都没了，但write_h5ad()方法可以用。
-[2025-02-25]scenic用到的genome
-ranking database
-在这里面找就好了。
-还有，先装个docker或者singularity再跑pySCENIC都比arboreto_with_multiprocessing.py要快。另外他们文档里singularity的部分写错了，按格式写就好。
-[2025-02-28]reticulate查看已安装包信息
-才发现也才意识到以前的不对劲，py_config()可能不会列出所有包，要...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/02/28/its-a-trap-bioinfo-2025/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
 <article id="post-gene-enrich-spia" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1054,96 +1124,6 @@ regulates两种关系，暂且不论。
     <a class="right-panel  non-pic  "
       
       href="/blog/2025/02/17/spatial-transcriptomics-demo/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-ATACseq-on-PBMC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/02/13/ATACseq-on-PBMC/">对PBMC进行scATAC-seq分析</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-02-13T13:43:29.000Z" itemprop="datePublished">2025-02-13</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            6k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              ATAC-seq的原理可以通过这个视频简单了解，在染色质开放区域，转座事件更容易发生，产生更多片段，形成peak。
-
-通过scATAC-seq分析，我们可以得出，例如，不同条件下染色质开放区域的差异，高度开放区域可能为活跃转录的基因。
-这里使用Seurat V5和signac对PBMC进行scATAC-seq分析，原始代码见signac文档。
-数据导入
-
-peak-细胞计数矩阵
-元数据
-片段信息
-这个片段信息结构是，染色体-起始位置-终止位置-barcode等
-片段信息索引
-scRNA-seq数据
-
-（所以其实，可以只用片段信息来生成peak-细胞计数矩阵。）
-还可以添加注释信息，便于下游分析直接从对象中读取。
-
-
-生成Seurat对象
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950pkgs &lt;- c(&quot;Signac&quot;, &quot;Seurat&quot;, &quot;hdf5...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/02/13/ATACseq-on-PBMC/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

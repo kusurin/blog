@@ -322,6 +322,96 @@ mjx-container[display="true"] + br {
    
 
 
+<article id="post-ATACseq-on-PBMC" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/02/13/ATACseq-on-PBMC/">对PBMC进行scATAC-seq分析</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-02-13T13:43:29.000Z" itemprop="datePublished">2025-02-13</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            6k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              ATAC-seq的原理可以通过这个视频简单了解，在染色质开放区域，转座事件更容易发生，产生更多片段，形成peak。
+
+通过scATAC-seq分析，我们可以得出，例如，不同条件下染色质开放区域的差异，高度开放区域可能为活跃转录的基因。
+这里使用Seurat V5和signac对PBMC进行scATAC-seq分析，原始代码见signac文档。
+数据导入
+
+peak-细胞计数矩阵
+元数据
+片段信息
+这个片段信息结构是，染色体-起始位置-终止位置-barcode等
+片段信息索引
+scRNA-seq数据
+
+（所以其实，可以只用片段信息来生成peak-细胞计数矩阵。）
+还可以添加注释信息，便于下游分析直接从对象中读取。
+
+
+生成Seurat对象
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950pkgs &lt;- c(&quot;Signac&quot;, &quot;Seurat&quot;, &quot;hdf5...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/02/13/ATACseq-on-PBMC/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
 <article id="post-ML-induction" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
    
   <div class="article-inner">
@@ -1101,82 +1191,6 @@ Consortium），“是一组合成的RNA分子，它们的浓度已知，并且�
     <a class="right-panel  non-pic  "
       
       href="/blog/2024/03/28/page-clock/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-   
-
-
-<article id="post-wpa2psk-sniffing" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2024/02/03/wpa2psk-sniffing/">嗅探WPA2-PSK网络层数据包</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2024-02-02T16:14:16.000Z" itemprop="datePublished">2024-02-03</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            165 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              
-“你也不想被大家知道访问过P**nHub罢”x
-书接上文(Linux使用aircrack-ng攻击WPA2-PSK),WPA2-PSK认证模式下，握手时产生的PTK或GTK被用于会话的CCMP加密中，而CCMP加密的过程大致如下：
-因此在这里如此神必的情况下，可以对物理层解出IP层以上的数据包。（至少可以得知请求的网址）
-（烦，不写了
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2024/02/03/wpa2psk-sniffing/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

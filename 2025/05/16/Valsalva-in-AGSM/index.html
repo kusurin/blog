@@ -23,22 +23,17 @@
   
 
   
-  <title>踩坑日记[生信等][2025] | kusurin.blog</title>
+  <title>简述抗G紧张动作中的Valsalva动作 | kusurin.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta name="description" content="[2025-02-24]seurat V5对象转adata对象 据说对于V4和之前的版本，SeuratDisk可以用，V5则要转回V3的assay。 还有另一个包SCP，里面的srt_to_adata()中，特征元信息用的变量名是meta.features，但根据这个issue，Assay5对象的特征元信息变量名也改成了meta.data，需要改一下源码里的变量名。 还有另一个问题，目前这">
-<meta property="og:type" content="article">
-<meta property="og:title" content="踩坑日记[生信等][2025]">
-<meta property="og:url" content="https://kusurin.github.io/blog/2025/02/28/its-a-trap-bioinfo-2025/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="简述抗G紧张动作中的Valsalva动作">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/05/16/Valsalva-in-AGSM/index.html">
 <meta property="og:site_name" content="kusurin.blog">
-<meta property="og:description" content="[2025-02-24]seurat V5对象转adata对象 据说对于V4和之前的版本，SeuratDisk可以用，V5则要转回V3的assay。 还有另一个包SCP，里面的srt_to_adata()中，特征元信息用的变量名是meta.features，但根据这个issue，Assay5对象的特征元信息变量名也改成了meta.data，需要改一下源码里的变量名。 还有另一个问题，目前这">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-28T03:36:41.000Z">
-<meta property="article:modified_time" content="2025-03-04T02:36:55.765Z">
+<meta property="article:published_time" content="2025-05-16T08:05:43.000Z">
+<meta property="article:modified_time" content="2025-05-16T08:32:58.991Z">
 <meta property="article:author" content="kusurin">
-<meta property="article:tag" content="杂谈">
-<meta property="article:tag" content="踩坑">
-<meta property="article:tag" content="生信">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
@@ -209,7 +204,7 @@
        
 
 
-<article id="post-its-a-trap-bioinfo-2025" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Valsalva-in-AGSM" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
    
@@ -222,7 +217,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        踩坑日记[生信等][2025]
+        简述抗G紧张动作中的Valsalva动作
       </h1>
     
   
@@ -230,51 +225,31 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2025-02-28T03:36:41.000Z" itemprop="datePublished">2025-02-28</time>
+  <time class="dt-published" datetime="2025-05-16T08:05:43.000Z" itemprop="datePublished">2025-05-16</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>><a class="meta-cate-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">踩坑日记</a>
+    未分类 
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            496 词 
+            0 词 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li></ul>
-
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
           
     <div id="toc">
         <strong class="sidebar-title">目录</strong>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#seurat-v5%E5%AF%B9%E8%B1%A1%E8%BD%ACadata%E5%AF%B9%E8%B1%A1"><span class="toc-text">[2025-02-24]seurat
-V5对象转adata对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scenic%E7%94%A8%E5%88%B0%E7%9A%84genome-ranking-database"><span class="toc-text">[2025-02-25]scenic用到的genome
-ranking database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reticulate%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E5%8C%85%E4%BF%A1%E6%81%AF"><span class="toc-text">[2025-02-28]reticulate查看已安装包信息</span></a></li></ol>
+        
     </div>
 
-          <h2 id="seurat-v5对象转adata对象">[2025-02-24]seurat
-V5对象转adata对象</h2>
-<p><a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/581053265">据说</a>对于V4和之前的版本，<code>SeuratDisk</code>可以用，V5则要转回V3的assay。</p>
-<p>还有另一个包<code>SCP</code>，里面的<code>srt_to_adata()</code>中，特征元信息用的变量名是<code>meta.features</code>，但根据这个<a
-target="_blank" rel="noopener" href="https://github.com/satijalab/seurat/issues/8214">issue</a>，<code>Assay5</code>对象的特征元信息变量名也改成了<code>meta.data</code>，需要改一下源码里的变量名。<br />
-还有另一个问题，目前这里面转出来的<code>adata</code>对象的<code>write_loom()</code>方法有些问题，特征名样本名都没了，但<code>write_h5ad()</code>方法可以用。</p>
-<h2
-id="scenic用到的genome-ranking-database">[2025-02-25]scenic用到的genome
-ranking database</h2>
-<p>在<a
-target="_blank" rel="noopener" href="https://resources.aertslab.org/cistarget/databases/homo_sapiens/hg38/refseq_r80/">这里面</a>找就好了。</p>
-<p>还有，先装个docker或者singularity再跑pySCENIC都比<a
-target="_blank" rel="noopener" href="https://pyscenic.readthedocs.io/en/latest/faq.html">arboreto_with_multiprocessing.py</a>要快。另外他们文档里singularity的部分写错了，按格式写就好。</p>
-<h2
-id="reticulate查看已安装包信息">[2025-02-28]<code>reticulate</code>查看已安装包信息</h2>
-<p>才发现也才意识到以前的不对劲，<code>py_config()</code>可能不会列出所有包，要用<code>py_list_packages()</code>。</p>
+          
 
         
       </div>
@@ -289,25 +264,25 @@ id="reticulate查看已安装包信息">[2025-02-28]<code>reticulate</code>查�
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/blog/2025/03/04/controller-joystick-to-mousewheel/"
-      title="一种通过steam用手柄模拟速度可调的鼠标滚轮的方法"
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        一种通过steam用手柄模拟速度可调的鼠标滚轮的方法
+        祥，移動
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/blog/2025/02/22/gene-enrich-spia/"
-      title="基因富集分析（SPIA）"
+      href="/blog/2025/05/16/its-a-trap-bioinfo-2025/"
+      title="踩坑日记[生信等][2025]"
      >
 
     <p class="title-text">
       
-        基因富集分析（SPIA）
+        踩坑日记[生信等][2025]
         
     </p>
     <i class="fa-solid fa-angle-right"></i>

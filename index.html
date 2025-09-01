@@ -276,7 +276,7 @@ mjx-container[display="true"] + br {
       <div class="category-box">
             <a class="category-link" href="/blog/categories/Coding/">
                 Coding
-                <div class="category-count">2</div>
+                <div class="category-count">3</div>
             </a>
         
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
@@ -386,6 +386,89 @@ mjx-container[display="true"] + br {
     <a class="right-panel  non-pic  "
       
       href="/blog/2030/01/16/saki-idou/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-OA-classfier" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/08/30/OA-classfier/">骨关节炎X线图像分类</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-08-30T07:36:41.000Z" itemprop="datePublished">2025-08-30</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/Coding/">Coding</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            16k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              前言
+对一张图片进行分类是CV中的传统任务，在这里我们在Digital Knee
+X-ray Images上,基于PyTorch使用CNN、Vision Transformer以及Swin
+Transformer进行这一实验，从X线图像中获取膝关节炎的KL分期。
+CNN
+简单的CNN
+使用CNN，可以使用卷积逐层提取图像从基础形状到高级形态的特征，例如原始输入-&gt;竖线+横线-&gt;转角-&gt;特定物体，而类似于视觉皮层中对特定方向直线敏感的神经元，如下卷积核即可捕捉竖线特征：
+
+其在如下窗口上取得较大的值：
+
+我们先编写一个CNN类的最小实现，输入图像为w256*h256*c1，在torch中定义网络成分如下：
+1234class SimpleCNN(nn.Module):    def __init__(self):        super(SimpleCNN, self).__init__()        #...
+卷积层可以这样定义self.conv1=nn.Conv2d(in_channels=1,out_channels=16,ke...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/08/30/OA-classfier/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1067,96 +1150,6 @@ regulates两种关系，暂且不论。
 
 
 
-   
-
-
-<article id="post-spatial-transcriptomics-demo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/02/17/spatial-transcriptomics-demo/">对小鼠脑组织进行空间转录组学分析</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-02-17T14:43:26.000Z" itemprop="datePublished">2025-02-17</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            5.3k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%A9%BA%E9%97%B4%E8%BD%AC%E5%BD%95%E7%BB%84/" rel="tag">空间转录组</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              引言
-附：基于barcode的空转原理
-把特定barcode结合到特定位置，其末端是可以与mRNA结合的polyT序列。将切片透化，让其mRNA与barcode结合，在原位合成cDNA，通过NGS就能得到每个mRNA和其barcode，通过barcode又能映射回其位置。
-相较于其它方法，这种方法的优势在于同时兼顾速度、精度和全转录组测序等。在精度上，基于FISH和原位测序的方法可以做到光学极限，但就没法做到全转录组了。
-数据分析
-那么这里使用的数据是通过基于barcode的空转测序得到的。
-和scRNA-seq比起来，就是每个样本点有了空间信息，并且每个样本点是一群细胞，那么要做的和之前的十分相似，只是主要有以下不同：
-
-寻找差异表达基因时，有2种手段
-
-聚类后在簇之间寻找，不需要空间信息
-根据空间信息寻找
-
-进行类型注释时，有2种手段
-
-寻找和scRNA-seq之间的锚点，然后整合，每个spot只能预测出1种细胞类型
-使用scRNA-seq作为参考，对每个spot进行反卷积，能得到每个spot内不同类型的比例
-
-
-在这个示例里，都采用前者...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/02/17/spatial-transcriptomics-demo/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
 
   <nav id="page-nav">
     <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
@@ -1209,6 +1202,5 @@ regulates两种关系，暂且不论。
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
-
 </body>
 </html>

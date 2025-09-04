@@ -444,14 +444,20 @@ mjx-container[display="true"] + br {
         
           <div class="truncate-text">
             
-              前言对一张图片进行分类是CV中的传统任务，在这里我们在Digital Knee X-ray Images上,基于PyTorch使用CNN、Vision Transformer以及Swin Transformer进行这一实验，从X线图像中获取膝关节炎的KL分期。
-CNN简单的CNN使用CNN，可以使用卷积逐层提取图像从基础形状到高级形态的特征，例如原始输入-&gt;竖线+横线-&gt;转角-&gt;特定物体，而类似于视觉皮层中对特定方向直线敏感的神经元，如下卷积核即可捕捉竖线特征：
+              前言
+对一张图片进行分类是CV中的传统任务，在这里我们在Digital Knee
+X-ray Images上,基于PyTorch使用CNN、Vision Transformer以及Swin
+Transformer进行这一实验，从X线图像中获取膝关节炎的KL分期。
+
+CNN
+简单的CNN
+使用CNN，可以使用卷积逐层提取图像从基础形状到高级形态的特征，例如原始输入-&gt;竖线+横线-&gt;转角-&gt;特定物体，而类似于视觉皮层中对特定方向直线敏感的神经元，如下卷积核即可捕捉竖线特征：
 
 其在如下窗口上取得较大的值：
 
 我们先编写一个CNN类的最小实现，输入图像为w256*h256*c1，在torch中定义网络成分如下：
 1234class SimpleCNN(nn.Module):    def __init__(self):        super(SimpleCNN, self).__init__()        #...
-卷积层可以这样定义self.conv1=nn.Conv2d(in_channels=1,out_channels=16,kernel_size=3,pad...
+卷积层可以这样定义self.conv1=nn.Conv2d(in_channels=1,out_channels=16,...
             
           </div>
         

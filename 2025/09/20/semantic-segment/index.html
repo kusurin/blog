@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+<script src="/blog/js/color.global.min.js" ></script>
+<script src="/blog/js/load-settings.js" ></script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-31GM7RWSBJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-31GM7RWSBJ');
+</script>
+
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>医疗图像语义分割 | kusurin.blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="description" content="前言 传统的CNN逐层提取特征，可以将最后卷积、池化输出的特征展平送入全连接层，得到整张图片的分类。Jonathan Long等人在得到最终特征图后不使用全连接层，而是将这个低分辨率高级特征图转化成分类，最后进行上采样，于是就可以预测每一像素的分类，得到分类掩码，从此揭开了图像分割的帷幕。 在这里，我们在FracAtlas以及Leprosy Chronic Wound Images (C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="医疗图像语义分割">
+<meta property="og:url" content="https://kusurin.github.io/blog/2025/09/20/semantic-segment/index.html">
+<meta property="og:site_name" content="kusurin.blog">
+<meta property="og:description" content="前言 传统的CNN逐层提取特征，可以将最后卷积、池化输出的特征展平送入全连接层，得到整张图片的分类。Jonathan Long等人在得到最终特征图后不使用全连接层，而是将这个低分辨率高级特征图转化成分类，最后进行上采样，于是就可以预测每一像素的分类，得到分类掩码，从此揭开了图像分割的帷幕。 在这里，我们在FracAtlas以及Leprosy Chronic Wound Images (C">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0000466.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0000692.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0001364.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0002846.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0003942.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_bad/IMG0000144.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_bad/IMG0000844.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/FCN/IMG449.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/FCN/IMG561.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/FCN/IMG628.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/FCN/IMG849.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/FCN/IMG960.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_base/IMG449.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_base/IMG561.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_base/IMG628.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_base/IMG849.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_base/IMG960.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_dice/IMG449.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_dice/IMG561.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_dice/IMG628.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_dice/IMG849.jpg">
+<meta property="og:image" content="https://kusurin.github.io/blog/images/semantic-segment/Unet_dice/IMG960.jpg">
+<meta property="article:published_time" content="2025-09-20T10:36:41.000Z">
+<meta property="article:modified_time" content="2025-09-24T13:36:02.630Z">
+<meta property="article:author" content="kusurin">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kusurin.github.io/blog/images/semantic-segment/frac_good/IMG0000466.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="kusurin.blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/blog/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/blog/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+   
+  <div id="main-grid" class="shadow   ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/blog/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>kusurin.blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/blog/">Home</a>
+    
+      <a class="main-nav-link" href="/blog/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/blog/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/blog/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/blog/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/blog/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/blog/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/blog/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=https://pic1.imgdb.cn/item/6828010758cb8da5c8f7d65d.gif></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">kusurin </div>
+      <div class="dot"></div>
+      <div class="subtitle">文字の中に沈む </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu" title="Home Page"><i class="fa-solid fa-globe"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://kusurin.icu/blog" title="Blog Home Page"><i class="fa-solid fa-house"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/kusurin" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://space.bilibili.com/5404263" title="bilibili"><i class="fa-brands fa-bilibili"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/blog/categories/Coding/">
+                Coding
+                <div class="category-count">4</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
+                杂谈
+                <div class="category-count">13</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/CSS-tricks/">
+                CSS-tricks
+                <div class="category-count">3</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/">
+                踩坑日记
+                <div class="category-count">5</div>
+            </a>
+        
+            <a class="category-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">
+                生信
+                <div class="category-count">8</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/CSS/" rel="tag">CSS</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/Linux/" rel="tag">Linux</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/Python/" rel="tag">Python</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R/" rel="tag">R</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/R-based/" rel="tag">R based</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/WPA2/" rel="tag">WPA2</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scATAC-seq/" rel="tag">scATAC-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/scRNA-seq/" rel="tag">scRNA-seq</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%82%85%E7%AB%8B%E5%8F%B6/" rel="tag">傅立叶</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E6%A8%A1%E6%8B%9F%E4%BD%8D%E7%BD%AE/" rel="tag">模拟位置</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%A9%BA%E9%97%B4%E8%BD%AC%E5%BD%95%E7%BB%84/" rel="tag">空间转录组</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BB%B4%E4%BF%AE/" rel="tag">维修</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E7%BD%91%E5%AE%89/" rel="tag">网安</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/blog/tags/%E8%BE%B9%E6%A1%86/" rel="tag">边框</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-semantic-segment" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        医疗图像语义分割
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-09-20T10:36:41.000Z" itemprop="datePublished">2025-09-20</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/Coding/">Coding</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            15k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          
+    <div id="toc">
+        <strong class="sidebar-title">目录</strong>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fracatlas%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">FracAtlas数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#co2wounds-v2%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">CO2Wounds-V2数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fcn"><span class="toc-text">FCN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u-net"><span class="toc-text">U-net</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E6%A8%A1%E5%9E%8B"><span class="toc-text">最佳模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ps"><span class="toc-text">PS</span></a></li></ol>
+    </div>
+
+          <h2 id="前言">前言</h2>
+<p>传统的CNN逐层提取特征，可以将最后卷积、池化输出的特征展平送入全连接层，得到整张图片的分类。Jonathan
+Long等人在得到最终特征图后不使用全连接层，而是将这个低分辨率高级特征图转化成分类，最后进行上采样，于是就可以预测每一像素的分类，得到分类掩码，从此揭开了图像分割的帷幕。</p>
+<p>在这里，我们在<a
+target="_blank" rel="noopener" href="https://figshare.com/articles/dataset/The_dataset/22363012">FracAtlas</a>以及<a
+target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/orvile/leprosy-chronic-wound-images-co2wounds-v2">Leprosy
+Chronic Wound Images
+(CO2Wounds-V2)</a>这两个数据集上，使用FCN和U-net进行语义分割，分别得到骨折部位和创面部位的分割结果。</p>
+<h2 id="fracatlas数据集">FracAtlas数据集</h2>
+<p>FCN的实现细节，在<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44665283/article/details/136436260">这一篇</a>里讲得比较清楚，最后的全连接层被替换掉，经过</p>
+<p>FCN Head:</p>
+<ul>
+<li>3x3卷积，缩减通道数减少计算压力</li>
+<li>标准化和激活</li>
+<li>dropout层正则化</li>
+<li>1x1卷积将特征通道转化成类别通道</li>
+</ul>
+<p>然后将其输出的低分辨率掩码通过插值或转置卷积等手段进行上采样，就可以得到和原始输入宽高一致的逐像素分类。</p>
+<p>（虽然Pytorch官方的实现没有涉及Skip
+Connection，但也方便我们和之后有Skip Connection的U-net相比较）</p>
+<details>
+<summary>
+FracAltas COCO标注转掩码
+</summary>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pycocotools.coco <span class="keyword">import</span> COCO</span><br><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">coco2mask</span>(<span class="params">img_idx, coco_json, img_path, <span class="built_in">str</span> = <span class="string">&#x27; &#x27;</span>, save_dir = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># 需要画图的是第num副图片, 对应的json路径和图片路径,</span></span><br><span class="line">    <span class="comment"># str = &#x27; &#x27;为类别字符串，输入必须为字符串形式 &#x27;str&#x27;，若为空，则返回所有类别id</span></span><br><span class="line">    coco = COCO(coco_json)</span><br><span class="line">    </span><br><span class="line">    catIds = coco.getCatIds(catNms=[<span class="built_in">str</span>]) <span class="comment"># 获取指定类别 id</span></span><br><span class="line">    </span><br><span class="line">    imgIds = coco.getImgIds(catIds=catIds ) <span class="comment"># 获取图片i</span></span><br><span class="line">    img = coco.loadImgs(imgIds[img_idx-<span class="number">1</span>])[<span class="number">0</span>]  <span class="comment"># 加载图片,loadImgs() 返回的是只有一个内嵌字典元素的list, 使用[0]来访问这个元素</span></span><br><span class="line">    image = io.imread(img_path + img[<span class="string">&#x27;file_name&#x27;</span>])</span><br><span class="line">   </span><br><span class="line">    annIds = coco.getAnnIds(imgIds=img[<span class="string">&#x27;id&#x27;</span>], catIds=catIds, iscrowd=<span class="literal">None</span>)</span><br><span class="line">    anns = coco.loadAnns(annIds)</span><br><span class="line"></span><br><span class="line">    mask = np.zeros((image.shape[<span class="number">0</span>], image.shape[<span class="number">1</span>]), dtype=np.uint8)</span><br><span class="line">    <span class="keyword">for</span> ann <span class="keyword">in</span> anns:</span><br><span class="line">        segs = ann[<span class="string">&#x27;segmentation&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> seg <span class="keyword">in</span> segs:</span><br><span class="line">            seg = np.array(seg).reshape(-<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">            cv2.fillPoly(mask, seg.astype(np.int32)[np.newaxis, :, :], <span class="number">255</span>)</span><br><span class="line">    cv2.imwrite(os.path.join(save_dir, img[<span class="string">&#x27;file_name&#x27;</span>].replace(<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.png&#x27;</span>)), mask)</span><br><span class="line"></span><br><span class="line">coco_json = <span class="string">&#x27;FracAtlas/Annotations/COCO JSON/COCO_fracture_masks.json&#x27;</span></span><br><span class="line">img_path = <span class="string">&#x27;FracAtlas/images/Fractured/&#x27;</span></span><br><span class="line"></span><br><span class="line">save_dir = <span class="string">&#x27;FracAtlas/masks&#x27;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_dir):</span><br><span class="line">    os.makedirs(save_dir)</span><br><span class="line"></span><br><span class="line">img_idx2mask = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        coco2mask(img_idx2mask, coco_json, img_path, save_dir=save_dir)</span><br><span class="line">        img_idx2mask+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+</details>
+<p>切记啊切记，jpg是有损压缩，这也就是为什么下文出现的Ground
+Truth掩码很奇怪。</p>
+<details>
+<summary>
+dataset类
+</summary>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torchvision.transforms <span class="keyword">import</span> v2</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> float32 <span class="keyword">as</span> torch_float32</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> tv_tensors</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SegmentationPresetTrain</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_size, crop_size, hflip_prop = <span class="number">0.5</span>, vflip_prop = <span class="number">0.5</span>, mean = (<span class="params"><span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span></span>), std = (<span class="params"><span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span></span>)</span>):</span><br><span class="line"></span><br><span class="line">        _transforms = []</span><br><span class="line">        <span class="keyword">if</span> hflip_prop &gt; <span class="number">0</span>:</span><br><span class="line">            _transforms.append(v2.RandomHorizontalFlip(hflip_prop))</span><br><span class="line">        <span class="keyword">if</span> vflip_prop &gt; <span class="number">0</span>:</span><br><span class="line">            _transforms.append(v2.RandomVerticalFlip(vflip_prop))</span><br><span class="line">        _transforms.append(v2.RandomResizedCrop(crop_size, scale=(<span class="number">0.4</span>, <span class="number">1.0</span>)))</span><br><span class="line">        _transforms.append(v2.RandomRotation(<span class="number">15</span>))</span><br><span class="line">        _transforms.append(v2.ColorJitter(brightness = <span class="number">0.2</span>, contrast = <span class="number">0.2</span>))</span><br><span class="line">        _transforms.append(v2.ToImage())</span><br><span class="line">        _transforms.append(v2.ToDtype(torch_float32, scale=<span class="literal">True</span>))</span><br><span class="line"></span><br><span class="line">        _transforms.append(v2.Normalize(mean = mean, std = std))</span><br><span class="line">        self.transforms = v2.Compose(_transforms)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, img, mask</span>):</span><br><span class="line">        <span class="keyword">return</span> self.transforms(img, mask)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SegmentationPresetVal</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_size, mean = (<span class="params"><span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span></span>), std = (<span class="params"><span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span></span>)</span>):</span><br><span class="line">        self.transforms = v2.Compose([</span><br><span class="line">            v2.Resize((base_size, base_size)),</span><br><span class="line">            v2.ToImage(),</span><br><span class="line">            v2.ToDtype(torch_float32, scale=<span class="literal">True</span>),</span><br><span class="line">            v2.Normalize(mean = mean, std = std)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self, img, mask</span>):</span><br><span class="line">        <span class="keyword">return</span> self.transforms(img, mask)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_transform</span>(<span class="params">train: <span class="built_in">bool</span> = <span class="literal">True</span>, base_size = <span class="number">1024</span>, crop_size = <span class="number">480</span></span>):</span><br><span class="line">    <span class="keyword">if</span> train:</span><br><span class="line">        <span class="keyword">return</span> SegmentationPresetTrain(base_size, crop_size)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> SegmentationPresetVal(base_size)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FracAtlasDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, img_dir, mask_dir, img_mask_names, transforms = <span class="literal">None</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.images = [os.path.join(img_dir, img_name) <span class="keyword">for</span> img_name <span class="keyword">in</span> img_mask_names]</span><br><span class="line">        self.masks = [os.path.join(mask_dir, mask_name.replace(<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.png&#x27;</span>)) <span class="keyword">for</span> mask_name <span class="keyword">in</span> img_mask_names]</span><br><span class="line"></span><br><span class="line">        self.transforms = transforms</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.images)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, idx</span>):</span><br><span class="line">        image = Image.<span class="built_in">open</span>(os.path.join(self.images[idx])).convert(<span class="string">&#x27;RGB&#x27;</span>)</span><br><span class="line">        mask = Image.<span class="built_in">open</span>(os.path.join(self.masks[idx])).convert(<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        mask = np.array(mask, dtype=np.uint8)</span><br><span class="line">        mask = (mask &gt; <span class="number">0</span>).astype(np.uint8)</span><br><span class="line">        mask = Image.fromarray(mask, mode=<span class="string">&#x27;L&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># image = tv_tensors.Image(image)</span></span><br><span class="line">        mask = tv_tensors.Mask(mask)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.transforms <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            image, mask = self.transforms(image, mask)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> image, mask</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_cat_list</span>(<span class="params">images, fill_value = <span class="number">0</span></span>):</span><br><span class="line">        max_size = <span class="built_in">tuple</span>(<span class="built_in">max</span>(s_1d) <span class="keyword">for</span> s_1d <span class="keyword">in</span> <span class="built_in">zip</span>(*[image.shape <span class="keyword">for</span> image <span class="keyword">in</span> images]) )</span><br><span class="line">        batch_shape = (<span class="built_in">len</span>(images),) + max_size</span><br><span class="line">        batched_imgs = images[<span class="number">0</span>].new_full(batch_shape, fill_value)</span><br><span class="line">        <span class="keyword">for</span> image, padded_image <span class="keyword">in</span> <span class="built_in">zip</span>(images, batched_imgs):</span><br><span class="line">            padded_image[..., :image.shape[-<span class="number">2</span>], :image.shape[-<span class="number">1</span>]].copy_(image)</span><br><span class="line">        <span class="keyword">return</span> batched_imgs</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">collate_fn</span>(<span class="params">batch</span>):</span><br><span class="line">        images, mask = <span class="built_in">list</span>(<span class="built_in">zip</span>(*batch))</span><br><span class="line"></span><br><span class="line">        batched_images = FracAtlasDataset._cat_list(images)</span><br><span class="line">        batched_mask = FracAtlasDataset._cat_list(mask)</span><br><span class="line">        <span class="keyword">return</span> batched_images, batched_mask</span><br></pre></td></tr></table></figure>
+</details>
+<details>
+<summary>
+完整训练代码
+</summary>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> torchvision.models.segmentation <span class="keyword">import</span> fcn_resnet50</span><br><span class="line"><span class="keyword">from</span> torchvision.models.segmentation <span class="keyword">import</span> FCN_ResNet50_Weights</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> dataset</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"></span><br><span class="line">random_state = <span class="number">42</span></span><br><span class="line">random.seed(random_state); np.random.seed(random_state); torch.manual_seed(random_state)</span><br><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    torch.cuda.manual_seed_all(random_state)</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    device = torch.device(<span class="string">&#x27;cuda&#x27;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;device:<span class="subst">&#123;device&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    img_dir = <span class="string">&#x27;FracAtlas/images/Fractured&#x27;</span></span><br><span class="line">    mask_dir = <span class="string">&#x27;FracAtlas/masks&#x27;</span></span><br><span class="line"></span><br><span class="line">    img_mask_names = <span class="built_in">sorted</span>(os.listdir(img_dir))</span><br><span class="line"></span><br><span class="line">    X_train_val, X_test, y_train_val, y_test = train_test_split(img_mask_names, img_mask_names, test_size=<span class="number">0.2</span>, random_state=random_state)</span><br><span class="line">    X_train, X_val, y_train, y_val = train_test_split(X_train_val, y_train_val, test_size=<span class="number">0.25</span>, random_state=random_state)</span><br><span class="line"></span><br><span class="line">    train_dataset = dataset.FracAtlasDataset(img_dir, mask_dir, X_train, dataset.get_transform(train=<span class="literal">True</span>))</span><br><span class="line">    val_dataset = dataset.FracAtlasDataset(img_dir, mask_dir, X_val, dataset.get_transform(train=<span class="literal">False</span>))</span><br><span class="line">    test_dataset = dataset.FracAtlasDataset(img_dir, mask_dir, X_test, dataset.get_transform(train=<span class="literal">False</span>))</span><br><span class="line"></span><br><span class="line">    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=<span class="literal">True</span>, num_workers=<span class="number">4</span>, pin_memory=<span class="literal">True</span>, persistent_workers=<span class="literal">True</span>, collate_fn=train_dataset.collate_fn)</span><br><span class="line">    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=<span class="literal">False</span>, num_workers=<span class="number">4</span>, pin_memory=<span class="literal">True</span>, persistent_workers=<span class="literal">True</span>, collate_fn=val_dataset.collate_fn)</span><br><span class="line">    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=<span class="literal">False</span>, num_workers=<span class="number">4</span>, pin_memory=<span class="literal">True</span>, persistent_workers=<span class="literal">True</span>, collate_fn=test_dataset.collate_fn)</span><br><span class="line"></span><br><span class="line">    train_dataset_hash=hashlib.md5(<span class="string">&#x27;&#x27;</span>.join(X_train).encode(<span class="string">&#x27;utf-8&#x27;</span>)).hexdigest()</span><br><span class="line">    val_dataset_hash=hashlib.md5(<span class="string">&#x27;&#x27;</span>.join(X_val).encode(<span class="string">&#x27;utf-8&#x27;</span>)).hexdigest()</span><br><span class="line">    test_dataset_hash=hashlib.md5(<span class="string">&#x27;&#x27;</span>.join(X_test).encode(<span class="string">&#x27;utf-8&#x27;</span>)).hexdigest()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;train_dataset_hash:<span class="subst">&#123;train_dataset_hash&#125;</span>,val_dataset_hash:<span class="subst">&#123;val_dataset_hash&#125;</span>,test_dataset_hash:<span class="subst">&#123;test_dataset_hash&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    model = fcn_resnet50(weights=FCN_ResNet50_Weights.DEFAULT, aux_loss=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    model.classifier[<span class="number">4</span>] = nn.Conv2d(<span class="number">512</span>, <span class="number">2</span>, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>)</span><br><span class="line">    model.aux_classifier[<span class="number">4</span>] = nn.Conv2d(<span class="number">256</span>, <span class="number">2</span>, kernel_size=<span class="number">1</span>, stride=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    save_epoch=<span class="number">10</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取最后模型</span></span><br><span class="line">    saved_models = os.listdir(<span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>&#x27;</span>)</span><br><span class="line">    saved_models = [model <span class="keyword">for</span> model <span class="keyword">in</span> saved_models <span class="keyword">if</span> model.startswith(<span class="string">f&#x27;model_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>_epoch&#x27;</span>)]</span><br><span class="line">    saved_models_epochs = [<span class="built_in">int</span>(model.split(<span class="string">&#x27;_&#x27;</span>)[-<span class="number">1</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>].replace(<span class="string">&#x27;epoch&#x27;</span>, <span class="string">&#x27;&#x27;</span>)) <span class="keyword">for</span> model <span class="keyword">in</span> saved_models]</span><br><span class="line">    saved_models = <span class="built_in">zip</span>(saved_models_epochs, saved_models)</span><br><span class="line">    saved_models = <span class="built_in">sorted</span>(saved_models, key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>], reverse=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(saved_models) &gt; <span class="number">0</span>:</span><br><span class="line">        latest_model_path = <span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span><span class="subst">&#123;saved_models[<span class="number">0</span>][<span class="number">1</span>]&#125;</span>&#x27;</span></span><br><span class="line">        model.load_state_dict(torch.load(latest_model_path,map_location=device))</span><br><span class="line">        load_epoch=saved_models[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;Loaded latest model from <span class="subst">&#123;latest_model_path&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        load_epoch=<span class="number">0</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;No saved models found&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 读取日志获取最后lr，最佳val loss和停滞epoch数</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>log_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>.log&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            log_lines = f.readlines()</span><br><span class="line">    <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">        log_lines = []</span><br><span class="line">    </span><br><span class="line">    train_record_reg = re.<span class="built_in">compile</span>(<span class="string">r&#x27;epoch:(\d+),train_loss:(\d+\.\d+),val_loss:(\d+\.\d+),val_acc:(\d+\.\d+)%,lr:(.+)&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 学习率处理</span></span><br><span class="line">    lr_last = <span class="number">1e-5</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(log_lines)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">        matched_record = re.search(train_record_reg, log_lines[i])</span><br><span class="line">        <span class="keyword">if</span> matched_record:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">int</span>(matched_record.group(<span class="number">1</span>)) == load_epoch:</span><br><span class="line">                lr_last = <span class="built_in">float</span>(matched_record.group(<span class="number">5</span>))</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&#x27;Using last lr: <span class="subst">&#123;lr_last&#125;</span>&#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># load_epoch之前最近的最佳模型指标处理</span></span><br><span class="line">    best_epoch = <span class="number">0</span></span><br><span class="line">    best_val_loss_avg_last=<span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(log_lines)-<span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;saved best model&#x27;</span> <span class="keyword">in</span> log_lines[i]:</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                matched_record = re.search(train_record_reg, log_lines[j])</span><br><span class="line">                <span class="keyword">if</span> matched_record:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">int</span>(matched_record.group(<span class="number">1</span>)) &gt; load_epoch:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    <span class="keyword">else</span>:    </span><br><span class="line">                        best_epoch = <span class="built_in">int</span>(matched_record.group(<span class="number">1</span>))</span><br><span class="line">                        best_val_loss_avg_last = <span class="built_in">float</span>(matched_record.group(<span class="number">3</span>))</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">f&#x27;Using last best val loss avg: <span class="subst">&#123;best_val_loss_avg_last&#125;</span>&#x27;</span>)</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> best_val_loss_avg_last &lt; <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    </span><br><span class="line">    model.to(device)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">criterion</span>(<span class="params">outputs, targets, train: <span class="built_in">bool</span> = <span class="literal">True</span></span>):</span><br><span class="line">        loss_main = nn.functional.cross_entropy(outputs[<span class="string">&#x27;out&#x27;</span>], targets)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> train:</span><br><span class="line">            <span class="keyword">return</span> loss_main</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loss_main + <span class="number">0.5</span> * nn.functional.cross_entropy(outputs[<span class="string">&#x27;aux&#x27;</span>], targets)</span><br><span class="line"></span><br><span class="line">    optimizer = optim.Adam(model.parameters(), lr=lr_last, weight_decay=<span class="number">1e-4</span>)</span><br><span class="line"></span><br><span class="line">    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, <span class="string">&#x27;min&#x27;</span>, factor=<span class="number">0.5</span>, patience=<span class="number">10</span>, min_lr=<span class="number">1e-7</span>)</span><br><span class="line"></span><br><span class="line">    num_epochs_train = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Training for <span class="subst">&#123;num_epochs_train&#125;</span> epochs&quot;</span>)</span><br><span class="line"></span><br><span class="line">    best_val_loss_avg = best_val_loss_avg_last</span><br><span class="line"></span><br><span class="line">    early_stopping_patience = <span class="number">50</span></span><br><span class="line">    patience_counter = <span class="built_in">max</span>(<span class="number">0</span>,load_epoch - best_epoch)</span><br><span class="line">    <span class="keyword">if</span> patience_counter &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;Using last patience counter: <span class="subst">&#123;patience_counter&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(load_epoch + <span class="number">1</span>, num_epochs_train + load_epoch + <span class="number">1</span>):</span><br><span class="line">        model.train()</span><br><span class="line">        running_loss = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> inputs, targets <span class="keyword">in</span> tqdm(train_loader, desc=<span class="string">f&#x27;Epoch <span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;num_epochs_train + load_epoch&#125;</span>&#x27;</span>):</span><br><span class="line">            inputs, targets = inputs.to(device), targets.to(device)</span><br><span class="line"></span><br><span class="line">            targets = targets.squeeze(<span class="number">1</span>).long()</span><br><span class="line"></span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            outputs = model(inputs)</span><br><span class="line">            loss = criterion(outputs, targets, train=<span class="literal">True</span>)</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">            running_loss += loss.item()</span><br><span class="line">        </span><br><span class="line">        model.<span class="built_in">eval</span>()</span><br><span class="line">        val_loss = <span class="number">0.0</span></span><br><span class="line">        tn, fp, fn, tp = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">            <span class="keyword">for</span> inputs, targets <span class="keyword">in</span> tqdm(val_loader, desc=<span class="string">f&quot;Epoch <span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;num_epochs_train + load_epoch&#125;</span>&quot;</span>):</span><br><span class="line">                inputs, targets = inputs.to(device), targets.to(device)</span><br><span class="line"></span><br><span class="line">                targets = targets.squeeze(<span class="number">1</span>).long()</span><br><span class="line"></span><br><span class="line">                outputs = model(inputs)</span><br><span class="line">                val_loss += criterion(outputs, targets, train=<span class="literal">False</span>).item()</span><br><span class="line"></span><br><span class="line">                predicts = outputs[<span class="string">&#x27;out&#x27;</span>].argmax(dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">                predicts_flat = predicts.flatten().cpu().numpy()</span><br><span class="line">                targets_flat = targets.flatten().cpu().numpy()</span><br><span class="line"></span><br><span class="line">                tn_batch, fp_batch, fn_batch, tp_batch = confusion_matrix(targets_flat, predicts_flat).ravel()</span><br><span class="line">                tn += tn_batch</span><br><span class="line">                fp += fp_batch</span><br><span class="line">                fn += fn_batch</span><br><span class="line">                tp += tp_batch</span><br><span class="line"></span><br><span class="line">        val_loss_avg = val_loss/<span class="built_in">len</span>(val_loader)</span><br><span class="line"></span><br><span class="line">        scheduler.step(val_loss_avg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Epoch <span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;num_epochs_train + load_epoch&#125;</span>, Loss: <span class="subst">&#123;running_loss/<span class="built_in">len</span>(train_loader):<span class="number">.3</span>f&#125;</span>, Val Loss: <span class="subst">&#123;val_loss_avg:<span class="number">.3</span>f&#125;</span>, Val Accuracy: <span class="subst">&#123;<span class="number">100</span>*(tp+tn)/(tp+fp+fn+tn):<span class="number">.3</span>f&#125;</span>%, lr: <span class="subst">&#123;optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Epoch <span class="subst">&#123;epoch&#125;</span>/<span class="subst">&#123;num_epochs_train + load_epoch&#125;</span>, Sensitivity(Recall): <span class="subst">&#123;tp/(tp+fn):<span class="number">.3</span>f&#125;</span>, Specificity: <span class="subst">&#123;tn/(tn+fp):<span class="number">.3</span>f&#125;</span>, Precision: <span class="subst">&#123;tp/(tp+fp):<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>log_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>.log&#x27;</span>,<span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(<span class="string">f&quot;epoch:<span class="subst">&#123;epoch&#125;</span>,train_loss:<span class="subst">&#123;running_loss/<span class="built_in">len</span>(train_loader)&#125;</span>,val_loss:<span class="subst">&#123;val_loss_avg&#125;</span>,val_acc:<span class="subst">&#123;<span class="number">100</span>*(tp+tn)/(tp+fp+fn+tn)&#125;</span>%,lr:<span class="subst">&#123;optimizer.param_groups[<span class="number">0</span>][<span class="string">&#x27;lr&#x27;</span>]&#125;</span>\n&quot;</span>)</span><br><span class="line">            f.write(<span class="string">f&quot;epoch:<span class="subst">&#123;epoch&#125;</span>,sensitivity(Recall):<span class="subst">&#123;tp/(tp+fn)&#125;</span>,specificity:<span class="subst">&#123;tn/(tn+fp)&#125;</span>,precision:<span class="subst">&#123;tp/(tp+fp)&#125;</span>\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> epoch % save_epoch == <span class="number">0</span>:</span><br><span class="line">            torch.save(model.state_dict(), <span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>model_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>_epoch<span class="subst">&#123;epoch&#125;</span>.pth&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> val_loss_avg &lt; best_val_loss_avg:</span><br><span class="line">            best_val_loss_avg = val_loss_avg</span><br><span class="line">            torch.save(model.state_dict(), <span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>best_model_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>.pth&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;epoch:<span class="subst">&#123;epoch&#125;</span>,saved best model&#x27;</span>)</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>log_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>.log&#x27;</span>,<span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                f.write(<span class="string">f&#x27;epoch:<span class="subst">&#123;epoch&#125;</span>,saved best model\n&#x27;</span>)</span><br><span class="line">            </span><br><span class="line">            patience_counter=<span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            patience_counter+=<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> patience_counter &gt;= early_stopping_patience:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;Early stopping triggered at epoch <span class="subst">&#123;epoch&#125;</span>&#x27;</span>)</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&#x27;.<span class="subst">&#123;os.sep&#125;</span>models<span class="subst">&#123;os.sep&#125;</span>log_<span class="subst">&#123;train_dataset_hash&#125;</span>_on_<span class="subst">&#123;val_dataset_hash&#125;</span>.log&#x27;</span>,<span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                f.write(<span class="string">f&#x27;epoch:<span class="subst">&#123;epoch&#125;</span>,early stopping\n&#x27;</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+</details>
+最佳模型是 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">epoch:110,sensitivity(Recall):0.3831927899240895,specificity:0.9985073638473289,precision:0.6006053270923088</span><br></pre></td></tr></table></figure>
+<details>
+<summary>
+好的结果
+</summary>
+<img src="/blog/images/semantic-segment/frac_good/IMG0000466.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/frac_good/IMG0000692.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/frac_good/IMG0001364.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/frac_good/IMG0002846.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/frac_good/IMG0003942.jpg" style="max-height:40vh;width:auto;">
+</details>
+<details>
+<summary>
+不好的结果
+</summary>
+<img src="/blog/images/semantic-segment/frac_bad/IMG0000144.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/frac_bad/IMG0000844.jpg" style="max-height:40vh;width:auto;">
+</details>
+<p>最后结果并不是很好，并且换了U-net以及加权交叉熵损失、Dice损失之类的之后也一样，我认为和这个数据集的标注逻辑有关。骨折的地方就那个断面，周围标注可大可小，这种应该比较适合bbox标注做目标检测。</p>
+<p>所以下文我们使用CO2Wounds-V2这个数据集。</p>
+<h2 id="co2wounds-v2数据集">CO2Wounds-V2数据集</h2>
+<h3 id="fcn">FCN</h3>
+<p>用相似的代码进行FCN的训练，最佳模型是 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">epoch:66,sensitivity(Recall):0.8410347542721659,specificity:0.984027932237679,precision:0.8603991908024482</span><br></pre></td></tr></table></figure></p>
+<details>
+<summary>
+结果预览
+</summary>
+<img src="/blog/images/semantic-segment/FCN/IMG449.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/FCN/IMG561.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/FCN/IMG628.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/FCN/IMG849.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/FCN/IMG960.jpg" style="max-height:40vh;width:auto;">
+</details>
+<p>我感觉甚至可以说在一些地方，模型分割得比Ground Truth要好一些。</p>
+<h3 id="u-net">U-net</h3>
+<p>没有Skip
+Connection的FCN只能对最后的低分辨率分割进行强行上采样，边缘的细微特征难以捕捉，而U-net解决了这个问题。</p>
+<p>U-net的U形象地表示了它的数据流动（是不是叫日-net好一点），特征图在U这个线条上从左上变换到右上，深度代表了降采样力度，并且在左右相同分辨率之间有Skip
+Connection，于是左半边进行特征提取，右半边进行多尺度特征融合，从原图到最低分辨率之间的特征图都能捕捉到，理论上会有更好的分割边界。</p>
+<p>我们通过<code>segmentation-models-pytorch</code>包来使用U-net，以及高级点的Dice损失等。</p>
+最佳模型是 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">epoch:122,sensitivity(Recall):0.820,specificity:0.986,precision:0.869</span><br></pre></td></tr></table></figure>
+<details>
+<summary>
+结果预览
+</summary>
+<img src="/blog/images/semantic-segment/Unet_base/IMG449.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_base/IMG561.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_base/IMG628.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_base/IMG849.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_base/IMG960.jpg" style="max-height:40vh;width:auto;">
+</details>
+<p>二者其实差不多嘛</p>
+<h3 id="最佳模型">最佳模型</h3>
+经过多次实验，最好的模型是U+net+Dice loss <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">epoch:133,sensitivity(Recall):0.904,specificity:0.981,precision:0.849</span><br></pre></td></tr></table></figure>
+<details>
+<summary>
+结果预览
+</summary>
+<img src="/blog/images/semantic-segment/Unet_dice/IMG449.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_dice/IMG561.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_dice/IMG628.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_dice/IMG849.jpg" style="max-height:40vh;width:auto;">
+<img src="/blog/images/semantic-segment/Unet_dice/IMG960.jpg" style="max-height:40vh;width:auto;">
+</details>
+<h2 id="ps">PS</h2>
+<p>我发现，有些时候让模型做二分类任务（前景背景分别预测）和正反例分类（只预测前景然后截断）任务，表现都差不多，但是训练起来后者loss下降要慢得多，怎么回事呢。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/blog/2030/01/16/saki-idou/"
+      title="祥，移動"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        祥，移動
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/blog/2025/08/30/OA-classfier/"
+      title="骨关节炎X线图像分类"
+     >
+
+    <p class="title-text">
+      
+        骨关节炎X线图像分类
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2025 kusurin<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/blog/js/light-dark-switch.js"></script>
+
+</body>
+</html>

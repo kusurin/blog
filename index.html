@@ -276,7 +276,7 @@ mjx-container[display="true"] + br {
       <div class="category-box">
             <a class="category-link" href="/blog/categories/Coding/">
                 Coding
-                <div class="category-count">3</div>
+                <div class="category-count">4</div>
             </a>
         
             <a class="category-link" href="/blog/categories/%E6%9D%82%E8%B0%88/">
@@ -386,6 +386,94 @@ mjx-container[display="true"] + br {
     <a class="right-panel  non-pic  "
       
       href="/blog/2030/01/16/saki-idou/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+   
+
+
+<article id="post-semantic-segment" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/blog/2025/09/20/semantic-segment/">医疗图像语义分割</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2025-09-20T10:36:41.000Z" itemprop="datePublished">2025-09-20</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/blog/categories/Coding/">Coding</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            15k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              前言
+传统的CNN逐层提取特征，可以将最后卷积、池化输出的特征展平送入全连接层，得到整张图片的分类。Jonathan
+Long等人在得到最终特征图后不使用全连接层，而是将这个低分辨率高级特征图转化成分类，最后进行上采样，于是就可以预测每一像素的分类，得到分类掩码，从此揭开了图像分割的帷幕。
+在这里，我们在FracAtlas以及Leprosy
+Chronic Wound Images
+(CO2Wounds-V2)这两个数据集上，使用FCN和U-net进行语义分割，分别得到骨折部位和创面部位的分割结果。
+FracAtlas数据集
+FCN的实现细节，在这一篇里讲得比较清楚，最后的全连接层被替换掉，经过
+FCN Head:
+
+3x3卷积，缩减通道数减少计算压力
+标准化和激活
+dropout层正则化
+1x1卷积将特征通道转化成类别通道
+
+然后将其输出的低分辨率掩码通过插值或转置卷积等手段进行上采样，就可以得到和原始输入宽高一致的逐像素分类。
+（虽然Pytorch官方的实现没有涉及Skip
+Connection，但也方便我们和之后有Skip Connecti...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/blog/2025/09/20/semantic-segment/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
@@ -1071,86 +1159,6 @@ Colab团队十分自负x，除了在更新Python版本时提供上一个版本�
 
 
 
-   
-
-
-<article id="post-gene-enrich-spia" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/blog/2025/02/22/gene-enrich-spia/">基因富集分析（SPIA）</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2025-02-22T06:14:20.000Z" itemprop="datePublished">2025-02-22</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/blog/categories/%E7%94%9F%E4%BF%A1/">生信</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            3.1k 词 
-          </div>
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/R/" rel="tag">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%94%9F%E4%BF%A1/" rel="tag">生信</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              引言
-一般来说，使用GO和KEGG数据库对差异基因进行基因富集分析，多是
-
-ORA：基于对特定组内外（如通路）的差异基因、背景基因数量进行检验，看组内外的差异基因是否随机分布。比如ClusterProfiler包中的enrichGO()和enrichKEGG()
-GSEA：差异基因按log2FoldChange降序排序后，顺序遍历，按差异基因是否在特定组（如通路）内进行加减分，并进行检验，最后NES可以看出组内的整体表达趋势。比如同样是ClusterProfiler包中的gseGO()和gseKEGG()
-
-GO数据库条目之间至少可能还有Positively regulates和Negatively
-regulates两种关系，暂且不论。
-但KEGG一个通路内的基因，极度简化，既有正向的也有负向的，而且还有更复杂的，有一些使用KEGG数据库的做法是把上下调的差异基因分别进行ORA，或者一起进行GSEA，仔细想想其实很没道理。以GSEA举例，如果一个通路内正向的基因上调，负向的基因下调，这样子整体表达趋势却可能是不变，会认为不显著。
-（GSEA针对这个问题，有一种...
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/blog/2025/02/22/gene-enrich-spia/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
 
   <nav id="page-nav">
     <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
@@ -1158,7 +1166,7 @@ regulates两种关系，暂且不论。
       <i class="fa-solid fa-angle-left"></i>
     </a>
     <div id="num-bar">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a>  
+      <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a>  
     </div>
     <a id="next-btn" class="page-nav-btn " href="/blog/page/2/">
       <i class="fa-solid fa-angle-right"></i>
@@ -1203,5 +1211,6 @@ regulates两种关系，暂且不论。
 
   </div>
   <script src="/blog/js/light-dark-switch.js"></script>
+
 </body>
 </html>
